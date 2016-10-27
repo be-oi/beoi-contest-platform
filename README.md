@@ -1,6 +1,8 @@
-# Bebras Platform
+# beOI Qualification Platform
 
-This repository contains everythin you need to run the *Bebras* Task Platform, historically developped for (and run at) [French Beaver Contest](http://castor-informatique.fr/).
+This platform is a fork from the [French Beaver Contest](https://github.com/France-ioi/bebras-platform).
+
+# Original instructions
 
 ## Prerequisites
 
