@@ -1,0 +1,345 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: The full contest platform AWS stack
+Parameters:
+  DBPassword:
+    NoEcho: true
+    Description: The database admin account password
+    Type: String
+    MinLength: 8
+    MaxLength: 41
+    AllowedPattern: "[a-zA-Z0-9]*"
+    ConstraintDescription: must contain only alphanumeric characters and have a length between 8 and 41.
+  EC2KeyName:
+    Description: The SSH Key used to connect to EC2 hosts
+    Type: String
+    Default: EB-EC2-Key
+  DefaultNotifiedEmail:
+    Description: The email address of the initial person registered in SNS (other may be added later)
+    Type: String
+
+Resources:
+
+  SSLCertificate:
+    Type: AWS::CertificateManager::Certificate
+    Properties:
+      DomainName: platform.be-oi.be
+      DomainValidationOptions:
+        - DomainName: platform.be-oi.be
+          ValidationDomain: be-oi.be
+
+  LogBucket:
+    Type: "AWS::S3::Bucket"
+    Properties: 
+      AccessControl: LogDeliveryWrite
+      BucketName: !Sub "contest-platform-logs-${AWS::Region}-${AWS::AccountId}"
+
+  # To let Beanstalk's load balancer write its logs in the "ELB" prefix 
+  LogBucketPolicy: 
+    Type: "AWS::S3::BucketPolicy"
+    Properties: 
+      Bucket: !Ref LogBucket
+      PolicyDocument: 
+        Statement: 
+          - Action: [ "s3:PutObject" ]
+            Effect: "Allow"
+            Resource: !Sub "arn:aws:s3:::${LogBucket}/ELB/*"
+            Principal: { AWS: [ "054676820928" ] }
+
+  DB:
+    Type: AWS::RDS::DBInstance
+    Properties:
+      DBName: contestplaform
+      AllocatedStorage: 5
+      DBInstanceClass: db.t2.micro
+      MultiAZ: false
+      Engine: mysql
+      EngineVersion: 5.7.11
+      MasterUsername: dbuser
+      MasterUserPassword: !Ref DBPassword
+      AutoMinorVersionUpgrade: true
+      BackupRetentionPeriod: 5
+      DBInstanceIdentifier: PoinguardDB
+      PreferredBackupWindow: 04:00-05:00
+      PreferredMaintenanceWindow: Mon:03:00-Mon:04:00
+      PubliclyAccessible: false
+
+  EBEC2Role:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+        - Effect: Allow
+          Principal:
+            Service:
+            - ec2.amazonaws.com
+          Action:
+          - sts:AssumeRole
+      Policies:
+      - PolicyName: PublishLogOnS3
+        PolicyDocument:
+          Version: '2012-10-17'
+          Statement:
+          - Effect: Allow
+            Action: s3:PutObject
+            Resource: !Sub "arn:aws:s3:::elasticbeanstalk-${AWS::Region}-${AWS::AccountId}/resources/environments/logs/*"
+
+  EBServiceRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+        - Effect: Allow
+          Principal:
+            Service: elasticbeanstalk.amazonaws.com
+          Action: sts:AssumeRole
+          Condition:
+            StringEquals:
+              sts:ExternalId: elasticbeanstalk
+      Path: "/"
+      ManagedPolicyArns:
+      - arn:aws:iam::aws:policy/service-role/AWSElasticBeanstalkEnhancedHealth
+      - arn:aws:iam::aws:policy/service-role/AWSElasticBeanstalkService
+      Policies:
+      - PolicyName: EBServiceRole
+        PolicyDocument:
+          Version: '2012-10-17'
+          Statement:
+          - Effect: Allow
+            Action:
+            - elasticloadbalancing:DescribeInstanceHealth
+            - ec2:DescribeInstances
+            - ec2:DescribeInstanceStatus
+            - ec2:GetConsoleOutput
+            - ec2:AssociateAddress
+            - ec2:DescribeAddresses
+            - ec2:DescribeSecurityGroups
+            - sqs:GetQueueAttributes
+            - sqs:GetQueueUrl
+            - autoscaling:DescribeAutoScalingGroups
+            - autoscaling:DescribeAutoScalingInstances
+            - autoscaling:DescribeScalingActivities
+            - autoscaling:DescribeNotificationConfigurations
+            Resource:
+            - "*"
+
+  EBEC2InstanceProfile:
+    Type: AWS::IAM::InstanceProfile
+    Properties:
+      Roles:
+      - !Ref EBEC2Role
+
+  Application:
+    Type: AWS::ElasticBeanstalk::Application
+    Properties:
+      ApplicationName: contest-platform
+
+  ProductionConfTemplate:
+    Type: AWS::ElasticBeanstalk::ConfigurationTemplate
+    Properties:
+      ApplicationName: !Ref Application
+      SolutionStackName: 64bit Amazon Linux 2016.03 v2.1.6 running Docker 1.11.2
+      OptionSettings:
+        # List of settings:
+        # http://docs.aws.amazon.com/elasticbeanstalk/latest/dg/command-options-general.html
+        # (let's try to keep the same order)
+
+      - Namespace: aws:autoscaling:asg
+        OptionName: Availability Zones
+        Value: Any 2
+      - Namespace: aws:autoscaling:asg
+        OptionName: MinSize
+        Value: 1
+      - Namespace: aws:autoscaling:asg
+        OptionName: MaxSize
+        Value: 10
+      - Namespace: aws:autoscaling:asg
+        OptionName: Cooldown
+        Value: 360
+
+      - Namespace: aws:autoscaling:launchconfiguration
+        OptionName: IamInstanceProfile
+        Value: !Ref EBEC2InstanceProfile
+      - Namespace: aws:autoscaling:launchconfiguration
+        OptionName: EC2KeyName
+        Value: !Ref EC2KeyName
+      - Namespace: aws:autoscaling:launchconfiguration
+        OptionName: InstanceType
+        Value: t2.micro
+      - Namespace: aws:autoscaling:launchconfiguration
+        OptionName: MonitoringInterval
+        Value: 1 minute
+
+      - Namespace: aws:autoscaling:trigger
+        OptionName: MeasureName
+        Value: CPUUtilization
+      - Namespace: aws:autoscaling:trigger
+        OptionName: Unit
+        Value: Percent
+      - Namespace: aws:autoscaling:trigger
+        OptionName: LowerThreshold
+        Value: 5
+      - Namespace: aws:autoscaling:trigger
+        OptionName: LowerBreachScaleIncrement
+        Value: -1
+      - Namespace: aws:autoscaling:trigger
+        OptionName: UpperThreshold
+        Value: 9
+      - Namespace: aws:autoscaling:trigger
+        OptionName: UpperBreachScaleIncrement
+        Value: 1
+      - Namespace: aws:autoscaling:trigger
+        OptionName: Period
+        Value: 3
+      - Namespace: aws:autoscaling:trigger
+        OptionName: BreachDuration
+        Value: 5
+        
+      - Namespace: aws:autoscaling:updatepolicy:rollingupdate
+        OptionName: RollingUpdateType
+        Value: Health
+      - Namespace: aws:autoscaling:updatepolicy:rollingupdate
+        OptionName: MinInstancesInService
+        Value: 1
+      - Namespace: aws:autoscaling:updatepolicy:rollingupdate
+        OptionName: RollingUpdateEnabled
+        Value: true
+      - Namespace: aws:autoscaling:updatepolicy:rollingupdate
+        OptionName: MaxBatchSize
+        Value: 1
+      - Namespace: aws:autoscaling:updatepolicy:rollingupdate
+        OptionName: Timeout
+        Value: PT15M
+
+      # - Namespace: aws:elasticbeanstalk:application
+      #   OptionName: Application Healthcheck URL
+      #   Value: "/"
+
+      - Namespace: aws:elasticbeanstalk:application:environment
+        OptionName: DATABASE__PASSWORD
+        Value: !Ref DBPassword
+      - Namespace: aws:elasticbeanstalk:application:environment
+        OptionName: DATABASE__USERNAME
+        Value: dbuser
+      - Namespace: aws:elasticbeanstalk:application:environment
+        OptionName: DATABASE__NAME
+        Value: contestplaform
+
+      - Namespace: aws:elasticbeanstalk:command
+        OptionName: DeploymentPolicy
+        Value: Rolling
+      - Namespace: aws:elasticbeanstalk:command
+        OptionName: Timeout
+        Value: 480
+      - Namespace: aws:elasticbeanstalk:command
+        OptionName: BatchSize
+        Value: 1
+      - Namespace: aws:elasticbeanstalk:command
+        OptionName: BatchSizeType
+        Value: Fixed
+
+      - Namespace: aws:elasticbeanstalk:environment
+        OptionName: EnvironmentType
+        Value: LoadBalanced
+      - Namespace: aws:elasticbeanstalk:environment
+        OptionName: LoadBalancerType
+        Value: application
+#      - Namespace: aws:elasticbeanstalk:environment
+#        OptionName: ServiceRole
+#        Value: !Ref PGEBServiceRole
+
+      - Namespace: aws:elasticbeanstalk:environment:process:contestweb
+        OptionName: MatcherHTTPCode
+        Value: 200
+
+      - Namespace: aws:elasticbeanstalk:healthreporting:system
+        OptionName: SystemType
+        Value: enhanced
+
+      - Namespace: aws:elasticbeanstalk:hostmanager
+        OptionName: LogPublicationControl
+        Value: true
+
+      - Namespace: aws:elasticbeanstalk:managedactions
+        OptionName: ManagedActionsEnabled
+        Value: true
+      - Namespace: aws:elasticbeanstalk:managedactions
+        OptionName: PreferredStartTime
+        Value: Mon:05:30
+
+      - Namespace: aws:elasticbeanstalk:managedactions:platformupdate
+        OptionName: UpdateLevel
+        Value: minor
+      - Namespace: aws:elasticbeanstalk:managedactions:platformupdate
+        OptionName: InstanceRefreshEnabled
+        Value: true
+
+      - Namespace: aws:elasticbeanstalk:monitoring
+        OptionName: Automatically Terminate Unhealthy Instances
+        Value: true
+
+      - Namespace: aws:elasticbeanstalk:sns:topics
+        OptionName: Notification Endpoint
+        Value: !Ref DefaultNotifiedEmail
+
+      # - Namespace: aws:elb:healthcheck
+      #   OptionName: Interval
+      #   Value: 30
+      # - Namespace: aws:elb:healthcheck
+      #   OptionName: Timeout
+      #   Value: 10
+      # - Namespace: aws:elb:healthcheck
+      #   OptionName: HealthyThreshold
+      #   Value: 2
+      # - Namespace: aws:elb:healthcheck
+      #   OptionName: UnhealthyThreshold
+      #   Value: 5
+
+      # - Namespace: aws:elb:loadbalancer
+      #   OptionName: CrossZone
+      #   Value: true
+
+      # - Namespace: aws:elb:listener:443
+      #   OptionName: ListenerProtocol
+      #   Value: HTTPS
+      # - Namespace: aws:elb:listener:443
+      #   OptionName: InstancePort
+      #   Value: 80
+      # - Namespace: aws:elb:listener:443
+      #   OptionName: InstanceProtocol
+      #   Value: HTTP
+      # - Namespace: aws:elb:listener:443
+      #   OptionName: SSLCertificateId
+      #   Value: !Ref SSLCertificateARN
+
+      # - Namespace: aws:elb:policies
+      #   OptionName: ConnectionDrainingTimeout
+      #   Value: 30
+      # - Namespace: aws:elb:policies
+      #   OptionName: ConnectionDrainingEnabled
+      #   Value: true
+
+      - Namespace: aws:elbv2:listener:default
+        OptionName: ListenerEnabled
+        Value: false
+
+      - Namespace: aws:elbv2:listener:443
+        OptionName: DefaultProcess
+        Value: contestweb
+      - Namespace: aws:elbv2:listener:443
+        OptionName: Protocol
+        Value: HTTPS
+      - Namespace: aws:elbv2:listener:443
+        OptionName: SSLCertificateArns
+        Value: !Ref SSLCertificate
+
+      - Namespace: aws:elbv2:loadbalancer
+        OptionName: AccessLogsS3Bucket
+        Value: !Ref LogBucket
+      - Namespace: aws:elbv2:loadbalancer
+        OptionName: AccessLogsS3Enabled
+        Value: true
+      - Namespace: aws:elbv2:loadbalancer
+        OptionName: AccessLogsS3Prefix
+        Value: ELB
