@@ -5,3 +5,15 @@
 /teacherInterface/beaver_tasks/
 /logs/
 /config_local.php
+
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml
+
+.DS_Store
+.bundle
+.rbx
+.alfrc
+*.komodoproject
+*.idea
