@@ -48,10 +48,6 @@ if ($config->teacherInterface->generationMode == 'local') {
 } else if ($ieMode) {
    try {
       $s3Client = S3Client::factory(array(
-         'credentials' => array(
-              'key'    => $config->aws->key,
-              'secret' => $config->aws->secret
-          ),
          'region' => $config->aws->s3region,
          'version' => '2006-03-01'
       ));
@@ -66,10 +62,6 @@ if ($config->teacherInterface->generationMode == 'local') {
    }
 } else {
    $s3Client = S3Client::factory(array(
-      'credentials' => array(
-           'key'    => $config->aws->key,
-           'secret' => $config->aws->secret
-       ),
       'region' => $config->aws->s3region,
       'version' => '2006-03-01'
    ));

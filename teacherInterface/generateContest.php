@@ -22,10 +22,6 @@ $put_contents_func_name = "file_put_contents";
 
 if ($mode == "aws"|| $mode == "aws+local") {
    $publicClient = S3Client::factory(array(
-      'credentials' => array(
-           'key'    => $config->aws->key,
-           'secret' => $config->aws->secret
-       ),
       'region' => $config->aws->s3region,
       'version' => '2006-03-01'
    ));

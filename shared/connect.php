@@ -36,10 +36,6 @@ function connect_pdo($config) {
 
 function connect_dynamoDB($config) {
    $client = DynamoDbClient::factory(array(
-      'credentials' => array(
-           'key'    => $config->aws->key,
-           'secret' => $config->aws->secret
-       ),
       'region' => $config->aws->region,
       'version' => '2012-08-10'
    ));

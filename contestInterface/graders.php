@@ -45,10 +45,6 @@ if ($config->teacherInterface->generationMode == 'local') {
 } else if (!$row->fullFeedback && !$ieMode) {
    require '../vendor/autoload.php';
    $s3Client = S3Client::factory(array(
-      'credentials' => array(
-           'key'    => $config->aws->key,
-           'secret' => $config->aws->secret
-       ),
       'region' => $config->aws->s3region,
       'version' => '2006-03-01'
    ));
@@ -60,10 +56,6 @@ if ($config->teacherInterface->generationMode == 'local') {
    $gradersUrl = (string) $request->getUri();
 } else if ($ieMode) {
    $s3Client = S3Client::factory(array(
-      'credentials' => array(
-           'key'    => $config->aws->key,
-           'secret' => $config->aws->secret
-       ),
       'region' => $config->aws->s3region,
       'version' => '2006-03-01'
    ));
