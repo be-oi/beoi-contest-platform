@@ -12,6 +12,10 @@ RUN npm install -g bower
 COPY composer.json composer.lock /var/www/html/	 
 RUN composer.phar install
 
+COPY config/apache.conf /etc/apache2/sites-available/contest.conf
+RUN a2dissite 000-default
+RUN a2ensite contest
+
 RUN docker-php-ext-install mysqli pdo pdo_mysql
 
 COPY contestInterface/bower.json /var/www/html/contestInterface/

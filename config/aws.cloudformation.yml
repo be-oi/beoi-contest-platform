@@ -16,16 +16,17 @@ Parameters:
   DefaultNotifiedEmail:
     Description: The email address of the initial person registered in SNS (other may be added later)
     Type: String
+  DatadogAPIKey:
+    NoEcho: true
+    Description: The datadog API key to push monitoring
+    Type: String
 
 Resources:
 
   SSLCertificate:
     Type: AWS::CertificateManager::Certificate
     Properties:
-      DomainName: platform.be-oi.be
-      DomainValidationOptions:
-        - DomainName: platform.be-oi.be
-          ValidationDomain: be-oi.be
+      DomainName: "*.be-oi.be"
 
   LogBucket:
     Type: "AWS::S3::Bucket"
@@ -185,7 +186,7 @@ Resources:
         Value: -1
       - Namespace: aws:autoscaling:trigger
         OptionName: UpperThreshold
-        Value: 9
+        Value: 90
       - Namespace: aws:autoscaling:trigger
         OptionName: UpperBreachScaleIncrement
         Value: 1
@@ -212,19 +213,27 @@ Resources:
         OptionName: Timeout
         Value: PT15M
 
-      # - Namespace: aws:elasticbeanstalk:application
-      #   OptionName: Application Healthcheck URL
-      #   Value: "/"
-
       - Namespace: aws:elasticbeanstalk:application:environment
-        OptionName: DATABASE__PASSWORD
+        OptionName: DATABASE_PASSWORD
         Value: !Ref DBPassword
       - Namespace: aws:elasticbeanstalk:application:environment
-        OptionName: DATABASE__USERNAME
+        OptionName: DATABASE_USER
         Value: dbuser
       - Namespace: aws:elasticbeanstalk:application:environment
-        OptionName: DATABASE__NAME
+        OptionName: DATABASE_NAME
         Value: contestplaform
+      - Namespace: aws:elasticbeanstalk:application:environment
+        OptionName: DATABASE_HOST
+        Value: !GetAtt DB.Endpoint.Address
+      - Namespace: aws:elasticbeanstalk:application:environment
+        OptionName: AWS_REGION
+        Value: !Ref AWS::Region
+      - Namespace: aws:elasticbeanstalk:application:environment
+        OptionName: AWS_BUCKET
+        Value: !Ref LogBucket
+      - Namespace: aws:elasticbeanstalk:application:environment
+        OptionName: DATADOG_API_KEY
+        Value: !Ref DatadogAPIKey
 
       - Namespace: aws:elasticbeanstalk:command
         OptionName: DeploymentPolicy
@@ -245,9 +254,6 @@ Resources:
       - Namespace: aws:elasticbeanstalk:environment
         OptionName: LoadBalancerType
         Value: application
-#      - Namespace: aws:elasticbeanstalk:environment
-#        OptionName: ServiceRole
-#        Value: !Ref PGEBServiceRole
 
       - Namespace: aws:elasticbeanstalk:environment:process:contestweb
         OptionName: MatcherHTTPCode
@@ -282,43 +288,6 @@ Resources:
       - Namespace: aws:elasticbeanstalk:sns:topics
         OptionName: Notification Endpoint
         Value: !Ref DefaultNotifiedEmail
-
-      # - Namespace: aws:elb:healthcheck
-      #   OptionName: Interval
-      #   Value: 30
-      # - Namespace: aws:elb:healthcheck
-      #   OptionName: Timeout
-      #   Value: 10
-      # - Namespace: aws:elb:healthcheck
-      #   OptionName: HealthyThreshold
-      #   Value: 2
-      # - Namespace: aws:elb:healthcheck
-      #   OptionName: UnhealthyThreshold
-      #   Value: 5
-
-      # - Namespace: aws:elb:loadbalancer
-      #   OptionName: CrossZone
-      #   Value: true
-
-      # - Namespace: aws:elb:listener:443
-      #   OptionName: ListenerProtocol
-      #   Value: HTTPS
-      # - Namespace: aws:elb:listener:443
-      #   OptionName: InstancePort
-      #   Value: 80
-      # - Namespace: aws:elb:listener:443
-      #   OptionName: InstanceProtocol
-      #   Value: HTTP
-      # - Namespace: aws:elb:listener:443
-      #   OptionName: SSLCertificateId
-      #   Value: !Ref SSLCertificateARN
-
-      # - Namespace: aws:elb:policies
-      #   OptionName: ConnectionDrainingTimeout
-      #   Value: 30
-      # - Namespace: aws:elb:policies
-      #   OptionName: ConnectionDrainingEnabled
-      #   Value: true
 
       - Namespace: aws:elbv2:listener:default
         OptionName: ListenerEnabled

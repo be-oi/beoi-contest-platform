@@ -18,54 +18,52 @@ $config->db->testMode = false;
 
 // MySQL
 $config->db->mysql = (object) array();
-$config->db->mysql->host = 'localhost';
-$config->db->mysql->database = 'castor';
-$config->db->mysql->password = 'castor';
-$config->db->mysql->user = 'castor';
+$config->db->mysql->host = $_ENV['DATABASE_HOST']?:'localhost';
+$config->db->mysql->database = $_ENV['DATABASE_NAME']?:'castor';
+$config->db->mysql->password = $_ENV['DATABASE_PASSWORD']?:'castor';
+$config->db->mysql->user = $_ENV['DATABASE_USER']?:'castor';
 $config->db->mysql->logged = false;
 
 // Emails
 $config->email = (object) array();
 $config->email->sFileStoringSentMails = 'logs/mails.txt';
 $config->email->bSendMailForReal = false;
-$config->email->sEmailSender = '';
+$config->email->sEmailSender = 'info@be-oi.be';
 $config->email->sEmailInsriptionBCC = null;
 $config->email->smtpHost = '';
 $config->email->smtpPort = '';
 $config->email->smtpSecurity = ''; // to fill PHPMailer->SMTPSecure, "tls" or "ssl"
 $config->email->smtpUsername = '';
 $config->email->smtpPassword = 'PASSWORD';
-$config->email->sInfoAddress = 'info@castor-informatique.fr';
+$config->email->sInfoAddress = 'info@be-oi.be';
 
 $config->aws = (object) array();
-$config->aws->key = '';
-$config->aws->secret = '';
-$config->aws->region = '';
-$config->aws->bucketName = '';
-$config->aws->s3region = '';
+$config->aws->region = $_ENV['AWS_REGION'];
+$config->aws->bucketName = $_ENV['AWS_BUCKET'];
+$config->aws->s3region = $_ENV['AWS_REGION'];
 
 $config->contestInterface = (object) array();
 // Point contestInterface->baseUrl to an URL serving the contestInterface directory.
-$config->contestInterface->baseUrl = 'http://concours.castor-informatique.fr';
-$config->contestInterface->sAbsoluteStaticPathNoS3 = 'http://concours.castor-informatique.fr';
-$config->contestInterface->sAssetsStaticPathNoS3 = 'http://concours.castor-informatique.fr';
+$config->contestInterface->baseUrl = '';
+$config->contestInterface->sAbsoluteStaticPathNoS3 = '';
+$config->contestInterface->sAssetsStaticPathNoS3 = '';
 $config->contestInterface->sessionLength = 3600;
 
 $config->teacherInterface = (object) array();
 $config->teacherInterface->sHotlineNumber = '';
-$config->teacherInterface->sCoordinatorFolder = 'http://coordinateur.castor-informatique.fr/';
-$config->teacherInterface->sAssetsStaticPath = 'http://castor.pem.dev/contestInterface/';
-$config->teacherInterface->sAbsoluteStaticPath = 'http://coordinateur.castor-informatique.fr/';
+$config->teacherInterface->sCoordinatorFolder = '';
+$config->teacherInterface->sAssetsStaticPath = '';
+$config->teacherInterface->sAbsoluteStaticPath = '';
 $config->teacherInterface->genericPasswordMd5 = '';
-$config->teacherInterface->countryCode = 'FR';
-$config->teacherInterface->domainCountryCode = 'FR';
+$config->teacherInterface->countryCode = 'BE';
+$config->teacherInterface->domainCountryCode = 'BE';
 $config->teacherInterface->generationMode = 'local';
-$config->teacherInterface->sAbsoluteStaticPathOldIE = 'http://coordinateur.castor-informatique.fr/';
+$config->teacherInterface->sAbsoluteStaticPathOldIE = '';
 $config->teacherInterface->sContestGenerationPath = '/../contestInterface/contests/'; // *MUST* be relative!
 $config->teacherInterface->forceOfficialEmailDomain = false;
 $config->teacherInterface->useAlgoreaCodes = false; // change if your award is an acess code for another contest
 // Point teacherInterface->baseUrl to an URL serving the teacherInterface directory.
-$config->teacherInterface->baseUrl = 'http://coordinateur.castor-informatique.fr';
+$config->teacherInterface->baseUrl = '';
 $config->teacherInterface->teacherPersonalCodeContestID = 0;
 
 $config->certificates = (object) array();
@@ -80,12 +78,34 @@ $config->contestOfficialURL = '';
 $config->contestBackupURL = '';
 $config->customStringsName = null; // see README
 
-$config->validationMailBody = "Bonjour,\r\n\r\nPour valider votre inscription en tant que coordinateur pour le concours Castor, ouvrez le lien suivant dans votre navigateur  : \r\n\r\n%s\r\n\r\nN'hésitez pas à nous contacter si vous rencontrez des difficultés.\r\n\r\nCordialement,\r\n-- \r\nL'équipe du Castor Informatique";
-$config->validationMailTitle = "Castor Informatique : validation d'inscription";
+$config->validationMailBody = "";
+$config->validationMailTitle = "";
 
 if (is_readable(__DIR__.'/config_local.php')) {
    include_once __DIR__.'/config_local.php';
 }
+
+/* Subsite configs */
+
+$lang_mapping = [
+  'contest-fr.be-oi.be' => 'fr',
+  'concours.be-oi.be' => 'fr',
+  'gestion.be-oi.be' => 'fr',
+  'contest-fr.be-oi.be' => 'nl',
+  'wedstrijd.be-oi.be' => 'nl',
+  'beheer.be-oi.be' => 'nl',
+];
+
+$lang = 'fr';
+foreach ($lang_mapping as $domain => $l) {
+    if (strpos($_SERVER['HTTP_HOST'], $domain) !== FALSE) {
+        $lang = $l;
+    }
+}
+
+require_once __DIR__.'/config/config_'.$lang.'.php';
+
+/* end subsite */
 
 date_default_timezone_set($config->timezone);
 
