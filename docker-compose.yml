@@ -1,0 +1,17 @@
+web:
+  build: .
+  volumes:
+    - .:/var/www/devdir/
+  ports:
+    - "80:80"
+  links:
+   - db
+db:
+  image: mysql
+  ports:
+    - "3306:3306"
+  environment:
+    MYSQL_ROOT_PASSWORD: rootpwd
+    MYSQL_USER: dbuser
+    MYSQL_PASSWORD: password
+    MYSQL_DATABASE: beaver_contest
