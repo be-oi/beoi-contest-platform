@@ -2,6 +2,39 @@
 
 This platform is a fork from the [French Beaver Contest](https://github.com/France-ioi/bebras-platform).
 
+## Deploper deployment (local)
+
+You can use the local `Dockerfile` and docker-compose file to run the platform locally to setup the platform together with a database. In short, you should be able to run the projet via:
+
+    docker-compose build
+    docker-compose up
+
+Then the service should run on your Docker port 80.
+
+## Production deployment
+
+The `config/aws.cloudformation.yml` file defines the AWS CloudFormation containing everything requires to run the contest system on Amazon Web Services. It includes:
+
+* The DynamoDB table (for sessions, teams and team questions)
+* The S3 bucket for logs and static files
+* The CloudFront (CDN) to serve static files
+* The RDS MySQL database
+* SSL Certificate for EB
+* The Elastic Beanstalk (EB) configuration
+
+The stack uses instance roles and environment variable passing not to require any password passing, appropriate credentials are available on the server with the defined role permissions.
+
+For EB, only the stored configuration will be updated, not the running one. So once the stack for EB has been updated (risk-free), you need to update the running environnement to run with this config.
+
+At creation, the SSL certificate create requires to validate the domain ownership via a confirmation e-mail. The stack creation will not complete as long as this confirmation has not been done.
+
+### Database initialisation
+
+At first run, the database has to be initialized from migration. It can be done by visiting `dbv/index.php` using as user and password the database credentials.
+
+In development, the database can be cleaned by removing the db docker (`docker-compose rm db`). The sample database can be loaded using `mysql -h db -u dbuser --password=password -D beaver_contest < sampleDatabase/database_content.sql`.
+
+
 # Original instructions
 
 ## Prerequisites
