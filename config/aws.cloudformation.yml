@@ -20,22 +20,81 @@ Parameters:
     NoEcho: true
     Description: The datadog API key to push monitoring
     Type: String
+  CloudfrontSSLCertificateARN: # Must be created separately as currently CloudFront certificate must be in us-east-1
+    Description: The ACM certificate ARN to be used for CloudFront 
+    Type: String 
 
 Resources:
 
-  SSLCertificate:
-    Type: AWS::CertificateManager::Certificate
+  # ======== DynamoDB Tables ========
+
+  TeamTable:
+    Type: "AWS::DynamoDB::Table"
     Properties:
-      DomainName: "*.be-oi.be"
+      TableName: team
+      AttributeDefinitions:
+        - { AttributeName: ID, AttributeType: N }
+        - { AttributeName: password, AttributeType: S }
+      KeySchema:
+        - { AttributeName: ID, KeyType: HASH }
+      GlobalSecondaryIndexes:
+        - IndexName: password_index
+          KeySchema: 
+          - { AttributeName: password, KeyType: HASH }
+          Projection: { ProjectionType: ALL }
+          ProvisionedThroughput:
+            ReadCapacityUnits: 2
+            WriteCapacityUnits: 2
+      ProvisionedThroughput:
+        ReadCapacityUnits: 2
+        WriteCapacityUnits: 2
+
+  TeamQuestionTable:
+    Type: "AWS::DynamoDB::Table"
+    Properties:
+      TableName: team_question
+      AttributeDefinitions:
+        - { AttributeName: teamID, AttributeType: N }
+        - { AttributeName: questionID, AttributeType: N }
+      KeySchema:
+        - { AttributeName: teamID, KeyType: HASH }
+        - { AttributeName: questionID, KeyType: RANGE }
+      ProvisionedThroughput:
+        ReadCapacityUnits: 2
+        WriteCapacityUnits: 2
+
+  SessionTable:
+    Type: "AWS::DynamoDB::Table"
+    Properties:
+      TableName: sessions
+      AttributeDefinitions:
+        - { AttributeName: id, AttributeType: S }
+      KeySchema:
+        - { AttributeName: id, KeyType: HASH }
+      ProvisionedThroughput:
+        ReadCapacityUnits: 5
+        WriteCapacityUnits: 5
+
+  # ======== S3 Buckets ========
+
+  ContestBucket:
+    Type: "AWS::S3::Bucket"
+    Properties: 
+      BucketName: !Sub "contest-platform-contests-${AWS::Region}-${AWS::AccountId}"
+      AccessControl: PublicRead
+      CorsConfiguration:
+        CorsRules:
+          - AllowedHeaders: [ "*" ]
+            AllowedMethods: [ "GET" ]
+            AllowedOrigins: [ "*" ]
+            MaxAge: "3000"
 
   LogBucket:
     Type: "AWS::S3::Bucket"
     Properties: 
-      AccessControl: LogDeliveryWrite
       BucketName: !Sub "contest-platform-logs-${AWS::Region}-${AWS::AccountId}"
-
-  # To let Beanstalk's load balancer write its logs in the "ELB" prefix 
-  LogBucketPolicy: 
+      AccessControl: LogDeliveryWrite
+  LogBucketPolicy:  # To let Beanstalk's load balancer write its logs in the "ELB" prefix 
     Type: "AWS::S3::BucketPolicy"
     Properties: 
       Bucket: !Ref LogBucket
@@ -45,6 +104,44 @@ Resources:
             Effect: "Allow"
             Resource: !Sub "arn:aws:s3:::${LogBucket}/ELB/*"
             Principal: { AWS: [ "054676820928" ] }
+
+  # ======== CloudFront CDN ========
+
+  ContestCDN:
+    Type: AWS::CloudFront::Distribution
+    Properties:
+      DistributionConfig:
+        Origins:
+        - DomainName: !Sub "${ContestBucket}.s3.amazonaws.com"
+          Id: contestbucket
+          S3OriginConfig: { OriginAccessIdentity: "" }
+        Enabled: 'true'
+        DefaultRootObject: index.html
+        Logging:
+          IncludeCookies: 'false'
+          Bucket: !Sub "${LogBucket}.s3.amazonaws.com"
+          Prefix: cloudfront/contest
+        Aliases:
+        - manage-static.be-oi.be
+        DefaultCacheBehavior:
+          AllowedMethods: [DELETE, GET, HEAD, OPTIONS, PATCH, POST, PUT]
+          CachedMethods: [HEAD, GET]
+          TargetOriginId: contestbucket
+          Compress: true
+          ForwardedValues:
+            Headers: ["Access-Control-Request-Headers", "Access-Control-Request-Method", Origin]
+            QueryString: 'true'
+            Cookies: { Forward: none }
+          ViewerProtocolPolicy: allow-all
+        PriceClass: PriceClass_200
+        ViewerCertificate:
+          CloudFrontDefaultCertificate: 'true'
+        ViewerCertificate:
+          SslSupportMethod: "sni-only"
+          AcmCertificateArn: !Ref CloudfrontSSLCertificateARN
+
+
+  # ======== Database ========
 
   DB:
     Type: AWS::RDS::DBInstance
@@ -63,6 +160,24 @@ Resources:
       PreferredBackupWindow: 04:00-05:00
       PreferredMaintenanceWindow: Mon:03:00-Mon:04:00
       PubliclyAccessible: false
+      VPCSecurityGroups: [ !GetAtt DBSecurityGroup.GroupId ]
+
+  DBSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Allow the DB to get connection from the EB machines
+      SecurityGroupIngress:
+      - IpProtocol: tcp
+        FromPort: 3306
+        ToPort: 3306
+        SourceSecurityGroupId: !GetAtt EBEC2SecurityGroup.GroupId
+
+  # ======== Resources for EB ========
+  
+  SSLCertificate:
+    Type: AWS::CertificateManager::Certificate
+    Properties:
+      DomainName: "*.be-oi.be"
 
   EBEC2Role:
     Type: AWS::IAM::Role
@@ -82,54 +197,43 @@ Resources:
           Version: '2012-10-17'
           Statement:
           - Effect: Allow
-            Action: s3:PutObject
+            Action: "s3:PutObject"
             Resource: !Sub "arn:aws:s3:::elasticbeanstalk-${AWS::Region}-${AWS::AccountId}/resources/environments/logs/*"
-
-  EBServiceRole:
-    Type: AWS::IAM::Role
-    Properties:
-      AssumeRolePolicyDocument:
-        Version: '2012-10-17'
-        Statement:
-        - Effect: Allow
-          Principal:
-            Service: elasticbeanstalk.amazonaws.com
-          Action: sts:AssumeRole
-          Condition:
-            StringEquals:
-              sts:ExternalId: elasticbeanstalk
-      Path: "/"
-      ManagedPolicyArns:
-      - arn:aws:iam::aws:policy/service-role/AWSElasticBeanstalkEnhancedHealth
-      - arn:aws:iam::aws:policy/service-role/AWSElasticBeanstalkService
-      Policies:
-      - PolicyName: EBServiceRole
-        PolicyDocument:
-          Version: '2012-10-17'
-          Statement:
+          - Effect: Allow
+            Action: [ "s3:PutObject", "s3:DeleteObject" ]
+            Resource: !Sub "arn:aws:s3:::${ContestBucket}/*" 
+          - Effect: Allow
+            Action: "s3:ListObjects"
+            Resource: !Sub "arn:aws:s3:::${ContestBucket}" 
           - Effect: Allow
             Action:
-            - elasticloadbalancing:DescribeInstanceHealth
-            - ec2:DescribeInstances
-            - ec2:DescribeInstanceStatus
-            - ec2:GetConsoleOutput
-            - ec2:AssociateAddress
-            - ec2:DescribeAddresses
-            - ec2:DescribeSecurityGroups
-            - sqs:GetQueueAttributes
-            - sqs:GetQueueUrl
-            - autoscaling:DescribeAutoScalingGroups
-            - autoscaling:DescribeAutoScalingInstances
-            - autoscaling:DescribeScalingActivities
-            - autoscaling:DescribeNotificationConfigurations
+            - "dynamodb:BatchGetItem"
+            - "dynamodb:BatchWriteItem"
+            - "dynamodb:DeleteItem"
+            - "dynamodb:DescribeTable"
+            - "dynamodb:GetItem"
+            - "dynamodb:PutItem"
+            - "dynamodb:Query"
+            - "dynamodb:Scan"
+            - "dynamodb:UpdateItem"
             Resource:
-            - "*"
+            - !Sub "arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/${TeamTable}"
+            - !Sub "arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/${TeamTable}/index/*"
+            - !Sub "arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/${TeamQuestionTable}"
+            - !Sub "arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/${SessionTable}"
 
   EBEC2InstanceProfile:
     Type: AWS::IAM::InstanceProfile
     Properties:
       Roles:
       - !Ref EBEC2Role
+
+  EBEC2SecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties: 
+      GroupDescription: EB EC2 Security Group
+
+  # ======== EB ========
 
   Application:
     Type: AWS::ElasticBeanstalk::Application
@@ -171,6 +275,9 @@ Resources:
       - Namespace: aws:autoscaling:launchconfiguration
         OptionName: MonitoringInterval
         Value: 1 minute
+      - Namespace: aws:autoscaling:launchconfiguration
+        OptionName: SecurityGroups
+        Value: !Ref EBEC2SecurityGroup
 
       - Namespace: aws:autoscaling:trigger
         OptionName: MeasureName
@@ -213,6 +320,10 @@ Resources:
         OptionName: Timeout
         Value: PT15M
 
+      - Namespace: aws:elasticbeanstalk:application
+        OptionName: Application Healthcheck URL
+        Value: HTTPS:443/contestInterface/index.php
+
       - Namespace: aws:elasticbeanstalk:application:environment
         OptionName: DATABASE_PASSWORD
         Value: !Ref DBPassword
@@ -230,7 +341,7 @@ Resources:
         Value: !Ref AWS::Region
       - Namespace: aws:elasticbeanstalk:application:environment
         OptionName: AWS_BUCKET
-        Value: !Ref LogBucket
+        Value: !Ref ContestBucket
       - Namespace: aws:elasticbeanstalk:application:environment
         OptionName: DATADOG_API_KEY
         Value: !Ref DatadogAPIKey
