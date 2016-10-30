@@ -11,7 +11,7 @@ $config->contestInterface->sAssetsStaticPathNoS3 = 'https://wedstrijd.be-oi.be';
 
 $config->teacherInterface->baseUrl = 'https://beheer.be-oi.be';
 $config->teacherInterface->sCoordinatorFolder = 'https://beheer.be-oi.be/';
-$config->teacherInterface->sAssetsStaticPath = 'https://manage-static.be-oi.be/contestInterface/';
+$config->teacherInterface->sAssetsStaticPath = 'https://manage-static.be-oi.be/contestAssets';
 $config->teacherInterface->sAbsoluteStaticPath = 'https://beheer.be-oi.be/';
 $config->teacherInterface->sAbsoluteStaticPathOldIE = 'https://beheer.be-oi.be/';
 
