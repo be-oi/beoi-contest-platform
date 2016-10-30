@@ -85,6 +85,14 @@ if (is_readable(__DIR__.'/config_local.php')) {
    include_once __DIR__.'/config_local.php';
 }
 
+$env_config = '/config/config_'.$_ENV['ENVIRONMENT'].'.php';
+if (is_readable(__DIR__.$env_config)) {
+   include_once __DIR__.$env_config;
+}
+
+
+
+
 /* Subsite configs */
 
 $lang_mapping = [

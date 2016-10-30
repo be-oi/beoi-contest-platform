@@ -345,6 +345,9 @@ Resources:
       - Namespace: aws:elasticbeanstalk:application:environment
         OptionName: DATADOG_API_KEY
         Value: !Ref DatadogAPIKey
+      - Namespace: aws:elasticbeanstalk:application:environment
+        OptionName: ENVIRONMENT
+        Value: prod
 
       - Namespace: aws:elasticbeanstalk:command
         OptionName: DeploymentPolicy

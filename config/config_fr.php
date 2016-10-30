@@ -1,9 +1,7 @@
 <?php
 
 // Localization
-$config->timezone = 'Europe/Paris';
 $config->defaultLanguage = 'fr';
-$config->teacherInterface->countryCode = 'BE';
 
 $config->contestInterface->baseUrl = 'https://concours.be-oi.be';
 $config->contestInterface->sAbsoluteStaticPathNoS3 = 'https://concours.be-oi.be';
@@ -11,7 +9,6 @@ $config->contestInterface->sAssetsStaticPathNoS3 = 'https://concours.be-oi.be';
 
 $config->teacherInterface->baseUrl = 'https://gestion.be-oi.be';
 $config->teacherInterface->sCoordinatorFolder = 'https://gestion.be-oi.be/';
-$config->teacherInterface->sAssetsStaticPath = 'https://manage-static.be-oi.be/contestAssets';
 $config->teacherInterface->sAbsoluteStaticPath = 'https://gestion.be-oi.be/';
 $config->teacherInterface->sAbsoluteStaticPathOldIE = 'https://gestion.be-oi.be/';
 
