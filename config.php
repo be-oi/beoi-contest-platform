@@ -19,9 +19,9 @@ $config->db->testMode = false;
 // MySQL
 $config->db->mysql = (object) array();
 $config->db->mysql->host = $_ENV['DATABASE_HOST']?:'localhost';
-$config->db->mysql->database = $_ENV['DATABASE_NAME']?:'castor';
-$config->db->mysql->password = $_ENV['DATABASE_PASSWORD']?:'castor';
-$config->db->mysql->user = $_ENV['DATABASE_USER']?:'castor';
+$config->db->mysql->database = $_ENV['DATABASE_NAME']?:'unknowndb';
+$config->db->mysql->password = $_ENV['DATABASE_PASSWORD']?:'';
+$config->db->mysql->user = $_ENV['DATABASE_USER']?:'unknownuser';
 $config->db->mysql->logged = false;
 
 // Emails
