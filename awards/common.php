@@ -11,12 +11,9 @@ ini_set('display_errors',1);
 error_reporting(E_ALL);
 
 $levelStr = array(
-   1 => "6ème-5ème",
-   2 => "4ème-3ème",
-   3 => "Seconde",
-   4 => "Première-Terminale",
-   5 => "Seconde professionnelle",
-   6 => "Première-Terminale professionnelle",
+   1 => "cadet/belofte (prim,1-2e)",
+   2 => "junior (3-4e)",
+   3 => "senior (5-6-7e)"
 );
 
 

@@ -167,11 +167,9 @@ function getGroupsColModel() {
                "8": t("grade_8"),
                "9": t("grade_9"),
                "10": t("grade_10"),
-               "13": t("grade_10_pro"),
                "11": t("grade_11"),
-               "14": t("grade_11_pro"),
                "12": t("grade_12"),
-               "15": t("grade_12_pro")
+               "15": t("grade_13_pro")
             }}},
          participationType: {label: t("participationType_label"), longLabel: t("participationType_long_label"), editable: true, required: true, edittype: "select", width: 100, editoptions:{ value:{"Official": t("participationType_official"), "Unofficial": t("participationType_unofficial")}}, comment: t("participationType_comment")},
          expectedStartTime: {
@@ -311,11 +309,9 @@ function initModels(isLogged) {
                   "8": t("grade_8"),
                   "9": t("grade_9"),
                   "10": t("grade_10"),
-                  "13": t("grade_10_pro"),
                   "11": t("grade_11"),
-                  "14": t("grade_11_pro"),
                   "12": t("grade_12"),
-                  "15": t("grade_12_pro")
+                  "15": t("grade_13_pro")
                }}, searchoptions:{ value:"_NOF_:" + t("option_no_filter") +
                   ";-1:" + t("grade_-1") +
                   ";-4:" + t("grade_-4") +
@@ -326,11 +322,9 @@ function initModels(isLogged) {
                   ";8:" + t("grade_8") +
                   ";9:" + t("grade_9") +
                   ";10:" + t("grade_10") +
-                  ";13:" + t("grade_10_pro") +
                   ";11:" + t("grade_11") +
-                  ";14:" + t("grade_11_pro") +
                   ";12:" + t("grade_12") +
-                  ";15:" + t("grade_12_pro")
+                  ";15:" + t("grade_13_pro")
                },
                stype: "select", width:75},
             score: {label: t("contestant_score_label"), editable: false, width:75},
@@ -485,21 +479,15 @@ function initModels(isLogged) {
             level: {label: t("contest_level_label"), editable: true, edittype: "select", width: 100,
                editoptions:{ value:{
                   "0": t("option_undefined"),
-                  "1": t("option_grades_6_7"),
-                  "2": t("option_grades_8_9"),
-                  "3": t("option_grades_10"),
-                  "4": t("option_grades_11_12"),
-                  "5": t("option_grades_10_pro"),
-                  "6": t("option_grades_11_12_pro")
+                  "1": t("option_cadet_belofte"),
+                  "2": t("option_junior"),
+                  "3": t("option_senior")
                }},
                searchoptions:{ value:"_NOF_:" + t("option_no_filter") +
                      ";0:" + t("option_undefined") +
-                     ";1:" + t("option_grades_6_7") +
-                     ";2:" + t("option_grades_8_9") +
-                     ";3:" + t("option_grades_10") +
-                     ";4:" + t("option_grades_10_pro") +
-                     ";5:" + t("option_grades_11_12") +
-                     ";6:" + t("option_grades_11_12_pro")
+                     ";1:" + t("option_cadet_belofte") +
+                     ";2:" + t("option_junior") +
+                     ";3:" + t("option_senior")
                      },
                stype: "select"
             },

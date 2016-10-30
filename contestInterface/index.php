@@ -120,11 +120,9 @@
        <option value="8" data-i18n="grade_8"></option>
        <option value="9" data-i18n="grade_9"></option>
        <option value="10" data-i18n="grade_10"></option>
-       <option value="13" data-i18n="grade_10_pro"></option>
        <option value="11" data-i18n="grade_11"></option>
-       <option value="14" data-i18n="grade_11_pro"></option>
        <option value="12" data-i18n="grade_12"></option>
-       <option value="15" data-i18n="grade_12_pro"></option>
+       <option value="15" data-i18n="grade_13_pro"></option>
        <option value="-4" data-i18n="grade_-4">Autre</option>
    </select> </p>
    <p id="login-input-studentId-1"> <span data-i18n="[html]login_input_studentId"></span> <input id="studentId1" type="text" autocomplete="off"></input></p>
@@ -150,11 +148,9 @@
        <option value="8" data-i18n="grade_8"></option>
        <option value="9" data-i18n="grade_9"></option>
        <option value="10" data-i18n="grade_10"></option>
-       <option value="13" data-i18n="grade_10_pro"></option>
        <option value="11" data-i18n="grade_11"></option>
-       <option value="14" data-i18n="grade_11_pro"></option>
        <option value="12" data-i18n="grade_12"></option>
-       <option value="15" data-i18n="grade_12_pro"></option>
+       <option value="15" data-i18n="grade_13_pro"></option>
        <option value="-4" data-i18n="grade_-4">Autre</option>
       </select> </p>
       <p id="login-input-studentId-2"><span data-i18n="[html]login_input_studentId"></span> <input id="studentId2" type="text" autocomplete="off"></input></p>
