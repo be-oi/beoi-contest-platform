@@ -8,7 +8,7 @@ $config = (object) array();
 
 $config->maintenanceUntil = null; // maintenance end time (null if no maintenance)
 
-$config->faviconfile = 'favicon.ico';
+$config->faviconfile = 'favicon.png';
 
 $config->db = (object) array();
 $config->db->use = 'mysql';
