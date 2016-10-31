@@ -8,8 +8,8 @@
     "tab_start_contest_enter_code": "Entrez le code de votre groupe, fourni par votre enseignant : ",
     "tab_start_contest_start_button": "Je commence le concours",
     "tab_public_contests_info": "<b>Testez-vous sur l'un des concours des années précédentes :</b>",
-    "tab_public_contests_score_explanation": "Vous pouvez accéder aux anciens concours Castor ainsi qu'au premier tour du concours Algoréa, auquel se qualifient désormais les 10% meilleurs du concours Castor de l'année précédente (Ex: Castor 2014 en Novembre, 1<sup>er</sup> tour Algoréa 2015 en Février).<br/><br/>Les solutions vous seront fournies lorsque le temps sera écoulé ou que vous aurez cliqué sur <strong>quitter le concours</strong>.",
-    "tab_public_contests_organization": "Le Castor est organisé en France depuis 2011. Les sujets 2010 ci-dessus sont ceux de l'édition Suisse.",
+    "tab_public_contests_score_explanation": "Vous pouvez vous entrainer sur l'ensemble de questions ci-dessous.<br/><br/>Les solutions vous seront fournies lorsque le temps sera écoulé ou que vous aurez cliqué sur <strong>quitter le concours</strong>.",
+    "tab_public_contests_organization": "",
     "tab_view_results_access_code": "Entrez le code d'accès qui vous a été fourni au moment de démarrer le concours :",
     "tab_view_results_view_results_button": "Accéder à ma participation",
     "tab_view_results_info_1": "Vous pourrez revoir vos réponses, et si le concours est terminé, votre score et une correction de chaque question.",
@@ -116,8 +116,8 @@
     "grade_13_pro": "En 7ème secondaire (pro).",
     "question_locked": "Question à débloquer",
     "question_list_intro": "<li>Chaque question comporte trois versions, permettant de gagner 2, 3 ou 4 étoiles.<li>Résoudre une version débloque la version suivante et une autre question.<li>Si les versions 3 ou 4 étoiles sont débloquées, vous pouvez y aller directement.<li>Vous pouvez revenir ici à tout moment en cliquant sur le bouton en haut à droite.",
-    "left_title": "<img src=\"images/castor_small.png\"/>",
+    "left_title": "<img src=\"images/beoi.png\"/>",
     "right_title": "",
-    "top_image": "<img src=\"images/castor_small.png\" style=\"width:65px\" />",
-    "top_image_new": "<img class=\"header_logo_img\" src=\"images/castor_small.png\" />"
+    "top_image": "<img src=\"images/beoi.png\" style=\"width:65px\" />",
+    "top_image_new": "<img class=\"header_logo_img\" src=\"images/beoi.png\" />"
 }
