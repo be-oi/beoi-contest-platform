@@ -344,7 +344,7 @@ Resources:
 
       - Namespace: aws:elasticbeanstalk:application
         OptionName: Application Healthcheck URL
-        Value: HTTPS:443/contestInterface/index.php
+        Value: /contestInterface/index.php
 
       - Namespace: aws:elasticbeanstalk:application:environment
         OptionName: DATABASE_PASSWORD
