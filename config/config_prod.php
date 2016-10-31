@@ -1,6 +1,7 @@
 <?php
 
-$config->db->use = 'dynamoDB';
+$config->db->use = 'mysql'; // or dynamoDB
+$config->db->dynamoSessions = true;
 $config->teacherInterface->generationMode = 'aws+local';
 $config->teacherInterface->sAssetsStaticPath = 'https://manage-static.be-oi.be/contestAssets';
 $config->teacherInterface->countryCode = 'BE';
