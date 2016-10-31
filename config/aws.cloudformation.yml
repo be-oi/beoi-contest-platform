@@ -23,6 +23,13 @@ Parameters:
   CloudfrontSSLCertificateARN: # Must be created separately as currently CloudFront certificate must be in us-east-1
     Description: The ACM certificate ARN to be used for CloudFront 
     Type: String 
+  SMTPUsername:
+    Description: SMTP Username
+    Type: String
+  SMTPPassword:
+    NoEcho: true
+    Description: SMTP Password
+    Type: String
 
 Resources:
 
@@ -345,6 +352,12 @@ Resources:
       - Namespace: aws:elasticbeanstalk:application:environment
         OptionName: DATADOG_API_KEY
         Value: !Ref DatadogAPIKey
+      - Namespace: aws:elasticbeanstalk:application:environment
+        OptionName: SMTP_USERNAME
+        Value: !Ref SMTPUsername
+      - Namespace: aws:elasticbeanstalk:application:environment
+        OptionName: SMTP_PASSWORD
+        Value: !Ref SMTPPassword
       - Namespace: aws:elasticbeanstalk:application:environment
         OptionName: ENVIRONMENT
         Value: prod
