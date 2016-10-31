@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # to be moved to a more appropriate place
 
 FILES="
@@ -12,14 +14,13 @@ bower_components/utf8/utf8.js
 bower_components/base64/base64.min.js
 bower_components/pem-platform/task-pr.js
 style.css
-i18n/en/translation.json
 raphael-min.js
 i18n/fr/translation.json
 i18n/en/translation.json
 "
 for file in $FILES
 do
-	aws s3 cp contestInterface/$file s3://contest-platform-contests-eu-central-1-997893130250/contestAssets/$file --acl public-read $@ --cache-control 'max-age=3600, must-revalidate'
+	aws s3 cp contestInterface/$file s3://contest-platform-contests-eu-central-1-997893130250/contestAssets/$file --acl public-read $@ --cache-control 'max-age=60, must-revalidate'
 done
 
 # gzip -c9 translations/castor-contest.json | aws s3 cp - s3://static3.castor-informatique.fr/contestAssets/i18n/fr/castor.json --acl public-read --content-encoding 'gzip' --content-type 'application/json' --region eu-west-1 --cache-control 'max-age=43200, must-revalidate'
