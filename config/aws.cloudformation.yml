@@ -181,12 +181,27 @@ Resources:
 
   # ======== Resources for EB ========
   
-  SSLCertificate:
+  SSLCertificate: # Used by Load Balancers
     Type: AWS::CertificateManager::Certificate
     Properties:
       DomainName: "*.be-oi.be"
 
-  EBEC2Role:
+  EBServiceRole: # required to allow EB to update its config
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+        - Effect: Allow
+          Principal: { Service: elasticbeanstalk.amazonaws.com }
+          Action: sts:AssumeRole
+          Condition: { StringEquals: { "sts:ExternalId": elasticbeanstalk } }
+      Path: "/"
+      ManagedPolicyArns:
+      - arn:aws:iam::aws:policy/service-role/AWSElasticBeanstalkEnhancedHealth
+      - arn:aws:iam::aws:policy/service-role/AWSElasticBeanstalkService
+
+  EBEC2Role: # The permission available on EC2 hosts
     Type: AWS::IAM::Role
     Properties:
       AssumeRolePolicyDocument:
@@ -381,6 +396,9 @@ Resources:
       - Namespace: aws:elasticbeanstalk:environment
         OptionName: LoadBalancerType
         Value: application
+      - Namespace: aws:elasticbeanstalk:environment
+        OptionName: ServiceRole
+        Value: !Ref EBServiceRole
 
       - Namespace: aws:elasticbeanstalk:environment:process:contestweb
         OptionName: MatcherHTTPCode
