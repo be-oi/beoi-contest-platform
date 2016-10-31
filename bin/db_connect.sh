@@ -1,1 +1,3 @@
+#!/bin/bash
+
 mysql -h $DATABASE_HOST -u $DATABASE_USER -p$DATABASE_PASSWORD $DATABASE_NAME  
