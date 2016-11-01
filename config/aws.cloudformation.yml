@@ -31,14 +31,18 @@ Parameters:
     Description: SMTP Password
     Type: String
 
+Conditions: 
+  UseDynDBTeamTables: !Equals [0, 1]  # DISABLED
+
 Resources:
 
   # ======== DynamoDB Tables ========
 
   TeamTable:
     Type: "AWS::DynamoDB::Table"
+    Condition: UseDynDBTeamTables
     Properties:
-      TableName: team
+      TableName: team # if name changed, policy below must be updated as well
       AttributeDefinitions:
         - { AttributeName: ID, AttributeType: N }
         - { AttributeName: password, AttributeType: S }
@@ -58,8 +62,9 @@ Resources:
 
   TeamQuestionTable:
     Type: "AWS::DynamoDB::Table"
+    Condition: UseDynDBTeamTables
     Properties:
-      TableName: team_question
+      TableName: team_question # if name changed, policy below must be updated as well
       AttributeDefinitions:
         - { AttributeName: teamID, AttributeType: N }
         - { AttributeName: questionID, AttributeType: N }
@@ -73,7 +78,7 @@ Resources:
   SessionTable:
     Type: "AWS::DynamoDB::Table"
     Properties:
-      TableName: sessions
+      TableName: sessions # if name changed, policy below must be updated as well
       AttributeDefinitions:
         - { AttributeName: id, AttributeType: S }
       KeySchema:
@@ -214,7 +219,7 @@ Resources:
           Action:
           - sts:AssumeRole
       Policies:
-      - PolicyName: PublishLogOnS3
+      - PolicyName: InstancePermissions
         PolicyDocument:
           Version: '2012-10-17'
           Statement:
@@ -239,10 +244,10 @@ Resources:
             - "dynamodb:Scan"
             - "dynamodb:UpdateItem"
             Resource:
-            - !Sub "arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/${TeamTable}"
-            - !Sub "arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/${TeamTable}/index/*"
-            - !Sub "arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/${TeamQuestionTable}"
-            - !Sub "arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/${SessionTable}"
+            - !Sub "arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/team"
+            - !Sub "arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/team/index/*"
+            - !Sub "arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/team_question"
+            - !Sub "arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/sessions"
 
   EBEC2InstanceProfile:
     Type: AWS::IAM::InstanceProfile
