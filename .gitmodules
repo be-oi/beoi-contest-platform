@@ -7,6 +7,3 @@
 [submodule "ext/pi-google-maps-api"]
 	path = ext/pi-google-maps-api
 	url = https://github.com/pivaldi/pi-google-maps-api.git
-[submodule "teacherInterface/beoi-contest-tasks"]
-	path = teacherInterface/beoi-contest-tasks
-	url = git@github.com:be-oi/beoi-contest-tasks.git
