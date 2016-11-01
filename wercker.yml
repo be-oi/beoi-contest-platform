@@ -23,10 +23,6 @@ build-docker:
       registry: https://registry.hub.docker.com
 new-eb-version:
   steps:
-    - edgecaseadmin/install-aws-cli:
-      key: $AWS_KEY
-      secret: $AWS_SECRET
-      region: eu-central-1
     - script:
       name: upload new version
       code: |
@@ -35,9 +31,23 @@ new-eb-version:
         IMAGENAME=$VERSION
         BUCKETNAME=elasticbeanstalk-eu-central-1-997893130250
         BUCKETPREFIX=contest-platform/
-        BUCKETREGION=eu-central-1
+        REGION=eu-central-1
         EBAPPNAME=contest-platform
-        EBREGION=eu-central-1
+
+        info 'Installing pip...'
+        sudo apt-get update
+        sudo apt-get install -y python-pip libpython-all-dev zip
+
+        info 'Installing the AWS CLI...';
+        sudo pip install awscli;
+
+        mkdir -p $HOME/.aws
+        echo '[default]' > $HOME/.aws/config
+        echo 'output = json' >> $HOME/.aws/config
+        echo "region = $REGION" >> $HOME/.aws/config
+        echo "aws_access_key_id = $AWS_KEY" >> $HOME/.aws/config
+        echo "aws_secret_access_key = $AWS_SECRET" >> $HOME/.aws/config
+
         echo "{
           \"AWSEBDockerrunVersion\": \"1\",
           \"Image\": {
@@ -52,5 +62,5 @@ new-eb-version:
           \"Logging\": \"/var/www/html/logs\"
         }" > Dockerrun.aws.json
         zip -r RELEASE.zip Dockerrun.aws.json .ebextensions
-        aws s3 cp RELEASE.zip s3://$BUCKETNAME/$BUCKETPREFIX$VERSION --region $BUCKETREGION
-        aws elasticbeanstalk create-application-version --application-name $APPNAME --region $EBREGION --version-label $VERSION --source-bundle S3Bucket=$BUCKETNAME,S3Key=$BUCKETPREFIX$VERSION
+        aws s3 cp RELEASE.zip s3://$BUCKETNAME/$BUCKETPREFIX$VERSION --acl private
+        aws elasticbeanstalk create-application-version --application-name $APPNAME --version-label $VERSION --source-bundle S3Bucket=$BUCKETNAME,S3Key=$BUCKETPREFIX$VERSION
