@@ -123,6 +123,9 @@ function inArray(arr, value) {
  */
 var platform = {
    updateHeight: function(height, success, error) {
+      if (height < 700) {
+        height = 700;
+      }
       questionIframe.setHeight(height);
       if (success) {success();}
    },
@@ -1096,7 +1099,7 @@ function setupContest(data) {
    var sortedQuestionIDs = getSortedQuestionIDs(questionsData);
    if (newInterface) {
       fillListQuestionsNew(sortedQuestionIDs, questionsData);
-      if (customIntro != null) {
+      if ((customIntro != null) && (customIntro != '')) {
          $("#questionListIntro").html(customIntro);
       }
    } else {
