@@ -12,6 +12,6 @@ build-docker:
     - internal/docker-push:
       username: $DOCKERHUB_USERNAME
       password: $DOCKERHUB_PASSWORD
-      tag: $VERSION
+      tag: $DOCKERHUB_USERNAME
       repository: beoi/beoi-contest-platform
       registry: https://registry.hub.docker.com
