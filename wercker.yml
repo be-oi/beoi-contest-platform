@@ -1,32 +1,13 @@
 box: debian
-build:
-  steps:
-    - script:
-      name: set version
-      code: date +%Y%m%dT%H%M%S > $WERCKER_CACHE_DIR/VERSION
-build-docker:
-  steps:
-    - script:
-      name: get version
-      code: export VERSION="`cat $WERCKER_CACHE_DIR/VERSION`"
-    - internal/docker-push:
-      username: $DOCKERHUB_USERNAME
-      password: $DOCKERHUB_PASSWORD
-      tag: $VERSION
-      repository: beoi/beoi-contest-platform
-      registry: https://registry.hub.docker.com
-    - internal/docker-push:
-      username: $DOCKERHUB_USERNAME
-      password: $DOCKERHUB_PASSWORD
-      tag: latest
-      repository: beoi/beoi-contest-platform
-      registry: https://registry.hub.docker.com
 new-eb-version:
   steps:
     - script:
       name: upload new version
       code: |
-        VERSION="`cat $WERCKER_CACHE_DIR/VERSION`"
+        [ "$WERCKER_GIT_BRANCH" -eq "master" ] && TAG="release"
+        [[ "$WERCKER_GIT_BRANCH" =~ ^[0-9]+ ]] && TAG=$WERCKER_GIT_BRANCH
+        if [ -z $TAG ]; exit 0; fi
+
         REPOSITORY="beoi/beoi-contest-platform"
         IMAGENAME=$VERSION
         BUCKETNAME=elasticbeanstalk-eu-central-1-997893130250
@@ -63,4 +44,5 @@ new-eb-version:
         }" > Dockerrun.aws.json
         zip -r RELEASE.zip Dockerrun.aws.json .ebextensions
         aws s3 cp RELEASE.zip s3://$BUCKETNAME/$BUCKETPREFIX$VERSION --acl private
+        [ "$WERCKER_GIT_BRANCH" -eq "master" ] && aws elasticbeanstalk delete-application-version --application-name $EBAPPNAME --version-label $VERSION
         aws elasticbeanstalk create-application-version --application-name $EBAPPNAME --version-label $VERSION --source-bundle S3Bucket=$BUCKETNAME,S3Key=$BUCKETPREFIX$VERSION
