@@ -55,7 +55,7 @@ new-eb-version:
         else
           create_app_version "$WERCKER_GIT_BRANCH"
         fi
-        git describe --exact-match && create_app_version `git describe --exact-match`
+        git describe --exact-match && create_app_version `git describe --exact-match` || echo "Not on a tag"
 
 deploy-static-files:
   steps:
