@@ -77,9 +77,5 @@ deploy-static-files:
         echo "aws_access_key_id = $AWS_KEY" >> $HOME/.aws/config
         echo "aws_secret_access_key = $AWS_SECRET" >> $HOME/.aws/config
 
-        echo "---""
-        cat $HOME/.aws/config
-        echo "---"
-
         ./bin/upload_static_to_s3.sh
 
