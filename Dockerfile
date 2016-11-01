@@ -15,6 +15,7 @@ RUN composer.phar install
 COPY config/apache.conf /etc/apache2/sites-available/contest.conf
 RUN a2dissite 000-default
 RUN a2ensite contest
+RUN mkdir /var/www/html/logs && ln -s /var/log/apache2 /var/www/html/logs/apache
 
 RUN docker-php-ext-install mysqli pdo pdo_mysql
 
