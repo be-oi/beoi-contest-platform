@@ -1,0 +1,81 @@
+box: debian
+build:
+  steps: 
+  - script:
+    name: "init"
+    code: echo "Nothing to be built"
+new-eb-version:
+  steps:
+    - script:
+      name: upload new version(s)
+      code: |
+        REPOSITORY="beoi/beoi-contest-platform"
+        BUCKETNAME=elasticbeanstalk-eu-central-1-997893130250
+        BUCKETPREFIX=contest-platform/
+        REGION=eu-central-1
+        EBAPPNAME=contest-platform
+
+        info 'Installing pip...'
+        sudo apt-get update
+        sudo apt-get install -y python-pip libpython-all-dev zip git
+
+        info 'Installing the AWS CLI...';
+        sudo pip install awscli;
+
+        mkdir -p $HOME/.aws
+        echo '[default]' > $HOME/.aws/config
+        echo 'output = json' >> $HOME/.aws/config
+        echo "region = $REGION" >> $HOME/.aws/config
+        echo "aws_access_key_id = $AWS_KEY" >> $HOME/.aws/config
+        echo "aws_secret_access_key = $AWS_SECRET" >> $HOME/.aws/config
+
+        function create_app_version {
+
+          echo "{
+            \"AWSEBDockerrunVersion\": \"1\",
+            \"Image\": {
+              \"Name\": \"$REPOSITORY:$1\",
+              \"Update\": \"true\"
+            },
+            \"Ports\": [
+              {
+                \"ContainerPort\": \"80\"
+              }
+            ],
+            \"Logging\": \"/var/www/html/logs\"
+          }" > Dockerrun.aws.json
+          zip -r RELEASE.zip Dockerrun.aws.json .ebextensions
+          aws s3 cp RELEASE.zip s3://$BUCKETNAME/$BUCKETPREFIX$1 --acl private
+          aws elasticbeanstalk delete-application-version --application-name $EBAPPNAME --version-label $1 || echo "Not exisiting"
+          aws elasticbeanstalk create-application-version --application-name $EBAPPNAME --version-label $1 --source-bundle S3Bucket=$BUCKETNAME,S3Key=$BUCKETPREFIX$1
+        }
+
+        if [ "$WERCKER_GIT_BRANCH" -eq "master" ]; then 
+          create_app_version "latest";
+        else
+          create_app_version "$WERCKER_GIT_BRANCH"
+        fi
+        git describe --exact-match && create_app_version `git describe --exact-match` || echo "Not on a tag"
+
+deploy-static-files:
+  steps:
+    - script:
+      name: Upload static files to S3
+      code: |
+        REGION=eu-central-1
+
+        info 'Installing pip...'
+        sudo apt-get update
+        sudo apt-get install -y python-pip libpython-all-dev
+        info 'Installing the AWS CLI...';
+        sudo pip install awscli;
+
+        mkdir -p $HOME/.aws
+        echo '[default]' > $HOME/.aws/config
+        echo 'output = json' >> $HOME/.aws/config
+        echo "region = $REGION" >> $HOME/.aws/config
+        echo "aws_access_key_id = $AWS_KEY" >> $HOME/.aws/config
+        echo "aws_secret_access_key = $AWS_SECRET" >> $HOME/.aws/config
+
+        ./bin/upload_static_to_s3.sh
+
