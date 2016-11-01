@@ -51,7 +51,7 @@ new-eb-version:
         echo "{
           \"AWSEBDockerrunVersion\": \"1\",
           \"Image\": {
-            \"Name\": \"$REPOSITORY/$IMAGENAME\",
+            \"Name\": \"$REPOSITORY:$IMAGENAME\",
             \"Update\": \"true\"
           },
           \"Ports\": [
