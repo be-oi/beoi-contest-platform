@@ -63,4 +63,4 @@ new-eb-version:
         }" > Dockerrun.aws.json
         zip -r RELEASE.zip Dockerrun.aws.json .ebextensions
         aws s3 cp RELEASE.zip s3://$BUCKETNAME/$BUCKETPREFIX$VERSION --acl private
-        aws elasticbeanstalk create-application-version --application-name $APPNAME --version-label $VERSION --source-bundle S3Bucket=$BUCKETNAME,S3Key=$BUCKETPREFIX$VERSION
+        aws elasticbeanstalk create-application-version --application-name $EBAPPNAME --version-label $VERSION --source-bundle S3Bucket=$BUCKETNAME,S3Key=$BUCKETPREFIX$VERSION
