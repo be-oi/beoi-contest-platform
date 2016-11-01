@@ -869,7 +869,7 @@ var questionID;
 function loadListQuestions() {
    loadGrid("question", "key", 20, [20, 50, 200], function(id) {
       questionID = id;
-      var url = "bebras-tasks/" + questions[id].folder + "/" + questions[id].key + "/index.html";
+      var url = "beoi-contest-tasks/" + questions[id].folder + "/" + questions[id].key + "/index.html";
       $("#preview_question").attr("src", url);
    }, true);
 }
@@ -1444,7 +1444,7 @@ function grade(curContestID, curGroupID, questionKeys, questionFolders, curIndex
    // Retrieve the bebras/grader of the current question
    $.post('grader.php', { contestID: curContestID, groupID: curGroupID, questionKey: questionKeys[curIndex] },function(data) {
       if (data.status === 'success') {
-         var url = "bebras-tasks/" + questionFolders[curIndex] + "/" + questionKeys[curIndex] + "/index.html";
+         var url = "beoi-contest-tasks/" + questionFolders[curIndex] + "/" + questionKeys[curIndex] + "/index.html";
          $("#preview_question").attr("src", url);
          
          // Retrieve bebras
@@ -1821,7 +1821,7 @@ function genQuestion() {
    button.attr("disabled", true);
    
    tasks = []; // Reinit
-   var url = "bebras-tasks/" + questions[questionID].folder + "/" + questions[questionID].key + "/";
+   var url = "beoi-contest-tasks/" + questions[questionID].folder + "/" + questions[questionID].key + "/";
    $("#preview_question").attr("src", url);
    
    // Retrieve bebras
@@ -1875,7 +1875,7 @@ function genTasks(questionsUrl, curIndex)
       return;
    }
    
-   var url = "bebras-tasks/" + questionsUrl[curIndex];
+   var url = "beoi-contest-tasks/" + questionsUrl[curIndex];
    $("#preview_question").attr("src", url);
    generating = true;
    $('#preview_question').load(function() {

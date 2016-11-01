@@ -286,7 +286,7 @@ function generateContest($tasks, $contestID, $contestFolder, $fullFeedback = fal
       
       list($curFolder, $curKey) = explode('/', $curTask['url']);
       $taskUrl = $curTask['url'].'/';
-      $task = new PEMTaskCompiler($curTask['bebras'], __DIR__.'/bebras-tasks/'.$curFolder.'/'.$curKey.'/', true);
+      $task = new PEMTaskCompiler($curTask['bebras'], __DIR__.'/beoi-contest-tasks/'.$curFolder.'/'.$curKey.'/', true);
 
       // Task directory
       if ($mode != "aws") {
@@ -364,11 +364,11 @@ function generateContest($tasks, $contestID, $contestFolder, $fullFeedback = fal
       $strQuestions.= $strQuestion;
       contestAddContent($contestFolder, $strQuestion, $nameParts, $buffer, $numPart, false);
    }
-   contestCopyFile(__DIR__.'/bebras-tasks/modules/img/castor.png', $contestFolder.'/castor.png');
-   contestCopyFile(__DIR__.'/bebras-tasks/modules/img/laptop_success.png', $contestFolder.'/laptop_success.png');
-   contestCopyFile(__DIR__.'/bebras-tasks/modules/img/laptop_warning.png', $contestFolder.'/laptop_warning.png');
-   contestCopyFile(__DIR__.'/bebras-tasks/modules/img/laptop_error.png', $contestFolder.'/laptop_error.png');
-   contestCopyFile(__DIR__.'/bebras-tasks/modules/img/fleche-bulle.png', $contestFolder.'/fleche-bulle.png');
+   contestCopyFile(__DIR__.'/beoi-contest-tasks/modules/img/castor.png', $contestFolder.'/castor.png');
+   contestCopyFile(__DIR__.'/beoi-contest-tasks/modules/img/laptop_success.png', $contestFolder.'/laptop_success.png');
+   contestCopyFile(__DIR__.'/beoi-contest-tasks/modules/img/laptop_warning.png', $contestFolder.'/laptop_warning.png');
+   contestCopyFile(__DIR__.'/beoi-contest-tasks/modules/img/laptop_error.png', $contestFolder.'/laptop_error.png');
+   contestCopyFile(__DIR__.'/beoi-contest-tasks/modules/img/fleche-bulle.png', $contestFolder.'/fleche-bulle.png');
    $images[] = $config->teacherInterface->sAbsoluteStaticPath.'/contests/'.$contestFolder.'/castor.png';
    $images[] = $config->teacherInterface->sAbsoluteStaticPath.'/contests/'.$contestFolder.'/fleche-bulle.png';
 

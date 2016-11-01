@@ -11,7 +11,7 @@ class Bebras
     */
    public static function getQuestionsDirectory()
    {
-      return realpath(__DIR__ . '/../../teacherInterface/bebras-tasks');
+      return realpath(__DIR__ . '/../../teacherInterface/beoi-contest-tasks');
    }
 
    /**

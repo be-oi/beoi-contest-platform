@@ -85,7 +85,7 @@ class Route
     */
    public function getTaskPath()
    {      
-      return 'bebras-tasks/'.$this->route;
+      return 'beoi-contest-tasks/'.$this->route;
    }
    
    /**
