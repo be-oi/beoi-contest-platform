@@ -8,10 +8,10 @@ build-docker:
   steps:
     - script:
       name: get version
-      code: VERSION=`cat $WERCKER_CACHE_DIR/VERSION`
+      code: VERSION="WORKED"
     - internal/docker-push:
       username: $DOCKERHUB_USERNAME
       password: $DOCKERHUB_PASSWORD
-      tag: $DOCKERHUB_USERNAME
+      tag: $VERSION
       repository: beoi/beoi-contest-platform
       registry: https://registry.hub.docker.com
