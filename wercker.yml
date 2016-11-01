@@ -1,0 +1,17 @@
+box: debian
+build:
+  steps:
+    - script:
+      name: set version
+      code: date +%Y-%m-%dT%H%M%S > $WERCKER_CACHE_DIR/VERSION
+build-docker:
+  steps:
+    - script:
+      name: get version
+      code: VERSION=`cat $WERCKER_CACHE_DIR/VERSION`
+    - internal/docker-push:
+      username: $DOCKERHUB_USERNAME
+      password: $DOCKERHUB_PASSWORD
+      tag: $VERSION
+      repository: beoi/beoi-contest-platform
+      registry: https://registry.hub.docker.com
