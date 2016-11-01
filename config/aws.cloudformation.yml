@@ -349,7 +349,7 @@ Resources:
 
       - Namespace: aws:elasticbeanstalk:application
         OptionName: Application Healthcheck URL
-        Value: /contestInterface/index.php
+        Value: /contestInterface/data.php
 
       - Namespace: aws:elasticbeanstalk:application:environment
         OptionName: DATABASE_PASSWORD
@@ -408,6 +408,9 @@ Resources:
       - Namespace: aws:elasticbeanstalk:environment:process:contestweb
         OptionName: MatcherHTTPCode
         Value: 200
+      - Namespace: aws:elasticbeanstalk:environment:process:contestweb
+        OptionName: HealthCheckPath
+        Value: /contestInterface/data.php
 
       - Namespace: aws:elasticbeanstalk:healthreporting:system
         OptionName: SystemType
