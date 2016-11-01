@@ -50,7 +50,7 @@ new-eb-version:
           aws elasticbeanstalk create-application-version --application-name $EBAPPNAME --version-label $1 --source-bundle S3Bucket=$BUCKETNAME,S3Key=$BUCKETPREFIX$1
         }
 
-        if [ "$WERCKER_GIT_BRANCH" -eq "master" ]; then 
+        if [ "$WERCKER_GIT_BRANCH" == "master" ]; then 
           create_app_version "latest";
         else
           create_app_version "$WERCKER_GIT_BRANCH"
