@@ -4,12 +4,7 @@ new-eb-version:
     - script:
       name: upload new version
       code: |
-        [ "$WERCKER_GIT_BRANCH" -eq "master" ] && TAG="release"
-        [[ "$WERCKER_GIT_BRANCH" =~ ^[0-9]+ ]] && TAG=$WERCKER_GIT_BRANCH
-        if [ -z $TAG ]; exit 0; fi
-
         REPOSITORY="beoi/beoi-contest-platform"
-        IMAGENAME=$VERSION
         BUCKETNAME=elasticbeanstalk-eu-central-1-997893130250
         BUCKETPREFIX=contest-platform/
         REGION=eu-central-1
@@ -29,20 +24,37 @@ new-eb-version:
         echo "aws_access_key_id = $AWS_KEY" >> $HOME/.aws/config
         echo "aws_secret_access_key = $AWS_SECRET" >> $HOME/.aws/config
 
-        echo "{
-          \"AWSEBDockerrunVersion\": \"1\",
-          \"Image\": {
-            \"Name\": \"$REPOSITORY:$IMAGENAME\",
-            \"Update\": \"true\"
-          },
-          \"Ports\": [
-            {
-              \"ContainerPort\": \"80\"
-            }
-          ],
-          \"Logging\": \"/var/www/html/logs\"
-        }" > Dockerrun.aws.json
-        zip -r RELEASE.zip Dockerrun.aws.json .ebextensions
-        aws s3 cp RELEASE.zip s3://$BUCKETNAME/$BUCKETPREFIX$VERSION --acl private
-        [ "$WERCKER_GIT_BRANCH" -eq "master" ] && aws elasticbeanstalk delete-application-version --application-name $EBAPPNAME --version-label $VERSION
-        aws elasticbeanstalk create-application-version --application-name $EBAPPNAME --version-label $VERSION --source-bundle S3Bucket=$BUCKETNAME,S3Key=$BUCKETPREFIX$VERSION
+        function create_app_version {
+
+          echo "{
+            \"AWSEBDockerrunVersion\": \"1\",
+            \"Image\": {
+              \"Name\": \"$REPOSITORY:$1\",
+              \"Update\": \"true\"
+            },
+            \"Ports\": [
+              {
+                \"ContainerPort\": \"80\"
+              }
+            ],
+            \"Logging\": \"/var/www/html/logs\"
+          }" > Dockerrun.aws.json
+          zip -r RELEASE.zip Dockerrun.aws.json .ebextensions
+          aws s3 cp RELEASE.zip s3://$BUCKETNAME/$BUCKETPREFIX$1 --acl private
+          aws elasticbeanstalk delete-application-version --application-name $EBAPPNAME --version-label $1 || echo "Not exisiting"
+          aws elasticbeanstalk create-application-version --application-name $EBAPPNAME --version-label $1 --source-bundle S3Bucket=$BUCKETNAME,S3Key=$BUCKETPREFIX$1
+        }
+
+        if [ "$WERCKER_GIT_BRANCH" -eq "master" ]; then 
+          create_app_version "latest";
+        else
+          create_app_version "$WERCKER_GIT_BRANCH"
+        fi
+
+        git describe --exact-match && create_app_version `git describe --exact-match`
+
+
+
+        [[ "$WERCKER_GIT_BRANCH" =~ ^[0-9]+ ]] && TAG=$WERCKER_GIT_BRANCH
+        [ -z $TAG ] && TAG=$WERCKER_GIT_BRANCH
+
