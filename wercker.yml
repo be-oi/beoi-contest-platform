@@ -8,7 +8,7 @@ build-docker:
   steps:
     - script:
       name: get version
-      code: VERSION="WORKED"
+      code: export VERSION="WORKED"
     - internal/docker-push:
       username: $DOCKERHUB_USERNAME
       password: $DOCKERHUB_PASSWORD
