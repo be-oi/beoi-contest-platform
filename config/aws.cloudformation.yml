@@ -224,13 +224,16 @@ Resources:
           Version: '2012-10-17'
           Statement:
           - Effect: Allow
-            Action: "s3:PutObject"
+            Action: "s3:GetObject*"
+            Resource: !Sub "arn:aws:s3:::elasticbeanstalk-${AWS::Region}-${AWS::AccountId}/tasks/*"
+          - Effect: Allow
+            Action: "s3:PutObject*"
             Resource: !Sub "arn:aws:s3:::elasticbeanstalk-${AWS::Region}-${AWS::AccountId}/resources/environments/logs/*"
           - Effect: Allow
-            Action: [ "s3:PutObject", "s3:DeleteObject" ]
+            Action: [ "s3:PutObject*", "s3:DeleteObject*" ]
             Resource: !Sub "arn:aws:s3:::${ContestBucket}/*" 
           - Effect: Allow
-            Action: "s3:ListObjects"
+            Action: ["s3:ListBucket", "s3:GetBucketLocation"]
             Resource: !Sub "arn:aws:s3:::${ContestBucket}" 
           - Effect: Allow
             Action:
