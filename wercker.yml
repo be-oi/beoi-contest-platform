@@ -34,16 +34,17 @@ new-eb-version:
           echo "{
             \"AWSEBDockerrunVersion\": \"1\",
             \"Image\": {
-              \"Name\": \"$REPOSITORY:$1\",
+              \"Name\": \"beoi/beoi-contest-platform:$1\",
               \"Update\": \"true\"
             },
-            \"Ports\": [
-              {
-                \"ContainerPort\": \"80\"
-              }
-            ],
-            \"Logging\": \"/var/www/html/logs\"
+            \"Logging\": \"/var/www/html/logs\",
+            \"Ports\": [ {\"ContainerPort\": \"80\"} ],
+            \"Volumes\": [ {
+              \"HostDirectory\": \"/home/ec2-user/tasks\",
+              \"ContainerDirectory\": \"/var/www/html/teacherInterface/beoi-contest-tasks\"
+            } ]
           }" > Dockerrun.aws.json
+
           zip -r RELEASE.zip Dockerrun.aws.json .ebextensions
           aws s3 cp RELEASE.zip s3://$BUCKETNAME/$BUCKETPREFIX$1 --acl private
           aws elasticbeanstalk delete-application-version --application-name $EBAPPNAME --version-label $1 || echo "Not exisiting"
