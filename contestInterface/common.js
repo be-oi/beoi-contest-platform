@@ -1518,7 +1518,6 @@ function getPublicGroupsList(groups) {
       {name: t("level_1_name"), i18name: "level_1_name", id: 1},
       {name: t("level_2_name"), i18name: "level_2_name", id: 2},
       {name: t("level_3_name"), i18name: "level_3_name", id: 3},
-      {name: t("level_4_name"), i18name: "level_4_name", id: 4},
       {name: t("level_all_questions_name"), i18name: "level_all_questions_name", id: 0}
    ];
    var strGroups = "<table style='border:solid 1px black' cellspacing=0 cellpadding=5>";
