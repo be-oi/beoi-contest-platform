@@ -1,4 +1,7 @@
 regions = [
-   'countryBE:foreign',
-   'countryBE:belgium',
+   'countryBE:fr',
+   'countryBE:nl',
+   'countryBE:de',
+   'countryBE:private',
+   'countryBE:foreign'
 ];
