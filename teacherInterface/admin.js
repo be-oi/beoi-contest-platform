@@ -1073,6 +1073,7 @@ function continueLogUser() {
    }
    $("#admin_view").tabs();
    $("#admin_view").show();
+   if (!config.enableAwardTab) $("#li-tabs-awards").hide();
    loadListGroups();
    if (state !== 'contest') {
       loadContestants();
