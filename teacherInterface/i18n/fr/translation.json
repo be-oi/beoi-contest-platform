@@ -289,7 +289,7 @@
     "users_groups_readonly": "Vous pouvez choisir à quels collègues vous permettez d'accéder à vos groupes.",
     "invalid_identifiers": "Identifiant ou mot de passe invalide",
     "unknown_email": "Adresse inconnue",
-    "mail_from_name": "Inscription Castor-Informatique",
+    "mail_from_name": "Inscription beOI",
     "recover_email_sent_1": "Vous allez recevoir un courriel à l'adresse ",
     "recover_email_sent_2": ". Cliquez sur le lien qu'il contient pour définir un nouveau mot de passe",
     "recover_mail_body": "Bonjour,\r\n\r\nPour définir un nouveau mot de passe, ouvrez le lien suivant dans votre navigateur  : \r\n\r\n__link__\r\n\r\nN'hésitez pas à nous contacter si vous rencontrez des difficultés.\r\n\r\nCordialement,\r\n--\r\nL'équipe beOI",
