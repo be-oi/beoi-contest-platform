@@ -30,6 +30,10 @@ Parameters:
     NoEcho: true
     Description: SMTP Password
     Type: String
+  TeacherInterfaceTaskPassws:
+    NoEcho: true
+    Description: Password used to protect the teacher interface
+    Type: String
 
 Conditions: 
   UseDynDBTeamTables: !Equals [0, 1]  # DISABLED
@@ -381,6 +385,9 @@ Resources:
       - Namespace: aws:elasticbeanstalk:application:environment
         OptionName: SMTP_PASSWORD
         Value: !Ref SMTPPassword
+      - Namespace: aws:elasticbeanstalk:application:environment
+        OptionName: TEACHERINTERFACE_PASSWD
+        Value: !Ref TeacherInterfaceTaskPassws
       - Namespace: aws:elasticbeanstalk:application:environment
         OptionName: ENVIRONMENT
         Value: prod

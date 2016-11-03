@@ -39,10 +39,10 @@ new-eb-version:
             },
             \"Logging\": \"/var/www/html/logs\",
             \"Ports\": [ {\"ContainerPort\": \"80\"} ],
-            \"Volumes\": [ {
-              \"HostDirectory\": \"/home/ec2-user/tasks\",
-              \"ContainerDirectory\": \"/var/www/html/teacherInterface/beoi-contest-tasks\"
-            } ]
+            \"Volumes\": [ 
+              { \"HostDirectory\": \"/home/ec2-user/tasks\", \"ContainerDirectory\": \"/var/www/html/teacherInterface/beoi-contest-tasks\" },
+              { \"HostDirectory\": \"/home/ec2-user/conf\", \"ContainerDirectory\": \"/var/www/conf\" }
+            ]
           }" > Dockerrun.aws.json
 
           zip -r RELEASE.zip Dockerrun.aws.json .ebextensions
