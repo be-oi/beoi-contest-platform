@@ -712,12 +712,20 @@ function jqGridModel(modelName) {
    return res;
 }
 
+function jqGridDataFail(jqXHR, textStatus, error) {
+   if (jqXHR.responseText) {
+      jqAlert(jqXHR.responseText);
+   } else {
+      jqAlert('Error');
+   }
+}
+
 function teamViewMakeUnofficial(id) {
    if (confirm(t("confirm_make_team_unofficial"))) {
       jQuery("#grid_team_view").jqGrid('setCell',id,'participationType', 'Unofficial');
       jQuery("#grid_team_view").saveCell(id, 'participationType'); // doesn't work, no idea why...
       var item = {id: id, participationType: 'Unofficial'};
-      $.post("jqGridData.php", {tableName:"team_view", oper: "update", record: item});
+      $.post("jqGridData.php", {tableName:"team_view", oper: "update", record: item}).fail(jqGridDataFail);
    }
 }
 
@@ -1409,7 +1417,7 @@ function newItem(modelName, params, callback) {
          $('#grid_' + modelName).trigger('reloadGrid');   
       };
    }
-   $.post("jqGridData.php", params, callback);
+   $.post("jqGridData.php", params, callback).fail(jqGridDataFail);
 }
 
 function loopGradeContest(curContestID, curGroupID) {
@@ -2043,7 +2051,7 @@ function editGroup() {
    if (isAdmin()) {
       loadOneRecord("group", groupID, function(item) {
          editForm("group", t("edit_group"), item);
-      });
+      }).fail(jqGridDataFail);
 
    } else {
       if (groups[groupID].userID != loggedUser.ID) {
@@ -2326,7 +2334,7 @@ function validateForm(modelName) {
             }
          }
       }, "json"
-   );
+   ).fail(jqGridDataFail);
 }
 
 function endEditForm(modelName, recordID, item) {
