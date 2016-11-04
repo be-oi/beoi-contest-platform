@@ -364,7 +364,7 @@ function generateContest($tasks, $contestID, $contestFolder, $fullFeedback = fal
       $strQuestions.= $strQuestion;
       contestAddContent($contestFolder, $strQuestion, $nameParts, $buffer, $numPart, false);
    }
-   contestCopyFile(__DIR__.'/beoi-contest-tasks/modules/img/castor.png', $contestFolder.'/castor.png');
+   contestCopyFile(__DIR__.'/beoi-contest-tasks/images/beoi.png', $contestFolder.'/castor.png');
    contestCopyFile(__DIR__.'/beoi-contest-tasks/modules/img/laptop_success.png', $contestFolder.'/laptop_success.png');
    contestCopyFile(__DIR__.'/beoi-contest-tasks/modules/img/laptop_warning.png', $contestFolder.'/laptop_warning.png');
    contestCopyFile(__DIR__.'/beoi-contest-tasks/modules/img/laptop_error.png', $contestFolder.'/laptop_error.png');
