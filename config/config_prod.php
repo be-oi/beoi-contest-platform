@@ -4,6 +4,7 @@ $config->db->use = 'mysql'; // or dynamoDB
 $config->db->dynamoSessions = true;
 $config->teacherInterface->generationMode = 'aws+local';
 $config->teacherInterface->sAssetsStaticPath = 'https://manage-static.be-oi.be/contestAssets';
+$config->teacherInterface->sAbsoluteStaticPath = 'https://manage-static.be-oi.be';
 $config->teacherInterface->countryCode = 'BE';
 $config->timezone = 'Europe/Brussels';
 $config->email->bSendMailForReal = true;
