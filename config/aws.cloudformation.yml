@@ -144,6 +144,9 @@ Resources:
           CachedMethods: [HEAD, GET]
           TargetOriginId: contestbucket
           Compress: true
+          DefaultTTL: 60
+          MaxTTL: 60
+          MinTTL: 0
           ForwardedValues:
             Headers: ["Access-Control-Request-Headers", "Access-Control-Request-Method", Origin]
             QueryString: 'true'
