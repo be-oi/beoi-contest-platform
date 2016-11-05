@@ -18,3 +18,4 @@ $config->email->sInfoAddress = 'info@be-oi.be';
 $config->teacherInterface->forceOfficialEmailDomain = true;
 
 $config->enableAwardTab = false;
+$config->contestInterface->sessionLength = 36000;
