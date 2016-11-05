@@ -99,7 +99,7 @@
     "submitPass": "Soumettre le code de secours",
     "rank": "Classement : ",
     "others_retry": "Pour les autres il suffira de <input type='button' onclick='checkGroup()' value='Réessayer'/>.",
-    "grade_4": "En <5ème primaire ",
+    "grade_4": "En primaire avant la 5ème",
     "grade_5": "En 5ème primaire",
     "grade_6": "En 6ème primaire",
     "grade_7": "En 1ère secondaire",
