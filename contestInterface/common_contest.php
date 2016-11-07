@@ -61,7 +61,7 @@ function createTeamFromUserCode($db, $password) {
 function commonLoginTeam($db, $password) {
    global $tinyOrm, $config;
    $password = trim($password);
-   $stmt = $db->prepare("SELECT `team`.`ID` as `teamID`, `group`.`ID` as `groupID`, `group`.`contestID`, `group`.`name`, `team`.`nbMinutes`, `contest`.`bonusScore`, `contest`.`allowTeamsOfTwo`, `contest`.`newInterface`, `contest`.`customIntro`, `contest`.`fullFeedback`, `contest`.`nbUnlockedTasksInitial`, `contest`.`subsetsSize`, `contest`.`folder`, `contest`.`name` as `contestName`, `contest`.`open`, `contest`.`showSolutions`, `contest`.`visibility`, `group`.`schoolID`, `team`.`endTime` FROM `team` JOIN `group` ON (`team`.`groupID` = `group`.`ID`) JOIN `contest` ON (`group`.`contestID` = `contest`.`ID`) WHERE `team`.`password` = ?");
+   $stmt = $db->prepare("SELECT `team`.`ID` as `teamID`, `group`.`ID` as `groupID`, `group`.`contestID`, `group`.`isPublic`, `group`.`name`, `team`.`nbMinutes`, `contest`.`bonusScore`, `contest`.`allowTeamsOfTwo`, `contest`.`newInterface`, `contest`.`customIntro`, `contest`.`fullFeedback`, `contest`.`nbUnlockedTasksInitial`, `contest`.`subsetsSize`, `contest`.`folder`, `contest`.`name` as `contestName`, `contest`.`open`, `contest`.`showSolutions`, `contest`.`visibility`, `group`.`schoolID`, `team`.`endTime` FROM `team` JOIN `group` ON (`team`.`groupID` = `group`.`ID`) JOIN `contest` ON (`group`.`contestID` = `contest`.`ID`) WHERE `team`.`password` = ?");
    $stmt->execute(array($password));
    $row = $stmt->fetchObject();
    if (!$row) {
@@ -75,8 +75,11 @@ function commonLoginTeam($db, $password) {
          error_log('DynamoDB error finding team with password: '.$password);
       }
       if (!isset($teamDynamoDB[0]) || $row->teamID != $teamDynamoDB[0]['ID'] || $row->groupID != $teamDynamoDB[0]['groupID']) {
-         error_log('enregistrement différent entre MySQL et DynamoDB! SQL: teamID='.$row->teamID.', groupID='.$row->groupID.(isset($teamDynamoDB[0]) ? ' DDB: ID='.$teamDynamoDB[0]['ID'].', groupID='.$teamDynamoDB[0]['groupID'] : ' pas d\'enregistrement DynamoDB'));
-         return (object)array("success" => false, "message" => "enregistrement différent entre MySQL et DynamoDB!");
+         //error_log('enregistrement différent entre MySQL et DynamoDB! SQL: teamID='.$row->teamID.', groupID='.$row->groupID.(isset($teamDynamoDB[0]) ? ' DDB: ID='.$teamDynamoDB[0]['ID'].', groupID='.$teamDynamoDB[0]['groupID'] : ' pas d\'enregistrement DynamoDB'));
+         //return (object)array("success" => false, "message" => "enregistrement différent entre MySQL et DynamoDB!");
+         $_SESSION['mysqlOnly'] = true;
+      } elseif (isset($_SESSION['mysqlOnly'])) {
+         unset($_SESSION['mysqlOnly']);
       }
    }
    if ($row->open == "Closed") {
@@ -87,6 +90,7 @@ function commonLoginTeam($db, $password) {
       $stmt->execute(array($password));
    }
    $_SESSION["contestID"] = $row->contestID;
+   $_SESSION["isPublic"] = intval($row->isPublic);
    $_SESSION["contestName"] = $row->contestName;
    $_SESSION["name"] = $row->name;
    $_SESSION["teamID"] = $row->teamID;
@@ -120,8 +124,8 @@ function commonLoginTeam($db, $password) {
       "newInterface" => $row->newInterface,
       "customIntro" => $row->customIntro,
       "fullFeedback" => $row->fullFeedback,
-	  "nbUnlockedTasksInitial" => $row->nbUnlockedTasksInitial,
-	  "subsetsSize" => $row->subsetsSize,
+	   "nbUnlockedTasksInitial" => $row->nbUnlockedTasksInitial,
+	   "subsetsSize" => $row->subsetsSize,
       "teamID" => $row->teamID,
       );
 }

@@ -55,21 +55,109 @@ window.unlockAllLevels = function() {
    }
 };
 
+// From https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/keys
+if (!Object.keys) {
+  Object.keys = (function() {
+    'use strict';
+    var hasOwnProperty = Object.prototype.hasOwnProperty,
+        hasDontEnumBug = !({ toString: null }).propertyIsEnumerable('toString'),
+        dontEnums = [
+          'toString',
+          'toLocaleString',
+          'valueOf',
+          'hasOwnProperty',
+          'isPrototypeOf',
+          'propertyIsEnumerable',
+          'constructor'
+        ],
+        dontEnumsLength = dontEnums.length;
+
+    return function(obj) {
+      if (typeof obj !== 'object' && (typeof obj !== 'function' || obj === null)) {
+        throw new TypeError('Object.keys called on non-object');
+      }
+
+      var result = [], prop, i;
+
+      for (prop in obj) {
+        if (hasOwnProperty.call(obj, prop)) {
+          result.push(prop);
+        }
+      }
+
+      if (hasDontEnumBug) {
+        for (i = 0; i < dontEnumsLength; i++) {
+          if (hasOwnProperty.call(obj, dontEnums[i])) {
+            result.push(dontEnums[i]);
+          }
+        }
+      }
+      return result;
+    };
+  }());
+}
+
+/* global error handler */
 var nbErrorsSent = 0;
-var logError = function(error, errormsg) {
+var logError = function() {
+  var chunks = [];
+  try {
+    var n = arguments.length, i;
+    if (currentQuestionKey !== undefined) {
+      chunks.push(["questionKey", currentQuestionKey]);
+    }
+    for (i = 0; i < n; i++) {
+      var arg = arguments[i];
+      if (typeof arg === "string") {
+        chunks.push([i, arg]);
+      } else if (typeof arg === "object") {
+        if (typeof arg.name === "string") {
+          chunks.push([i, "name", arg.name]);
+        }
+        if (typeof arg.message === "string") {
+          chunks.push([i, "message", arg.message]);
+        }
+        if (typeof arg.stack === "string") {
+          chunks.push([i, "stack", arg.stack]);
+        }
+        if (typeof arg.details === "object" && arg.details !== null) {
+          var details = arg.details;
+          if (details.length === 5) {
+            chunks.push([i, "details", "message", details[0]]);
+            chunks.push([i, "details", "file", details[1]]);
+            chunks.push([i, "details", "line", details[2]]);
+            chunks.push([i, "details", "column", details[3]]);
+            var ex = details[4];
+            if (ex && typeof ex === "object") {
+              chunks.push([i, "details", "ex", "name", ex.name]);
+              chunks.push([i, "details", "ex", "message", ex.message]);
+              chunks.push([i, "details", "ex", "stack", ex.stack]);
+            }
+          } else {
+            chunks.push([i, "details", "keys", Object.keys(details)]);
+          }
+        }
+        chunks.push([i, "keys", Object.keys(arg)]);
+      } else {
+        chunks.push([i, "type", typeof arg]);
+      }
+    }
+  } catch (ex) {
+    chunks.push(["oops", ex.toString()]);
+    if (typeof ex.stack === "string") {
+      chunks.push(["oops", "stack", ex.stack]);
+    }
+  }
   var logStr;
-  if (typeof error != "string" && !error.stack) {
-     logStr = JSON.stringify(error);
-  } else {
-     logStr = error;
+  try {
+    logStr = JSON.stringify(chunks);
+  } catch (ex) {
+    logStr = ex.toString();
+    if (typeof ex.stack === "string") {
+      logStr += "\n" + ex.stack;
+    }
   }
-  if (errormsg) {
-     logStr += ' ' + errormsg;
-  }
-  if (error.stack) {
-    logStr += ' ' + error.stack;
-  }
-  logToConsole((currentQuestionKey ? currentQuestionKey+': ' : '')+logStr);
+  logToConsole(logStr);
   nbErrorsSent = nbErrorsSent + 1;
   if (nbErrorsSent > 10) {
     return;
@@ -259,8 +347,7 @@ var platform = {
       if ((!hasAnsweredQuestion) && (nextQuestionID !== "0")) {
          if ((mode != "stay") && (mode != "cancel")) {
             if (fullFeedback) {
-               // TODO : translate
-               alert("Vous avez répondu à votre première question, et la suivante va s'afficher automatiquement. Dans la liste à gauche, vous pouvez voir si la question a été résolue (symbole vert) et le nombre de points obtenus, vous pouvez aussi revenir sur une question en cliquant sur son nom.");
+               alert(t("first_question_message_full_feedback"));
             } else {
                alert(t("first_question_message"));
             }
@@ -438,8 +525,8 @@ var questionIframe = {
       this.body.css('margin', '0');
       this.body.css('padding', '0');
 
-      // users shouldn't reload iframes
-      this.inject('window.onbeforeunload = function() {return "Désolé, il est impossible de recharger l\'iframe. Si un problème est survenu, sélectionnez une autre question et revenez sur celle-ci.";};');
+      // users shouldn't reload iframes.
+      this.inject('window.onbeforeunload = function() {return "' + t("error_reloading_iframe") + '";};');
 
       this.inject('window.onerror = window.parent.onerror;');
 
@@ -552,7 +639,7 @@ var questionIframe = {
       if (newInterface) {
          border = "";
       }
-      this.body.append('<div id="jsContent"></div><div id="container" style="' + border + 'padding: 5px;"><div class="question" style="font-size: 20px; font-weight: bold;">Le contenu du concours est en train d\'être téléchargé, merci de patienter le temps nécessaire.</div></div>');
+      this.body.append('<div id="jsContent"></div><div id="container" style="' + border + 'padding: 5px;"><div class="question" style="font-size: 20px; font-weight: bold;">' + t("content_is_loading") + '</div></div>');
 
       this.initialized = true;
    },
@@ -596,7 +683,7 @@ var questionIframe = {
                  if (!hasDisplayedContestStats) {
                     if (fullFeedback) {
                        if (!newInterface) {
-                          alert("C'est parti ! Notez votre score en haut à gauche qui se met à jour au fur et à mesure de vos réponses !");
+                          alert(t("contest_starts_now_full_feedback"));
                        }
                     } else {
                        alert(t("contest_starts_now"));
@@ -633,7 +720,7 @@ var questionIframe = {
       // We cannot just clone the element, because it'll result in an strange id conflict, even if we put the result in an iframe
       var questionContent = $('#question-' + questionKey).html();
       if (!questionContent) {
-         questionContent = 'Il s\'est produit une anomalie lors du téléchargement du contenu du concours. Veuillez tenter de recharger la page avec Ctrl+R ou Ctrl+F5. Si cela ne fonctionne pas, essayez éventuellement avec un autre navigateur. En cas d\'échec répété, merci de contacter la hotline, pour que nous puissions rechercher la cause de ce problème.';
+         questionContent = t("error_loading_content");
       }
       this.body.find('#container').append('<div id="question-'+questionKey+'" class="question">'+questionContent+'</div>');
 
@@ -740,7 +827,7 @@ var Utils = {
    /*
     * Returns an array with numbers 0 to nbValues -1.
     * Unless preventShuffle is true, the order is "random", but
-    * is fully determined by the value of the integer ordeKey
+    * is fully determined by the value of the integer orderKey
    */
    getShuffledOrder: function (nbValues, orderKey, preventShuffle) {
       var order = [];
@@ -1512,7 +1599,7 @@ function getPublicGroupsList(groups) {
       arrGroups[group.level][group.category] = group;
       years[year] = true;
       if (!categories[year]) {
-        categories[year] = [];
+        categories[year] = {};
       }
       categories[year][group.category] = true;
       maxYear = Math.max(maxYear, year);
@@ -1590,7 +1677,7 @@ function loadSession() {
       function(data) {
          SID = data.SID;
          if (data.teamID) {
-            if (!confirm("Voulez-vous reprendre l'épreuve commencée ?")) {
+            if (!confirm("Voulez-vous reprendre l'épreuve commencée ?")) { // t("restart_previous_contest") json not loaded yet!
                destroySession();
                return;
             }
@@ -1923,10 +2010,12 @@ function getSortedQuestionIDs(questionsData) {
       return 1;
    });
    var sortedQuestionsIDs = [];
+   // teamID is a string representing a very long integer, let's take only the 5 last digits:
+   var baseOrderKey = parseInt(teamID.slice(-5));
    for (var iOrder = 0; iOrder < orders.length; iOrder++) {
       order = orders[iOrder];
       questionsByOrder[order].sort(function(id1, id2) { if (id1 < id2) return -1; return 1; });
-      var shuffledOrder = Utils.getShuffledOrder(questionsByOrder[order].length, teamID + iOrder);
+      var shuffledOrder = Utils.getShuffledOrder(questionsByOrder[order].length, baseOrderKey + iOrder);
       for (var iSubOrder = 0; iSubOrder < shuffledOrder.length; iSubOrder++) {
          var subOrder = shuffledOrder[iSubOrder];
          sortedQuestionsIDs.push(questionsByOrder[order][subOrder]);
@@ -2032,7 +2121,7 @@ window.selectQuestion = function(questionID, clicked, noLoad) {
             if (fullFeedback) {
                platform.validate("stay");
             } else if ((typeof answers[questionIframe.questionKey] == 'undefined') || (answers[questionIframe.questionKey] != answer)) {
-               if (!confirm(" Êtes-vous sûr de vouloir changer de question ? Votre réponse n'a pas été enregistrée et va être perdue.")) {
+               if (!confirm(t("confirm_leave_question"))) {
                   return;
                }
             }
@@ -2121,7 +2210,7 @@ function initErrorHandler() {
               $.ajax(settings);
            }
         } else if (exception === "timeout") {
-           $("#contentError").html(t("exception") + exception + "<br/><br/>" + 'Le concours n\'a pas été correctement initialisé. Merci de recharger votre page.');
+           $("#contentError").html(t("exception") + exception + "<br/><br/>" + t("contest_load_failure"));
            $("#divError").show();
         } else {
            $("#contentError").html(t("exception") + exception + "<br/><br/>" + t("server_output") + "<br/>" + jqxhr.responseText);
