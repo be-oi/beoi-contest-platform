@@ -1846,7 +1846,7 @@ Generator.prototype.doTask = function () {
    }
    var taskUrl = self.questionsUrl[currentTaskIndex];
    generating = true;
-   $('#preview_question').attr("src", "bebras-tasks/" + taskUrl);
+   $('#preview_question').attr("src", "beoi-contest-tasks/" + taskUrl);
    $('#preview_question').on('load', onQuestionLoaded);
    function onQuestionLoaded () {
       $('#preview_question').off('load', onQuestionLoaded);
