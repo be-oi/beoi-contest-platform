@@ -1478,7 +1478,14 @@ function grade(curContestID, curGroupID, questionKeys, questionFolders, curIndex
                            res = (typeof defaultValue !== 'undefined') ? defaultValue : null;
                         }
                      } else {
-                        res = curGradingData;
+                        res = {
+                           randomSeed: curGradingData.randomSeed,
+                           maxScore: curGradingData.maxScore,
+                           minScore: curGradingData.minScore,
+                           noAnswerScore: curGradingData.noAnswerScore,
+                           noScore: curGradingData.noScore,
+                           options: curGradingData.options
+                        };
                      }
                      if (success) {
                         success(res);
@@ -1529,8 +1536,9 @@ function gradeQuestionPack(task, curContestID, curGroupID, questionKeys, questio
       // XXX : must be in sync with common.js!!!
       curGradingData.randomSeed = teamQuestion.teamID;
       var usesRandomSeed = (('usesRandomSeed' in curGradingBebras) && curGradingBebras.usesRandomSeed);
-      // If the answer is in cache and the task doesn't use randomSeed, we use the cached score
-      if ((!usesRandomSeed) && 'cache_'+teamQuestion.answer in curGradingScoreCache) {
+      // If the answer is in cache and the task doesn't use randomSeed, the server side will update it
+      // but only in the case of a contest global evaluation
+      if ((!curGroupID) && (!usesRandomSeed) && 'cache_'+teamQuestion.answer in curGradingScoreCache) {
          continue;
       }
       
@@ -1546,8 +1554,10 @@ function gradeQuestionPack(task, curContestID, curGroupID, questionKeys, questio
       scores[i].contestID = curContestID;
       scores[i].groupID = curGroupID;
       scores[i].usesRandomSeed = usesRandomSeed;
-      // No answer
-      if (teamQuestion.answer == '') {
+      if (curGroupID && (!usesRandomSeed) && teamQuestion.answer.length < 100 && 'cache_'+teamQuestion.answer in curGradingScoreCache) {
+         scores[i].score = curGradingScoreCache['cache_'+teamQuestion.answer];
+      }
+      else if (teamQuestion.answer == '') {
          scores[i].score = parseInt(curGradingData.noAnswerScore);
       }
       else if (curGradingBebras.acceptedAnswers && curGradingBebras.acceptedAnswers[0]) {
@@ -1576,13 +1586,12 @@ function gradeQuestionPack(task, curContestID, curGroupID, questionKeys, questio
       }
 
       // Cache the current answer's score
-      if (!usesRandomSeed) {
+      if (!usesRandomSeed && teamQuestion.answer.length < 100) {
          curGradingScoreCache['cache_'+teamQuestion.answer] = scores[i].score;
       }
 
       i++;
    }
-   
    // If not score need to be send, go to the next packet directly
    if (!i) {
       $(selectorState+' .gradeprogressing').text($(selectorState+' .gradeprogressing').text()+'.');
@@ -1605,8 +1614,12 @@ function gradeOneAnswer(task, answers, i, scores, finalCallback) {
       gradeOneAnswer(task, answers, i+1, scores, finalCallback);
       return;
    }
+   curGradingData.randomSeed = scores[i].teamID;
    task.gradeAnswer(answer, null, function(score) {
       scores[i].score = score;
+      if (answer.length < 100 && curGradingScoreCache['cache_'+answer] === '') {
+         curGradingScoreCache['cache_'+answer] = score;
+      }
       setTimeout(function() {
          gradeOneAnswer(task, answers, i+1, scores, finalCallback);
       },0);
@@ -1614,7 +1627,18 @@ function gradeOneAnswer(task, answers, i, scores, finalCallback) {
 }
 
 function gradeQuestionPackEnd(task, curContestID, curGroupID, questionKeys, questionFolders, curIndex, curPackIndex, scores, selectorState) {
-      // Send the computed scores to the platform
+   var usesRandomSeed = (('usesRandomSeed' in curGradingBebras) && curGradingBebras.usesRandomSeed);
+   // If the answer is in cache and the task doesn't use randomSeed, the server side will update it
+   // but only in the case of a contest global evaluation
+   if (curGroupID && (!usesRandomSeed)) {
+      for (var i in scores) {
+         var score = scores[i];
+         if (score.score === '' && score.answer.length < 100 && 'cache_'+score.answer in curGradingScoreCache) {
+            score.score = curGradingScoreCache['cache_'+score.answer];
+         }
+      }
+   }
+   // Send the computed scores to the platform
    $.post('scores.php', { scores: scores, questionKey: curGradingData.questionKey, groupMode: (typeof curGroupID !== 'undefined') },function(data) {
       if (data.status !== 'success') {
          jqAlert('Something went wrong while sending those scores : '+JSON.stringify(scores));
@@ -1949,48 +1973,6 @@ function genQuestion() {
          jqAlert(t("question_generation_failed"));
          button.attr("disabled", false);
       });
-   });
-}
-
-function genTasks(questionsUrl, curIndex)
-{
-   if (curIndex >= questionsUrl.length) {
-      var button = $("#generateContest");
-      
-      tasks = JSON.stringify(tasks);
-      // XXX: status is needed only because of https://github.com/aws/aws-sdk-php/
-      $.post("generateContest.php", { contestID: contestID, contestFolder: contests[contestID].folder, 'tasks': tasks, fullFeedback: contests[contestID].fullFeedback, status: contests[contestID].status}, function(data) {
-         if (data.success) {
-            jqAlert(t("contest_generated"));
-         } else {
-            jqAlert(t("contest_generation_failed"));
-         }
-         button.attr("disabled", false);
-      }, 'json').fail(function() {
-         jqAlert(t("contest_generation_failed"));
-         button.attr("disabled", false);
-      });
-      
-      return;
-   }
-   
-   var url = "beoi-contest-tasks/" + questionsUrl[curIndex];
-   $("#preview_question").attr("src", url);
-   generating = true;
-   $('#preview_question').load(function() {
-      $('#preview_question').unbind('load');
-      TaskProxyManager.getTaskProxy('preview_question', function(task) {
-         task.getResources(function(bebras) {
-            tasks.push({
-               'bebras': bebras,
-               'url': questionsUrl[curIndex]
-            });
-            
-            generating = false;
-            
-            genTasks(questionsUrl, curIndex + 1);
-         });
-      }, true);
    });
 }
 
