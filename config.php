@@ -77,7 +77,7 @@ $config->defaultLanguage = 'fr';
 $config->contestPresentationURL = '';
 $config->contestOfficialURL = '';
 $config->contestBackupURL = '';
-$config->customStringsName = null; // see README
+$config->customStringsName = "be";
 
 $config->validationMailBody = "";
 $config->validationMailTitle = "";
