@@ -103,6 +103,7 @@ $lang_mapping = [
   'contest-fr.be-oi.be' => 'nl',
   'wedstrijd.be-oi.be' => 'nl',
   'beheer.be-oi.be' => 'nl',
+  'wettbewerb.be-oi.be' => 'de'
 ];
 
 $lang = 'fr';
