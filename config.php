@@ -98,9 +98,13 @@ if (is_readable(__DIR__.$env_config)) {
 
 $lang_mapping = [
   'contest-fr.be-oi.be' => 'fr',
+  'contest-nl.be-oi.be' => 'nl',
+  'contest-de.be-oi.be' => 'de',
+  'contest-admin-fr.be-oi.be' => "fr",
+  'contest-admin-nl.be-oi.be' => "nl",
+
   'concours.be-oi.be' => 'fr',
   'gestion.be-oi.be' => 'fr',
-  'contest-fr.be-oi.be' => 'nl',
   'wedstrijd.be-oi.be' => 'nl',
   'beheer.be-oi.be' => 'nl',
   'wettbewerb.be-oi.be' => 'de'
