@@ -8,7 +8,6 @@
     "schools_edit_school": "Enregistez ici les coordonnées de l'établisssement pour lequel vous êtes responsable de la coordination du concours.",
     "schools_region": "Réseau :",
     "schools_students": "Nombre d'élèves (approximatif) :",
-    "certificates_intro": "<p>Vous pouvez générer, télécharger puis imprimer un diplôme de participation pour chacun des élèves ayant participé au concours. </p><p>Pour imprimer ces diplômes groupe par groupe, vous pouvez visiter l'onglet « Groupes », pour l'impression pour un établissement complet, rendez-vous dans l'onglet « Établissement ».</p>",
     "extract_error_message": "utilisateur non connu",
     "grade_4": "< 5ème primaire",
     "grade_5": "5ème primaire",
@@ -59,7 +58,14 @@
     "group_print_certificates_title": "Imprimer les certificats",
     "group_print_certificates": "Imprimer les certificats",
     "group_print_certificates_help": "Vous pouvez imprimer ici les certificats pour un groupe particulier sélectionné dans la liste. L'ensemble des certificats d'un établissement peut être imprimé dans l'onglet « Établissements ».",
-    "school_print_certificates_title": "Imprimer les diplômes",
+    "school_print_certificates_title": "Imprimer les certificats",
     "school_print_certificates_help": "Vous pouvez imprimer les certificats pour l'ensemble d'un établissement sélectionné dans la liste ci-dessus, ce pour les concours listés ci-dessous. Vous pouvez également les imprimer groupe par groupe dans l'onglet « Groupes ».",
-    "group_print_certificates_impossible": "Vous pouvez imprimer des certificats uniquement pour les concours officiels qui viennent de se terminer."
+    "group_print_certificates_impossible": "Vous pouvez imprimer des certificats uniquement pour les concours officiels qui viennent de se terminer.",
+    "certificates_intro": "<p>Vous pouvez générer, télécharger puis imprimer un certificat de participation pour chacun des élèves ayant participé au concours.</p><p>Pour imprimer ces certificates groupe par groupe, vous pouvez visiter l'onglet « Groupes », pour l'impression pour un établissement complet, rendez-vous dans l'onglet « Établissement ».</p>",
+    "no_school_with_certificates_to_print": "Aucun établissement avec des certificats à imprimer.",
+    "certificates_cancel_generation": "Annuler la demande de génération des certificats",
+    "certificates_start_new_generation": "Demander une nouvelle génération des certificats",
+    "certificates_download": "Télécharger les certificats :",
+    "certificates_start_generation": "Demander la génération des certificats"
+
 }
