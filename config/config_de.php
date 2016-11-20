@@ -2,6 +2,8 @@
 
 $config->defaultLanguage = 'de';
 
+$config->contestOfficialURL = 'https://wettbewerb.be-oi.be';
+
 $config->contestInterface->baseUrl = 'https://wettbewerb.be-oi.be';
 $config->contestInterface->sAbsoluteStaticPathNoS3 = 'https://wettbewerb.be-oi.be';
 $config->contestInterface->sAssetsStaticPathNoS3 = 'https://wettbewerb.be-oi.be';

@@ -3,6 +3,8 @@
 // Localization
 $config->defaultLanguage = 'fr';
 
+$config->contestOfficialURL = "https://concours.be-oi.be";
+
 $config->contestInterface->baseUrl = 'https://concours.be-oi.be';
 $config->contestInterface->sAbsoluteStaticPathNoS3 = 'https://concours.be-oi.be';
 $config->contestInterface->sAssetsStaticPathNoS3 = 'https://concours.be-oi.be';

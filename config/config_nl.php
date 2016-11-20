@@ -3,6 +3,8 @@
 // Localization
 $config->defaultLanguage = 'nl';
 
+$config->contestOfficialURL = 'https://wedstrijd.be-oi.be';
+
 $config->contestInterface->baseUrl = 'https://wedstrijd.be-oi.be';
 $config->contestInterface->sAbsoluteStaticPathNoS3 = 'https://wedstrijd.be-oi.be';
 $config->contestInterface->sAssetsStaticPathNoS3 = 'https://wedstrijd.be-oi.be';
