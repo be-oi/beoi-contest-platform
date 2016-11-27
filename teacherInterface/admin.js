@@ -459,7 +459,7 @@ function initModels(isLogged) {
                editable: false, edittype: "select", editoptions: { value:getItemNames(contests)},
                stype: "select", searchoptions: { value:getItemNames(contests, true)},
                width: 300},
-            name: {label: t("team_view_name_label"), editable: false, width: 300,
+            groupField: {label: t("team_view_name_label"), editable: false, width: 300,
                stype: groupStype, searchoptions: groupSearchOptions},
             contestants: {label: t("team_view_contestants_label"), editable: false, width: 500},
             password: {label: t("team_view_password_label"), editable: false, width: 100, search: false},
@@ -1796,6 +1796,12 @@ function computeTotalScoresContest() {
 
 function gradeGroup() {
    if (!checkGroupSelectedAndConfirm()) {
+      return;
+   }
+   var group = groups[selectedGroupID];
+   var contest = contests[group.contestID];
+   if (contest.open != 'Open') {
+      jqAlert(t("cannot_grade_closed_contest"));
       return;
    }
    $("#buttonGradeSelected_group").attr("disabled", true);

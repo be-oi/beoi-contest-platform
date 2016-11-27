@@ -457,6 +457,10 @@ function selectRecords($db, $modelName, $recordID, $roles, $extraFilters = array
       } else if ($modelName === "school_year") {
          $request["filters"]["userID"] = $_SESSION["userID"];
       } else if ($modelName === "school_search") {
+      } else if ($modelName === "team_view") {
+         if (isset($extraFilters["groupField"])) {
+            $request["filters"]["groupField"] = $extraFilters["groupField"];
+         }
       } else if ($modelName === "contestant") {
          if (isset($extraFilters["contestID"])) {
             $request["filters"]["contestID"] = $extraFilters["contestID"];
@@ -536,6 +540,9 @@ function selectRecordsForJQGrid($db, $modelName, $params, $roles) {
    }
 
    if (isset($params["sidx"]) && ($params["sidx"] != "")) {
+      if ($modelName == 'team_view' && $params['sidx'] == 'groupField') {
+         $params['sidx'] = 'groupName';
+      }
       $order = array("field" => $params["sidx"], "dir" => $params["sord"]);
       $request["orders"] = array($order);
    }

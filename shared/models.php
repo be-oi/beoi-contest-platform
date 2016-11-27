@@ -252,9 +252,11 @@ $tablesModels = array (
 if (isset($_SESSION["isAdmin"]) && $_SESSION["isAdmin"]) {
    $fieldGroup = array("tableName" => "group", "fieldName" => "name");
    $fieldGroupFilter = array("joins" => array("group"), "condition" => "`[PREFIX]group`.`name` LIKE :groupField");
+   $fieldGroupFilterTeam = $fieldGroupFilter;
 } else {
    $fieldGroup = array("tableName" => "team", "fieldName" => "groupID", "access" => array("write" => array(), "read" => array("user")));
    $fieldGroupFilter = array("joins" => array("team"), "condition" => "`[PREFIX]team`.`groupID` = :groupField");
+   $fieldGroupFilterTeam = array("joins" => array(), "condition" => "`[PREFIX]team`.`groupID` = :groupField");
 }
 
 $viewsModels = array(
@@ -343,12 +345,12 @@ $viewsModels = array(
          "lastName" => array(),
          "genre" => array(),
          "grade" => array(),
-         "studentId" => array(),
          "score" => array("tableName" => "team"),
          "nbContestants" => array("tableName" => "team"),
          "rank" => array(),
          "email" => array(),
          "zipCode" => array(),
+         "studentId" => array(),
          "level" => array("tableName" => "contest"),
          "algoreaCode" => array(),
          "schoolRank" => array(),
@@ -418,7 +420,7 @@ $viewsModels = array(
       "fields" => array(
          "schoolID" => array("tableName" => "group", "access" => array("write" => array(), "read" => array("user"))),
          "contestID" => array("tableName" => "group", "access" => array("write" => array(), "read" => array("user"))),
-         "name" => array("tableName" => "group"),
+         "groupName" => array("tableName" => "group", "fieldName" => "name"),
          "contestants" => array("type" => "string", "access" => array("write" => array("admin"), "read" => array("admin")), "tableName" => "contestant", "sql" => "group_concat(`contestant`.`lastName`,' ',`contestant`.`firstName` separator ',')", "groupBy" => "`team`.`ID`"),
          "password" => array(),
          "startTime" => array(),
@@ -427,6 +429,7 @@ $viewsModels = array(
       ),
       "filters" => array(
          "schoolID" => array("joins" => array("group"), "condition" => "`[PREFIX]group`.`schoolID` = :schoolID"),
+         "groupField" => $fieldGroupFilterTeam,
          "userID" => array("joins" => array("user_user"), "condition" => "(`group`.`userID` = :userID OR `[PREFIX]user_user`.`accessType` <> 'none')"),
          "contestants" => array(
             "joins" => array("contestant"),
