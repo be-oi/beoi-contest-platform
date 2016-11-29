@@ -12,6 +12,11 @@
 </head><body>
 <form autocomplete="off">
 <div id="divHeader">
+    <div style="z-index: 10; position: absolute; right: 0; top: 0; font-variant: small-caps;">
+      <a href="https://concours.be-oi.be">fr</a>
+      - <a href="https://wedstrijd.be-oi.be">nl</a>
+      - <a href="https://wettbewerb.be-oi.be">de</a>
+    </div>
      <table style="width:100%"><tr>
          <td style="width:20%" data-i18n="[html]left_title"></td>
          <td><p id="headerH1" data-i18n="general_title"></p>

@@ -14,6 +14,10 @@
 <body>
 <div autocomplete="off">
    <div id="divHeader">
+        <div style="z-index: 10; position: absolute; right: 0; top: 0; font-variant: small-caps;">
+         <a href="https://gestion.be-oi.be">fr</a>
+         - <a href="https://beheer.be-oi.be">nl</a>
+        </div>
         <table style="width:100%"><tr>
             <td style="width:20%" data-i18n="[html]main_logo"></td>
             <td>
