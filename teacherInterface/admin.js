@@ -2098,7 +2098,7 @@ function newForm(modelName, title, message) {
       } else if (field.edittype === "ac-email") {
          html += "<input type='text' id='" + fieldId + "' "+requiredString+"/>@";
          html += "<select id='" + fieldId + "_domain'>";
-         html += "<option value='undefined'>" + t("region") + "</option>";
+         html += "<option value='undefined'>" + t("domain") + "</option>";
          for (var iDomain = 0; iDomain < domains.length; iDomain++) {
             var allowedDomain = domains[iDomain];
             html += "<option value='" + allowedDomain + "'>" + allowedDomain + "</option>";

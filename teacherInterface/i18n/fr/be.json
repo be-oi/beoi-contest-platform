@@ -66,6 +66,7 @@
     "certificates_cancel_generation": "Annuler la demande de génération des certificats",
     "certificates_start_new_generation": "Demander une nouvelle génération des certificats",
     "certificates_download": "Télécharger les certificats :",
-    "certificates_start_generation": "Demander la génération des certificats"
+    "certificates_start_generation": "Demander la génération des certificats",
+    "domain": "Domaine"
 
 }
