@@ -27,7 +27,6 @@
     "option_junior": "Junior", 
     "region": "Réseau",
     "option_senior": "Senior",
-    "region": "Réseau",
     "invalid_officialEmail": "Votre adresse officielle est invalide. Ne saisissez pas le @ac-… dans la zone de gauche.",
     "one_email_required": "Vous devez fournir au moins une adresse électronique, si possible une adresse officielle.",
     "officialEmail_readonly": "Impossible de changer d'adresse officielle une fois celle-ci confirmée",
@@ -67,6 +66,9 @@
     "certificates_start_new_generation": "Demander une nouvelle génération des certificats",
     "certificates_download": "Télécharger les certificats :",
     "certificates_start_generation": "Demander la génération des certificats",
-    "domain": "Domaine"
+    "domain": "Domaine",
+
+    "validationMailBody": "Bonjour,\r\n\r\nPour valider votre inscription en tant que coordinateur pour le concours beOI, ouvrez le lien suivant dans votre navigateur  : \r\n\r\n%s\r\n\r\nN'hésitez pas à nous contacter si vous rencontrez des difficultés.\r\n\r\nCordialement,\r\n-- \r\nL'équipe beOI",
+    "validationMailTitle": "Éliminatoires beOI : Confirmation d'inscription"
 
 }
