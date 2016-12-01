@@ -6,6 +6,8 @@ web:
     - "80:80"
   links:
    - db
+  environment:
+    ENVIRONMENT: dev
 db:
   image: mysql
   ports:
