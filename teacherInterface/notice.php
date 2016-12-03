@@ -4,6 +4,7 @@
 require_once("../shared/common.php");
 require_once("commonAdmin.php");
 require_once('./config.php');
+require_once('./i18n.php');
 
 if ($config->customStringsName) {
    $translations = json_decode(file_get_contents('i18n/fr/translation.json'), true);
@@ -138,10 +139,10 @@ if (count($aGroups) == 0) {
 <?php foreach ($aGroups as $id => $row): ?>
 <h1 <?php if ($id !=0):?>class="break"<?php endif;?>>
 <?php echo $row->contestType ?><br/>
-<span class="red">Notice enseignant encadrant</span>
+<span class="red"><?php echo i18n()["notice_title"]; ?></span>
 </h1>
 
-<div class="warning">À NE PAS MONTRER AUX ÉLÈVES</div>
+<div class="warning"><?php echo i18n()["notice_dont_show"]; ?></div>
 <div class="header">
 <?php echo $row->contestName;?>
 <br/>
@@ -151,11 +152,11 @@ Groupe <b>
 <?php
    echo $row->groupName."</b> ";
    if ($row->expectedStartTime == "0000-00-00 00:00:00") {
-      echo "à une date indéterminée";
+      echo i18n()["notice_at_undetermined_date"];
    } else {
       $datetime = strtotime($row->expectedStartTime);
       if ($datetime == "") {
-         echo "à une date indéterminée";
+         echo i18n()["notice_at_undetermined_date"];
       } else {
          echo "le <b><script>document.write(utcDateFormatter('".$row->expectedStartTime."'));</script></b>";
       }
@@ -164,60 +165,59 @@ Groupe <b>
 </div>
 
 <ol>
-<li>Les élèves s'installent :
+<li><?php echo i18n()["notice_contestants_sit"]; ?>
 <?php
    if ($row->allowTeamsOfTwo == 1) {
-      echo "<b>un élève</b> ou <b>deux élèves</b> ";
+      echo i18n()["notice_by_teams"]." ";
    } else {
-      echo "<b>un seul élève</b> ";
+      echo i18n()["notice_alone"]." ";
    }
 ?>
-par ordinateur.</li>
+<?php echo i18n()["notice_per_computer"]; ?></li>
 <li>
-Ils ouvrent un navigateur <b>récent</b> (nous suggérons google chrome) et vont à l'adresse : <br/>
+<?php echo i18n()["notice_open_browser"]; ?> <br/>
 <center><a href='<?php echo $config->contestOfficialURL; ?>'><?php echo $config->contestOfficialURL; ?></a></center>
 </li>
 <li>
-Ils saisissent le code que vous leur donnez au début du concours, mais pas avant :  <br/>
+<?php echo i18n()["notice_enter_code"]; ?><br/>
 <div class="groupCode"><?php echo $row->code ?></div>
-<b>Attention :</b> ce code n'est <b>valide que pendant 30mn</b> après sa première utilisation, donc uniquement pour la session de passage du concours que vous surveillez.
+<?php echo i18n()["notice_code_validity"]; ?>
 </li>
-<li>Ils cliquent sur le bouton : <b>"je commence le concours"</b>.</li>
+<li><?php echo i18n()["notice_start_contest"]; ?></li>
 <?php
    if ($row->allowTeamsOfTwo == 1) {
-      echo "<li>Ils précisent alors s'ils font le concours : <b>\"tout seul\"</b> ou <b>\"à deux\"</b>.</li>";
+      echo "<li>".i18n()["notice_choose_team_setup"]."</li>";
    }
 ?>
-<li>Ils saisissent ensuite : <b>nom, prénom et genre</b>.</li>
-<li>Le système leur attribue un <b>code personnel qu'ils doivent noter sur une feuille.</b><br/>
-Ce code est très important car il sert en cas de panne d'ordinateur ou autre interruption.</li>
-<li>Lorsqu'ils sont prêts, les élèves peuvent <b>cliquer sur le bouton "commencer"</b>.</li>
-<li>Le chronomètre se déclenche : <b>le concours dure 45 minutes consécutives</b>.</li>
-<li>S'ils ont terminé avant 45mn, ils cliquent sur “J'ai fini”. Sinon le concours se termine automatiquement.</li>
+<li><?php echo i18n()["notice_enter_name"]; ?></li>
+<li><?php echo i18n()["notice_get_code"]; ?></li>
+<li><?php echo i18n()["notice_start"]; ?></li>
+<li><?php echo i18n()["notice_time_start"]; ?></li>
+<li><?php echo i18n()["notice_time_end"]; ?></li>
 </ol>
 
 <div class="footer">
-   <b>Résolution des problèmes : cas d'un élève déconnecté avant d'avoir terminé.</b>
+   <b><?php echo i18n()["notice_issue_disconnect_title"]; ?></b>
    <ol>
-   <li>Il retourne sur le site :  <a href='<?php echo $config->contestOfficialURL; ?>'><?php echo $config->contestOfficialURL; ?></a></li>
-   <li>Il clique sur "Continuer le concours".</li>
-   <li>Il saisit son code personnel qu'il a noté à l'étape 7.</li>
-   <li>Si l'élève n'a pas ou mal noté son code personnel :
+   <li><?php echo i18n()["notice_back_on_website"]; ?> <a href='<?php echo $config->contestOfficialURL; ?>'><?php echo $config->contestOfficialURL; ?></a></li>
+   <li><?php echo i18n()["notice_click_continue"]; ?></li>
+   <li><?php echo i18n()["notice_enter_code"]; ?></li>
+   <li><?php echo i18n()["notice_if_no_code"]; ?>
       <ul>
-      <li>Il saisit le code de son groupe : <span class="groupCode"><?php echo $row->code ?></span></li>
-      <li>Il sélectionne son équipe dans la liste</li>
-      <li>Vous saisissez sans le montrer à l'élève, votre code de secours secret : <span class="groupCode"><?php echo $row->password ?></span></li>
+      <li><?php echo i18n()["notice_enter_group_code"]; ?> <span class="groupCode"><?php echo $row->code ?></span></li>
+      <li><?php echo i18n()["notice_select_team"]; ?></li>
+      <li><?php echo i18n()["notice_enter_backup_code"]; ?> <span class="groupCode"><?php echo $row->password ?></span></li>
       </ul>
    </li>
    </ol>
-   <b>Hotline</b> pendant la semaine du concours, de 8h à 19h :
+   <?php echo i18n()["notice_hotline_title"]; ?>
    <?php 
       if ($config->teacherInterface->sHotlineNumber != '') {
          echo $config->teacherInterface->sHotlineNumber." ; ";
       }
       echo $config->email->sInfoAddress;   
       if ($config->contestBackupURL != '') {
-         $strBackup = "<br/><br/><b>Si le site ne fonctionne pas</b>, essayez <a href='".$config->contestBackupURL."'>".$config->contestBackupURL."</a>";
+         $strBackup = "<br/><br/>".i18n()["notice_if_website_not_working"]."<a href='".$config->contestBackupURL."'>".$config->contestBackupURL."</a>";
 		 for ($i = 2; $i <= 4; $i++) {
 			 $property = "contestBackupURL".$i;
 			 if (isset($config->$property) && ($config->$property != '')) {

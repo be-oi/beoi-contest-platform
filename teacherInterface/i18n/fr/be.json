@@ -77,6 +77,35 @@
     "emailNotValidatedError": "Vos identifiants sont valides mais votre adresse email officielle n'a pas encore été validée. Vous avez dû recevoir un mail après votre inscription, vérifiez éventuellement dans les courriers indésirables de votre boîte mail. Si vous n'avez rien reçu, contactez-nous : ",
     "emailAlreadyExisting": "Un compte existe déjà pour l'email",
 
-    "Submit_buttom": "Valider"
+    "Submit_buttom": "Valider",
+
+    "notice_title": "Notice enseignant encadrant",
+    "notice_dont_show": "À NE PAS MONTRER AUX ÉLÈVES",
+    "notice_at_undetermined_date": "à une date indéterminée",
+    "notice_by_teams": "<b>un élève</b> ou <b>deux élèves</b>",
+    "notice_alone": "<b>un seul élève</b>",
+    "notice_contestants_sit": "Les élèves s'installent :",
+    "notice_per_computer": "par ordinateur.",
+    "notice_open_browser": "Ils ouvrent un navigateur <b>récent</b> (nous suggérons Google Chrome) et vont à l'adresse :",
+    "notice_enter_code": "Ils saisissent le code que vous leur donnez au début du concours, mais pas avant :",
+    "notice_contestants_sit": "Les élèves s'installent :",
+    "notice_code_validity": "<b>Attention :</b> ce code n'est <b>valide que pendant 30mn</b> après sa première utilisation, donc uniquement pour la session de passage du concours que vous surveillez.",
+    "notice_start_contest": "Ils cliquent sur le bouton : <b>\"je commence le concours\"</b>.",
+    "notice_choose_team_setup": "Ils précisent alors s'ils font le concours : <b>\"tout seul\"</b> ou <b>\"à deux\"</b>.",
+    "notice_enter_name": "Ils saisissent ensuite : <b>nom, prénom et genre</b>.",
+    "notice_get_code": "Le système leur attribue un <b>code personnel qu'ils doivent noter sur une feuille.</b><br/>Ce code est très important car il sert en cas de panne d'ordinateur ou autre interruption.",
+    "notice_start": "Lorsqu'ils sont prêts, les élèves peuvent <b>cliquer sur le bouton \"commencer\"</b>.",
+    "notice_time_start": "Le chronomètre se déclenche : <b>le concours dure 45 minutes consécutives</b>.",
+    "notice_time_end": "S'ils ont terminé avant 45mn, ils cliquent sur “J'ai fini”. Sinon le concours se termine automatiquement.",
+    "notice_issue_disconnect_title": "Résolution des problèmes : cas d'un élève déconnecté avant d'avoir terminé.",
+    "notice_back_on_website": "Il retourne sur le site : ",
+    "notice_click_continue": "Il clique sur \"Continuer le concours\".",
+    "notice_enter_code": ">Il saisit son code personnel qu'il a noté à l'étape 7.",
+    "notice_if_no_code": ">Si l'élève n'a pas ou mal noté son code personnel :",
+    "notice_enter_group_code": "Il saisit le code de son groupe :",
+    "notice_select_team": "Il sélectionne son équipe dans la liste",
+    "notice_enter_backup_code": "Vous saisissez sans le montrer à l'élève, votre code de secours secret :",
+    "notice_hotline_title": "<b>Hotline</b> pendant la semaine du concours, de 8h30 à 19h :",
+    "notice_if_website_not_working": "<b>Si le site ne fonctionne pas</b>, essayez "
 
 }
