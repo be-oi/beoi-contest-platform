@@ -2,6 +2,7 @@
 /* Copyright (c) 2012 Association France-ioi, MIT License http://opensource.org/licenses/MIT */
 
 require_once '../shared/tinyORM.php';
+require_once("i18n.php");
 
 $backend_hints = array();
 $failure_backend_hints = array();
@@ -165,19 +166,19 @@ function reloginTeam($db, $password, $teamID) {
    $stmt->execute(array($_SESSION["groupID"]));
    $row = $stmt->fetchObject();
    if (!$row) {
-      exitWithJsonFailure("Groupe invalide");
+      exitWithJsonFailure(i18n()["invalid_group"]);
    }
    if ($row->password !== $password) {
-      exitWithJsonFailure("Mot de passe invalide");
+      exitWithJsonFailure(i18n()["invalid_password"]);
    }
    if ($row->status == "Closed" || $row->status == "PreRanking") {
-      exitWithJsonFailure("Concours fermé");
+      exitWithJsonFailure(i18n()["closed_contest"]);
    }
    $stmt = $db->prepare("SELECT `password`, `nbMinutes` FROM `team` WHERE `ID` = ? AND `groupID` = ?");
    $stmt->execute(array($teamID, $_SESSION["groupID"]));
    $row = $stmt->fetchObject();
    if (!$row) {
-      exitWithJsonFailure("Équipe invalide pour ce groupe");
+      exitWithJsonFailure(i18n()["invalid_team"]);
    }
    if ($config->db->use == 'dynamoDB') {
       try {

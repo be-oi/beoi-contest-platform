@@ -4,6 +4,7 @@
 include_once("../shared/common.php");
 include_once("../shared/tinyORM.php");
 include_once("common_contest.php");
+require_once("i18n.php");
 
 function getGroupTeams($db, $groupID) {
    $stmt = $db->prepare("SELECT `team`.`ID`, `contestant`.`lastName`, `contestant`.`firstName` FROM `contestant` LEFT JOIN `team` ON `contestant`.`teamID` = `team`.`ID` WHERE `team`.`groupID` = ?");
@@ -41,14 +42,14 @@ function handleLoadPublicGroups($db) {
 function handleCreateTeam($db) {
    global $tinyOrm, $config;
    if (!isset($_POST["contestants"])) {
-      exitWithJsonFailure("Informations sur les candidats manquantes");
+      exitWithJsonFailure(i18()["missing_contestant_data"]);
    }
    if (!isset($_SESSION["groupID"])) {
-      exitWithJsonFailure("Groupe non chargé");
+      exitWithJsonFailure(i18()["group_not_loaded"]);
    }
    if ($_SESSION["groupClosed"]) {
       error_log("Hack attempt ? trying to create team on closed group ".$_SESSION["groupID"]);
-      exitWithJsonFailure("Groupe fermé");
+      exitWithJsonFailure(i18()["group_closed"]);
    }
    // $_SESSION['userCode'] is set by optional password handling function,
    // see comments of createTeamFromUserCode in common_contest.php.
@@ -114,13 +115,13 @@ function handleLoadContestData($db) {
    global $tinyOrm, $config;
    if (!isset($_SESSION["teamID"])) {
       if (!isset($_POST["groupPassword"])) {
-         exitWithJsonFailure("Mot de passe manquant");
+         exitWithJsonFailure(i18()["missing_password"]);
       }
       if (!isset($_POST["teamID"])) {
-         exitWithJsonFailure("Équipe manquante");
+         exitWithJsonFailure(i18()["missing_team"]);
       }
       if (!isset($_SESSION["groupID"])) {
-         exitWithJsonFailure("Groupe non chargé");
+         exitWithJsonFailure(i18()["group_not_loaded"]);
       }
       $password = strtolower(trim($_POST["groupPassword"]));
       reloginTeam($db, $password, $_POST["teamID"]);
@@ -182,7 +183,7 @@ function handleLoadContestData($db) {
 
 function handleCloseContest($db) {
    if (!isset($_SESSION["teamID"]) && !reconnectSession($db)) {
-      exitWithJsonFailure("Pas de session en cours");
+      exitWithJsonFailure(i18()["no_session"]);
    }
    $teamID = $_SESSION["teamID"];
    $stmtUpdate = $db->prepare("UPDATE `team` SET `endTime` = UTC_TIMESTAMP() WHERE `ID` = ? AND `endTime` is NULL");
@@ -238,7 +239,7 @@ function handleCheckPassword($db) {
    addFailureBackendHint("ClientIP.checkPassword:fail");
    addFailureBackendHint("ClientIP.error");
    if (!isset($_POST["password"])) {
-      exitWithJsonFailure("Mot de passe manquant");
+      exitWithJsonFailure(i18()["missing_password"]);
    }
    $getTeams = array_key_exists('getTeams', $_POST) ? $_POST["getTeams"] : False;
    $password = strtolower($_POST["password"]);
@@ -260,7 +261,7 @@ function handleCheckGroupPassword($db, $password, $getTeams) {
       return;
    }
    if ($row->open != "Open") {
-      exitWithJson((object)array("success" => false, "message" => "Le concours de ce groupe n'est pas ouvert."));
+      exitWithJson((object)array("success" => false, "message" => i18()["contest_group_not_open"]));
    }
    $groupID = $row->ID;
    $schoolID = $row->schoolID;
@@ -376,16 +377,16 @@ function handleGetRemainingTime($db) {
 
 function handleRecoverGroup($db) {
    if (!isset($_POST['groupCode']) || !isset($_POST['groupPass'])) {
-      exitWithJson((object)array("success" => false, "message" => 'Code ou mot de passe manquant'));
+      exitWithJson((object)array("success" => false, "message" => i18n()["missing_code_pwd"]));
    }
    $stmt = $db->prepare("SELECT `ID`, `bRecovered`, `contestID`, `expectedStartTime`, `name`, `userID`, `gradeDetail`, `grade`, `schoolID`, `nbStudents`, `nbTeamsEffective`, `nbStudentsEffective`, `noticePrinted`, `isPublic`, `participationType`, `password` FROM `group` WHERE `code` = ?");
    $stmt->execute(array($_POST['groupCode']));
    $row = $stmt->fetchObject();
    if (!$row || $row->password != $_POST['groupPass']) {
-      exitWithJson((object)array("success" => false, "message" => 'Mot de passe invalide'));
+      exitWithJson((object)array("success" => false, "message" => i18n()["invalid_password"]));
    }
    if ($row->bRecovered == 1) {
-      exitWithJson((object)array("success" => false, "message" => 'L\'opération n\'est possible qu\'une fois par groupe.'));
+      exitWithJson((object)array("success" => false, "message" => i18n()["operation_already_done"]));
    }
    $stmtUpdate = $db->prepare("UPDATE `group` SET `code` = ?, `password` = ?, `bRecovered`=1 WHERE `ID` = ?;");
    $stmtUpdate->execute(array('#'.$_POST['groupCode'], '#'.$row->password, $row->ID));

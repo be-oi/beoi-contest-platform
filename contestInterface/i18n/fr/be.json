@@ -35,5 +35,22 @@
 
     "invalid_request_password": "Requête invalide (password)",
     "answer_after_contest": "La réponse a été envoyée après la fin de l'épreuve",
-    "invalid_request": "Requête invalide"
+    "invalid_request": "Requête invalide",
+
+    "invalid_group": "Groupe invalide",
+    "invalid_password": "Mot de passe invalide",
+    "closed_contest": "Concours fermé",
+    "invalid_team": "Équipe invalide pour ce groupe",
+
+    "missing_contestant_data": "Informations sur les candidats manquantes",
+    "group_not_loaded": "Groupe non chargé",
+    "group_closed": "Groupe fermé",
+    "missing_password": "Mot de passe manquant",
+    "missing_team": "Équipe manquante",
+    "no_session": "Pas de session en cours",
+    "contest_group_not_open": "Le concours de ce groupe n'est pas ouvert.",
+    "operation_already_done": "L'opération n'est possible qu'une fois par groupe.",
+    "missing_code_pwd": "Code ou mot de passe manquant"
+
+
 }
