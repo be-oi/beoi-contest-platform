@@ -1,5 +1,14 @@
 box: debian
 
+validate-json:
+   steps:
+    - 1science/jsonschema-lint:
+      include: teacherInterface/i18n/**.json
+    - 1science/jsonschema-lint:
+      include: teacherInterface/regions/BE/**.json
+    - 1science/jsonschema-lint:
+      include: contestInterface/**.json
+
 deploy-static-files:
   steps:
     - script:
