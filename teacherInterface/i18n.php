@@ -20,3 +20,6 @@ function i18n() {
       return array();
    }
 }
+
+$i18n = i18n();
+global $i18n;
