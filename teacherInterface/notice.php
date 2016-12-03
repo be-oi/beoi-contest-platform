@@ -201,7 +201,7 @@ Groupe <b>
    <ol>
    <li><?php echo i18n()["notice_back_on_website"]; ?> <a href='<?php echo $config->contestOfficialURL; ?>'><?php echo $config->contestOfficialURL; ?></a></li>
    <li><?php echo i18n()["notice_click_continue"]; ?></li>
-   <li><?php echo i18n()["notice_enter_code"]; ?></li>
+   <li><?php echo i18n()["notice_enter_user_code"]; ?></li>
    <li><?php echo i18n()["notice_if_no_code"]; ?>
       <ul>
       <li><?php echo i18n()["notice_enter_group_code"]; ?> <span class="groupCode"><?php echo $row->code ?></span></li>
