@@ -52,7 +52,7 @@
     "operation_already_done": "L'opération n'est possible qu'une fois par groupe.",
     "missing_code_pwd": "Code ou mot de passe manquant",
     "cannot_find_contest": "Impossible de trouver le concours",
-    "official_no_direct_score": "Participation officielle sans score en direct, évaluation impossible"
+    "official_no_direct_score": "Participation officielle sans score en direct, évaluation impossible",
 
-
+    "back_to_task_list": "Retour à la liste des questions"
 }

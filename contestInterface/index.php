@@ -1,5 +1,6 @@
 <?php
   include(__DIR__.'/config.php');
+  include(__DIR__.'/i18n.php');
   header('Content-type: text/html');
 ?><!DOCTYPE html>
 <html>
@@ -215,7 +216,7 @@
                <td class="header_time" id="header_time">Temps restant&nbsp;: <br/><b><span class='minutes'></span>:<span class='seconds'></span></b></td>
                <td class="header_rank" style="display:none">Classement&nbsp; <br/><b><span class="rank" width="95%"></span></b></td>
                <td class="header_button">
-                 <input class="button_return_list" type="button" value="Retour à la liste des questions" onclick="backToList()"></input>
+                 <input class="button_return_list" type="button" value="<?php echo i18n()["back_to_task_list"] ?>" onclick="backToList()"></input>
                </td>
             </tr>
          </table>
