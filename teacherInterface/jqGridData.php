@@ -51,7 +51,7 @@ function isOfficialEmail($email) {
 
 
 function sendValidationEmail($emailType, $sEmail, $sSalt) {
-   global $config, $i18n;;
+   global $config, $i18n;
    if (!$sEmail) {
       return ['success' => false, 'error' => 'user_invalid_email'];
    }
