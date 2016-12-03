@@ -32,11 +32,11 @@
     "officialEmail_readonly": "Impossible de changer d'adresse officielle une fois celle-ci confirmée",
     "you_will_get_email": "Vous allez recevoir un courrier électronique sur votre adresse officielle avec lequel vous allez pouvoir valider votre compte.<br/><br/>Vérifiez bien qu'il n'est pas classé comme indésirable.<br/><br/>Si vous ne recevez aucun courriel dans les 2h, contactez info@be-oi.be depuis votre adresse académique pour que nous validions votre compte.",
     "no_official_email_1": "Vous n'avez pas fourni d'adresse officielle, donc votre compte ne peut être validé que par un administrateur. N'oubliez pas de ",
-    "contact_us": "contactez-nous par email à info@be-oi.be",
+    "contact_us": "contactez-nous par e-mail à info@be-oi.be",
     "mail_from_name": "Inscription beOI",
     "recover_mail_body": "Bonjour,\r\n\r\nPour définir un nouveau mot de passe, ouvrez le lien suivant dans votre navigateur  : \r\n\r\n__link__\r\n\r\nN'hésitez pas à nous contacter si vous rencontrez des difficultés.\r\n\r\nCordialement,\r\n--\r\nL'équipe beOI",
     "email_body_no_official_email": "...",
-    "warning_official_email_required": "<b>Attention</b> : Nous demandons votre courriel officiel (d'établissement, réseau ou communauté) afin de valider votre identité d'enseignant. Vous devrez valider cette adresse email en suivant un lien dans l'e-mail de confirmation. Si le nom de domaine de votre adresse e-mail officielle n'est pas dans notre liste, vous devrez répondre à l'e-mail que vous nous envoyons afin que vous puissiez vérifier votre identité.",
+    "warning_official_email_required": "<b>Attention</b> : Nous demandons votre courriel officiel (d'établissement, réseau ou communauté) afin de valider votre identité d'enseignant. Vous devrez valider cette adresse e-mail en suivant un lien dans l'e-mail de confirmation. Si le nom de domaine de votre adresse e-mail officielle n'est pas dans notre liste, vous devrez répondre à l'e-mail que vous nous envoyons afin que vous puissiez vérifier votre identité.",
     "login_link_to_home": "Pour accéder à une présentation générale de l'Olympiade belge d'Informatique, allez sur <a href=\"__contestPresentationURL__\">la page d'accueil</a>.",
     "schools_list": "Liste des établissements pour lesquels vous coordonnez le concours :",
     "schools_search_text": "Recherchez votre établissement dans l'interface ci-dessous. Vous pouvez par exemple filtrer par partie du nom, ou indiquer la ville.",
@@ -74,8 +74,8 @@
     "manualValidationMailBody": "Bonjour,\r\n\r\nMerci pour votre inscription en tant que coordinateur au concours beOI. Vu que votre adresse e-mail officielle n'appartient pas aux domaines reconnus, nous vous demandons de nous envoyer un e-mail avec cette même adresse à info@beo-oi.be (ou de simplement répondre à cet e-mail) en mentionnant votre établissement, son site web et votre rôle au sein de l'établissement.\r\nNous vérifierons ces données et vous validerons votre inscription dans les plus brefs délais.\r\n\r\nCordialement,\r\n-- \r\nL'équipe beOI",
     "manualValidationMailTitle": "Éliminatoires beOI : Confirmation d'inscription",
 
-    "emailNotValidatedError": "Vos identifiants sont valides mais votre adresse email officielle n'a pas encore été validée. Vous avez dû recevoir un mail après votre inscription, vérifiez éventuellement dans les courriers indésirables de votre boîte mail. Si vous n'avez rien reçu, contactez-nous : ",
-    "emailAlreadyExisting": "Un compte existe déjà pour l'email",
+    "emailNotValidatedError": "Vos identifiants sont valides mais votre adresse e-mail officielle n'a pas encore été validée. Vous avez dû recevoir un mail après votre inscription, vérifiez éventuellement dans les courriers indésirables de votre boîte mail. Si vous n'avez rien reçu, contactez-nous : ",
+    "emailAlreadyExisting": "Un compte existe déjà pour l'e-mail",
 
     "Submit_buttom": "Valider",
 
