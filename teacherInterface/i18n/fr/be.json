@@ -74,6 +74,7 @@
     "manualValidationMailBody": "Bonjour,\r\n\r\nMerci pour votre inscription en tant que coordinateur au concours beOI. Vu que votre adresse e-mail officielle n'appartient pas aux domaines reconnus, nous vous demandons de nous envoyer un e-mail avec cette même adresse à info@beo-oi.be (ou de simplement répondre à cet e-mail) en mentionnant votre établissement, son site web et votre rôle au sein de l'établissement.\r\nNous vérifierons ces données et vous validerons votre inscription dans les plus brefs délais.\r\n\r\nCordialement,\r\n-- \r\nL'équipe beOI",
     "manualValidationMailTitle": "Éliminatoires beOI : Confirmation d'inscription",
 
-    "emailNotValidatedError": "Vos identifiants sont valides mais votre adresse email officielle n'a pas encore été validée. Vous avez dû recevoir un mail après votre inscription, vérifiez éventuellement dans les courriers indésirables de votre boîte mail. Si vous n'avez rien reçu, contactez-nous : "
+    "emailNotValidatedError": "Vos identifiants sont valides mais votre adresse email officielle n'a pas encore été validée. Vous avez dû recevoir un mail après votre inscription, vérifiez éventuellement dans les courriers indésirables de votre boîte mail. Si vous n'avez rien reçu, contactez-nous : ",
+    "emailAlreadyExisting": "Un compte existe déjà pour l'email"
 
 }

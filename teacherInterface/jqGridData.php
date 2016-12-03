@@ -247,13 +247,13 @@ function checkRequestUser($db, &$request, &$record, $operation, &$roles) {
  
    if ($operation === "insert") {
       if (existingEmail($db, $record["officialEmail"], 0)) {
-         $message = "Un compte existe déjà pour l'email ".$record["officialEmail"].".";
+         $message = i18n()["emailAlreadyExisting"]." ".$record["officialEmail"].".";
          echo json_encode(array("success" => false, "message" => $message));
          error_log($message);
          return false;
       }
       if (existingEmail($db, $record["alternativeEmail"], 0)) {
-         $message = "Un compte existe déjà pour l'email ".$record["alternativeEmail"].".";
+         $message = i18n()["emailAlreadyExisting"]." ".$record["alternativeEmail"].".";
          echo json_encode(array("success" => false, "message" => $message));
          error_log($message);
          return false;
