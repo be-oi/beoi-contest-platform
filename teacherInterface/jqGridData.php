@@ -37,7 +37,7 @@ function checkOfficialEmail($email) {
 }
 
 function isOfficialEmail($email) {
-   global $config;
+   global $config, $i18n;
    if (!$email) return true;
    $start = strpos($email, "@");
    if ($start === FALSE) return false;
@@ -51,7 +51,7 @@ function isOfficialEmail($email) {
 
 
 function sendValidationEmail($emailType, $sEmail, $sSalt) {
-   global $config;
+   global $config, $i18n;;
    if (!$sEmail) {
       return ['success' => false, 'error' => 'user_invalid_email'];
    }
