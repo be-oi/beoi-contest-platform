@@ -30,7 +30,7 @@
     "invalid_officialEmail": "Votre adresse officielle est invalide. Ne saisissez pas le @ac-… dans la zone de gauche.",
     "one_email_required": "Vous devez fournir au moins une adresse électronique, si possible une adresse officielle.",
     "officialEmail_readonly": "Impossible de changer d'adresse officielle une fois celle-ci confirmée",
-    "you_will_get_email": "Vous allez recevoir un courrier électronique sur votre adresse officielle avec lequel vous allez pouvoir valider votre compte.<br/><br/>Vérifiez bien qu'il n'est pas classé comme indésirable.<br/><br/>Suivez le lien fourni dans ce courriel pour valider votre compte ; vous pourrez alors vous connecter.<br/><br/>Si vous ne recevez aucun courriel dans les 2h, contactez info@be-oi.be depuis votre adresse académique pour que nous validions votre compte.",
+    "you_will_get_email": "Vous allez recevoir un courrier électronique sur votre adresse officielle avec lequel vous allez pouvoir valider votre compte.<br/><br/>Vérifiez bien qu'il n'est pas classé comme indésirable.<br/><br/>Si vous ne recevez aucun courriel dans les 2h, contactez info@be-oi.be depuis votre adresse académique pour que nous validions votre compte.",
     "no_official_email_1": "Vous n'avez pas fourni d'adresse officielle, donc votre compte ne peut être validé que par un administrateur. N'oubliez pas de ",
     "contact_us": "contactez-nous par email à info@be-oi.be",
     "mail_from_name": "Inscription beOI",
