@@ -3,19 +3,20 @@
 
 require_once "../shared/common.php";
 require_once "common_contest.php";
+require_once "i18n.php";
 use Aws\S3\S3Client;
 
 initSession();
 
 if (!isset($_SESSION["teamID"])) {
    if (!isset($_POST["groupPassword"])) {
-      exitWithJsonFailure("Mot de passe manquant");
+      exitWithJsonFailure(i18n()["missing_password"]);
    }
    if (!isset($_POST["teamID"])) {
-      exitWithJsonFailure("Équipe manquante");
+      exitWithJsonFailure(i18n()["missing_team"]);
    }
    if (!isset($_SESSION["groupID"])) {
-      exitWithJsonFailure("Groupe non chargé");
+      exitWithJsonFailure(i18n()["group_not_loaded"]);
    }
    $password = strtolower(trim($_POST["groupPassword"]));
    reloginTeam($db, $password, $_POST["teamID"]);
@@ -28,7 +29,7 @@ $stmt->execute(array($teamID));
 if (!($row = $stmt->fetchObject())) {
    echo json_encode(array(
       'status' => 'fail',
-      'reason' => 'impossible de trouver le concours'
+      'reason' => i18n()["cannot_find_contest"]
    ));
    exit;
 }
@@ -36,7 +37,7 @@ if (!($row = $stmt->fetchObject())) {
 if ($row->fullFeedback == 0 && (!isset($_SESSION["closed"]) || $row->status == 'RunningContest' || $row->status == 'FutureContest')) {
    echo json_encode(array(
       'status' => 'fail',
-      'reason' => 'Participation officielle sans score en direct, évaluation impossible'
+      'reason' => i18n()["official_no_direct_score"]
    ));
    exit;
 }
