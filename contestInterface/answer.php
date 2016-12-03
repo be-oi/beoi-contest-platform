@@ -7,6 +7,7 @@ use Aws\DynamoDb\Exception;
 require_once("../shared/connect.php");
 require_once("../shared/tinyORM.php");
 include_once("common_contest.php");
+require_once("i18n.php");
 
 $tinyOrm = new tinyOrm();
 $testMode = $config->db->testMode;
@@ -38,7 +39,7 @@ function handleAnswers($db, $tinyOrm) {
    }
    if ($testMode == false && (!count($rows) || $teamPassword != $rows[0]['password'])) {
       error_log('teamID '.$teamID.' sent answer with password '.$teamPassword.(count($rows) ? ' instead of '.$rows[0]['password'] : ' (no such team)'));
-      exitWithJsonFailure("Requête invalide (password)");
+      exitWithJsonFailure(i18n()["invalid_request_password"]);
    }
    $row = $rows[0];
    $answers = $_POST["answers"];
@@ -51,7 +52,7 @@ function handleAnswers($db, $tinyOrm) {
         " after the time limit of the contest! curTime : ".$curTime->format(DateTime::RFC850).
         " startTime :".$startTime->format(DateTime::RFC850).
         " nbMinutes : ".$nbMinutes);
-      exitWithJsonFailure("La réponse a été envoyée après la fin de l'épreuve", array('error' => 'invalid'));
+      exitWithJsonFailure(i18n()["answer_after_contest"], array('error' => 'invalid'));
    }
    $curTimeDB = new DateTime(null, new DateTimeZone("UTC"));
    $curTimeDB = $curTimeDB->format('Y-m-d H:i:s');
@@ -73,6 +74,6 @@ function handleAnswers($db, $tinyOrm) {
 
 if (!isset($_POST["answers"]) || !isset($_POST["teamID"]) || !isset($_POST["teamPassword"])) {
    error_log("answers, teamID or teamPassword is not set : ".json_encode($_REQUEST));
-   exitWithJsonFailure("Requête invalide", array('error' => 'invalid'));
+   exitWithJsonFailure(i18n()["invalid_request"], array('error' => 'invalid'));
 }
 handleAnswers($db, $tinyOrm);
