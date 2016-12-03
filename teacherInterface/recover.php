@@ -4,6 +4,7 @@
 require_once("../shared/common.php");
 require_once("commonAdmin.php");
 require_once 'config.php';
+require_once("i18n.php");
 
 $translationStrings = getTeacherTranslationStrings();
 
@@ -107,16 +108,16 @@ if ($action == "sendMail") {
    <div id='divHeader'>
         <table style='width:100%'><tr>
             <td style='width:20%'><img src='images/castor_small.png'/></td>
-            <td><p class='headerH1'>Castor Informatique France</p>
-            <p class='headerH2'> Plate-forme du concours Castor - <span style='color:red;font-weight:bold'>ACCES COORDINATEUR</span></p>
+            <td><p class='headerH1'>".i18n()["title"]."</p>
+            <p class='headerH2'>".i18n()["subtitle"]."</p>
             </td>
             <td></td>
          </tr></table>
    </div>
    <div class='dialog'>
-      Entrez votre nouveau mot de passe : <input type='password' id='newPassword1' /><br/>
-      Entrez de nouveau pour le confirmer : <input type='password' id='newPassword2' /><br/>
-      <input type='button' id='buttonChangePassword' value='Valider' onclick='changePassword(\"".$email."\", \"".$row->recoverCode."\")' />
+      ".i18n()["user_new_password_label"]." : <input type='password' id='newPassword1' /><br/>
+      ".i18n()["user_new_password_confirm_label"]." : <input type='password' id='newPassword2' /><br/>
+      <input type='button' id='buttonChangePassword' value='".i18n()["Submit_buttom"]."' onclick='changePassword(\"".$email."\", \"".$row->recoverCode."\")' />
    </div></html>
    ";
 } else if ($action === "changePassword") {

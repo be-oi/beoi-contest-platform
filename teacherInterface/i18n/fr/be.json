@@ -75,6 +75,8 @@
     "manualValidationMailTitle": "Éliminatoires beOI : Confirmation d'inscription",
 
     "emailNotValidatedError": "Vos identifiants sont valides mais votre adresse email officielle n'a pas encore été validée. Vous avez dû recevoir un mail après votre inscription, vérifiez éventuellement dans les courriers indésirables de votre boîte mail. Si vous n'avez rien reçu, contactez-nous : ",
-    "emailAlreadyExisting": "Un compte existe déjà pour l'email"
+    "emailAlreadyExisting": "Un compte existe déjà pour l'email",
+
+    "Submit_buttom": "Valider"
 
 }
