@@ -3,6 +3,7 @@
 
 require_once("../shared/common.php");
 require_once("commonAdmin.php");
+require_once("i18n.php");
 
 function saveLoginDate($db, $userID) {
    $query = "UPDATE `user` SET `lastLoginDate` = UTC_TIMESTAMP() WHERE `ID` = ?";
@@ -66,7 +67,7 @@ function isLogged($db) {
 }
 
 function login($db, $email, $password) {
-   global $config;
+   global $config, $i18n;
    restartSession();
 
    $query = "SELECT * FROM `user` WHERE (`officialEmail` = ? OR `alternativeEmail` = ?)";
@@ -90,7 +91,7 @@ function login($db, $email, $password) {
             echo jsonUser($db, $row);
             return;
          } else {
-            $message = "<p>Vos identifiants sont valides mais votre adresse email académique n'a pas encore été validée. Vous avez dû recevoir un mail après votre inscription avec un lien de validation, vérifiez éventuellement dans les courriers indésirables de votre boîte mail. Si vous n'avez rien reçu, ou si vous n'avez pas d'adresse académique qui fonctionne, contactez nous : ".$config->email->sInfoAddress."</p>";
+            $message = "<p>".$i18n["emailNotValidatedError"].$config->email->sInfoAddress."</p>";
             echo json_encode(array("success" => false, "message" => $message));
             return;
          }
