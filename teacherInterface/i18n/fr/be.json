@@ -108,6 +108,7 @@
     "notice_hotline_title": "<b>Hotline</b> pendant la semaine du concours, de 8h30 à 19h :",
     "notice_if_website_not_working": "<b>Si le site ne fonctionne pas</b>, essayez ",
 
-    "maintenance_message": "Désolé, le site est en indisponible jusqu'à %s pour cause de maintenance"
+    "maintenance_message": "Désolé, le site est en indisponible jusqu'à %s pour cause de maintenance",
+    "not_connected_invalid": "Requête invalide pour utilisateur non connecté"
 
 }
