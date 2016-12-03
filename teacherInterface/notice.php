@@ -14,7 +14,7 @@ if ($config->customStringsName) {
 }
 
 if (!isset($_SESSION["userID"])) {
-   echo "Votre session a expiré, veuillez vous reconnecter.";
+   echo i18n()["session_expired"];
    exit;
 }
 

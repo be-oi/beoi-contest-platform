@@ -3,9 +3,10 @@
 require_once("../shared/common.php");
 require_once("commonAdmin.php");
 require_once("../commonFramework/modelsManager/modelsTools.inc.php");
+require_once("i18n.php");
 
 if (!isset($_SESSION['userID'])) {
-   die(json_encode(array('success' => false, 'error' => "Votre session a expiré, veuillez vous reconnecter.")));
+   die(json_encode(array('success' => false, 'error' => i18n()["session_expired"])));
    exit();
 }
 

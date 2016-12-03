@@ -26,6 +26,7 @@ Attention : ne sont actuellement listés ici que les participants des groupes qu
 
 require_once("../shared/common.php");
 require_once("commonAdmin.php");
+require_once("i18n.php");
 
 error_reporting(E_ERROR | E_WARNING | E_PARSE | E_NOTICE);
 
@@ -54,7 +55,7 @@ function translateGrade($grade) {
 }
 
 if (!isset($_SESSION["userID"])) {
-   echo "Votre session a expiré, veuillez vous reconnecter.";
+   echo i18n()["session_expired"];
    exit;
 }
 

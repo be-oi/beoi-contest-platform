@@ -3,9 +3,10 @@
 
 require_once("../shared/common.php");
 require_once("commonAdmin.php");
+require_once("i18n.php");
 
 if (!isset($_SESSION["userID"])) {
-   echo "Votre session a expiré, veuillez vous reconnecter.";
+   echo i18n()["session_expired"];
    exit;
 }
 
