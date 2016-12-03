@@ -679,7 +679,7 @@ if (!isset($_SESSION["userID"]) && !(($modelName === "user") && ($_REQUEST["oper
 }
 
 if ($config->maintenanceUntil) {
-   echo json_encode(['success' => false, "message" => "Désolé, le site est en indisponible jusqu'à ".$config->maintenanceUntil.' pour cause de maintenance']);
+   echo json_encode(['success' => false, "message" => sprintf(i18n()["maintenance_message"],$config->maintenanceUntil)]);
    exit();
 }
 
