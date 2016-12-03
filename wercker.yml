@@ -2,6 +2,9 @@ box: debian
 
 validate-json:
    steps:
+    - script:
+      name: Install python/pip
+      code: sudo apt-get update && sudo apt-get install -y python-pip libpython-all-dev
     - 1science/jsonschema-lint:
       include: teacherInterface/i18n/**.json
     - 1science/jsonschema-lint:
