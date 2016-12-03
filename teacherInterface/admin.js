@@ -2634,7 +2634,8 @@ function getMailToManualValidation(message) {
 
 function newUser() {
    initModels(false);
-   var message = "<p>" + t("warning_official_email_required") + getMailToManualValidation(t("contact_us")) + "</p>";
+   // var message = "<p>" + t("warning_official_email_required") + getMailToManualValidation(t("contact_us")) + "</p>";
+   var message = "<p>" + t("warning_official_email_required") + "</p>";
 
    newForm("user_create", t("user_registration"), message);
 }

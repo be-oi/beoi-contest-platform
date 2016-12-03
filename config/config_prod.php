@@ -15,7 +15,7 @@ $config->email->smtpSecurity = 'tls'; // to fill PHPMailer->SMTPSecure, "tls" or
 $config->email->smtpUsername = $_ENV['SMTP_USERNAME'];
 $config->email->smtpPassword = $_ENV['SMTP_PASSWORD'];
 $config->email->sInfoAddress = 'info@be-oi.be';
-$config->teacherInterface->forceOfficialEmailDomain = true;
+$config->teacherInterface->forceOfficialEmailDomain = false; // not forcing email, but checking it manually with the email.
 
 $config->enableAwardTab = false;
 $config->contestInterface->sessionLength = 36000;

@@ -36,6 +36,20 @@ function checkOfficialEmail($email) {
    }
 }
 
+function isOfficialEmail($email) {
+   global $config;
+   if (!$email) return true;
+   $start = strpos($email, "@");
+   if ($start === FALSE) return false;
+   $domain = substr($email, $start + 1);
+   $allowedDomains = getAllowedDomains();
+   foreach ($allowedDomains as $allowedDomain) {
+      if ($domain === $allowedDomain) return true;
+   }
+   return false;
+}
+
+
 function sendValidationEmail($emailType, $sEmail, $sSalt) {
    global $config;
    if (!$sEmail) {
@@ -43,15 +57,26 @@ function sendValidationEmail($emailType, $sEmail, $sSalt) {
    }
    $coordinatorFolder = $config->teacherInterface->sCoordinatorFolder;
    $link = $coordinatorFolder."/validateEmail.php?".$emailType."=".urlencode($sEmail)."&check=".urlencode($sSalt);
-   $sBody = sprintf($config->validationMailBody, $link);
-   $sTitle = $config->validationMailTitle;
+   $sBody = sprintf($i18n["validationMailBody"], $link);
+   $sTitle = $i18n["validationMailTitle"];
+   return sendMail($sEmail, $sTitle, $sBody, $config->email->sEmailSender, $config->email->sEmailInsriptionBCC);
+}
+
+function sendManualValidationEmail($sEmail) {
+   global $config;
+   $sBody = $i18n["manualValidationMailBody"];
+   $sTitle = $i18n["manualValidationMailTitle"];
    return sendMail($sEmail, $sTitle, $sBody, $config->email->sEmailSender, $config->email->sEmailInsriptionBCC);
 }
 
 function sendValidationEmails($record) {
-   $code = md5($record["salt"]."5263610");
-   $params = array('code' => $code, 'email' => $record["officialEmail"], 'salt' => $record["salt"]);
-   return sendValidationEmail("acEmail", $record["officialEmail"], $record["salt"]);
+   if (isOfficialEmail($record["officialEmail"])) {
+      $code = md5($record["salt"]."5263610");
+      $params = array('code' => $code, 'email' => $record["officialEmail"], 'salt' => $record["salt"]);
+      return sendValidationEmail("acEmail", $record["officialEmail"], $record["salt"]);      
+   } else {
+      return sendManualValidationEmail($record["officialEmail"]);      
+   }
 }
 
 function getUser($db) {
