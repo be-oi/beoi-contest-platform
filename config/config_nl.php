@@ -14,5 +14,5 @@ $config->teacherInterface->baseUrl = 'https://beheer.be-oi.be';
 $config->teacherInterface->sCoordinatorFolder = 'https://beheer.be-oi.be';
 $config->teacherInterface->sAbsoluteStaticPathOldIE = 'https://beheer.be-oi.be';
 
-$config->validationMailBody = "Bonjour,\r\n\r\nPour valider votre inscription en tant que coordinateur pour le concours Castor, ouvrez le lien suivant dans votre navigateur  : \r\n\r\n%s\r\n\r\nN'hésitez pas à nous contacter si vous rencontrez des difficultés.\r\n\r\nCordialement,\r\n-- \r\nL'équipe du Castor Informatique";
-$config->validationMailTitle = "Éliminatoires beOI : Confirmation d'inscription";
+$config->validationMailBody = "Hallo,\r\n\r\nOm uw inschrijving als coördinator voor de beOI-wedstrijd te valideren, opent u de volgende link in uw browser: \r\n\r\n%s\r\n\r\nAarzel niet om ons te contacteren als u problemen ondervindt.\r\n\r\nMet vriendelijke groeten,\r\n-- \r\nHet beOI team";
+$config->validationMailTitle = "Eerste ronde beOI: Bevestiging van inschrijving";
