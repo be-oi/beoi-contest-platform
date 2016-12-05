@@ -160,7 +160,7 @@ function getGroupsColModel() {
             stype: "select", searchoptions: { value:getItemNames(contests, true)},
             required: true, 
             width: 260, comment: t("contestID_comment")},
-         grade: {label: "Classe", editable: true, edittype: "select", width: 100, required: true, editoptions:{
+         grade: {label: t("contestant_grade_label"), editable: true, edittype: "select", width: 100, required: true, editoptions:{
             value:{
                "4": t("grade_4"),
                "5": t("grade_5"),
@@ -300,7 +300,7 @@ function initModels(isLogged) {
                stype: "select", searchoptions:{ value:"_NOF_:" + t("option_no_filter") + ";1:" + t("option_female") + ";2:" + t("option_male")},
                width: 75},
             //contestants: {label: "Équipe", editable: false, width:300},
-            grade: {label: "Classe", editable: true, edittype: "select", required: true, editoptions:{
+            grade: {label: t("contestant_grade_label"), editable: true, edittype: "select", required: true, editoptions:{
                value:{
                   "-1": t("grade_-1"),
                   "-4": t("grade_-4"),
