@@ -63,7 +63,7 @@ function sendValidationEmail($emailType, $sEmail, $sSalt) {
 }
 
 function sendManualValidationEmail($sEmail) {
-   global $config;
+   global $config, $i18n;
    $sBody = $i18n["manualValidationMailBody"];
    $sTitle = $i18n["manualValidationMailTitle"];
    return sendMail($sEmail, $sTitle, $sBody, $config->email->sEmailSender, $config->email->sEmailInsriptionBCC);
