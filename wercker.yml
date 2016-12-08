@@ -1,7 +1,7 @@
 box: debian
 
 validate-json:
-  box: josh/python@0.0.2
+  box: python:2.7
   steps:
     - script:
       name: validate JSON
