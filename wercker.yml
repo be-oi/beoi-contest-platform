@@ -3,14 +3,18 @@ box: debian
 validate-json:
    steps:
     - script:
-      name: Install python/pip
-      code: sudo apt-get update && sudo apt-get install -y python-pip libpython-all-dev
-    - 1science/jsonschema-lint:
-      include: teacherInterface/i18n/**.json
-    - 1science/jsonschema-lint:
-      include: teacherInterface/regions/BE/**.json
-    - 1science/jsonschema-lint:
-      include: contestInterface/**.json
+      name: validate JSON
+      code: |
+         python -m json.tool < contestInterface/i18n/fr/be.json
+         python -m json.tool < contestInterface/i18n/fr/translation.json
+         python -m json.tool < contestInterface/i18n/nl/be.json
+         python -m json.tool < contestInterface/i18n/nl/translation.json
+         python -m json.tool < contestInterface/i18n/de/be.json
+         python -m json.tool < contestInterface/i18n/fr/translation.json
+         python -m json.tool < teacherInterface/i18n/fr/countryBE.json
+         python -m json.tool < contestInterface/i18n/nl/translation.json
+         python -m json.tool < teacherInterface/i18n/nl/countryBE.json
+         python -m json.tool < teacherInterface/regions/BE/domains.json
 
 deploy-static-files:
   steps:
