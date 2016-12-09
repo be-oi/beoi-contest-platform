@@ -231,7 +231,6 @@
             <div id="custom_award_data"></div>
           </div>
       </div>
-   <div style="display:none;" id="linkExportAlgoreaCodes"se"></b> <p style="float:right;"><aihrpf="#" onclick="$('#divError').hide()">[<span data-i18n="error_close"></span>]</a></p><br/>
       <span id="contentError"></span>
    </div>
    <div id="divSchoolSearch"style="display:none" class="dialog">
