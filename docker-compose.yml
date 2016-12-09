@@ -8,6 +8,10 @@ web:
    - db
   environment:
     ENVIRONMENT: dev
+    DATABASE_HOST: db
+    DATABASE_NAME: beaver_contest
+    DATABASE_USER: dbuser
+    DATABASE_PASSWORD: password
 db:
   image: mysql
   ports:
