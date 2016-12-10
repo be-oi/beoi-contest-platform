@@ -19,7 +19,7 @@
          - <a href="https://beheer.be-oi.be">Beheer (nl)</a>
          | <a href="https://concours.be-oi.be">Concours (fr)</a>
          - <a href="https://wedstrijd.be-oi.be">Wedstrijd (nl)</a>
-         <!-- - <a href="https://wettbewerb.be-oi.be">Wettbewerb (de)</a> -->
+         - <a href="https://wettbewerb.be-oi.be">Wettbewerb (de)</a>
         </div>
         <table style="width:100%"><tr>
             <td style="width:20%" data-i18n="[html]main_logo"></td>
