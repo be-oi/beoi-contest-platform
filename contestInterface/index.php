@@ -129,7 +129,7 @@
        <option value="11" data-i18n="grade_11"></option>
        <option value="12" data-i18n="grade_12"></option>
        <option value="15" data-i18n="grade_13_pro"></option>
-       <option value="-4" data-i18n="grade_-4">Autre</option>
+       <option value="-4" data-i18n="grade_-4"></option>
    </select> </p>
    <p id="login-input-studentId-1"> <span data-i18n="[html]login_input_studentId"></span> <input id="studentId1" type="text" autocomplete="off"></input></p>
    <div id="contestant2" style="display:none">
@@ -157,7 +157,7 @@
        <option value="11" data-i18n="grade_11"></option>
        <option value="12" data-i18n="grade_12"></option>
        <option value="15" data-i18n="grade_13_pro"></option>
-       <option value="-4" data-i18n="grade_-4">Autre</option>
+       <option value="-4" data-i18n="grade_-4"></option>
       </select> </p>
       <p id="login-input-studentId-2"><span data-i18n="[html]login_input_studentId"></span> <input id="studentId2" type="text" autocomplete="off"></input></p>
    </div>
@@ -167,7 +167,8 @@
    <p data-i18n="[html]password_warning">
    </p>
    <p>
-   Code d'accès : <span id="teamPassword" class="selectable" style="font-size:2em"></span>
+      <span data-i18n="[html]password_access_code"></span>
+      <span id="teamPassword" class="selectable" style="font-size:2em"></span>
    </p>
          <div id="divInput">
             <button type="button" data-i18n="password_confirm" id="buttonConfirmTeamPassword" onclick="confirmTeamPassword()"></button>
@@ -212,9 +213,9 @@
          <table class="header_table">
             <tr>
                <td class="header_logo" data-i18n="[html]top_image_new"></td>
-               <td class="header_score">Score&nbsp;:<br/><b><span class='scoreTotalFullFeedback'></span></b></td>
-               <td class="header_time" id="header_time">Temps restant&nbsp;: <br/><b><span class='minutes'></span>:<span class='seconds'></span></b></td>
-               <td class="header_rank" style="display:none">Classement&nbsp; <br/><b><span class="rank" width="95%"></span></b></td>
+               <td class="header_score"><span data-i18n="[html]score"></span><br/><b><span class='scoreTotalFullFeedback'></span></b></td>
+               <td class="header_time" id="header_time"><span data-i18n="[html]time_remaining_3"></span><br/><b><span class='minutes'></span>:<span class='seconds'></span></b></td>
+               <td class="header_rank" style="display:none"><span data-i18n="[html]rank"></span><br/><b><span class="rank" width="95%"></span></b></td>
                <td class="header_button">
                  <input class="button_return_list" type="button" value="<?php echo i18n()["back_to_task_list"] ?>" onclick="backToList()"></input>
                </td>
