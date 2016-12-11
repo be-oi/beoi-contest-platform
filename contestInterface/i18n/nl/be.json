@@ -42,6 +42,10 @@
     "closed_contest": "Wedstrijd gesloten",
     "invalid_team": "Ongeldig team voor deze groep",
 
+    "points_0": "punten",
+    "point_1": "punt",
+    "points_more": "punten",
+
     "missing_contestant_data": "Informatie over de mankerende deelnemers",
     "group_not_loaded": "Groep niet geladen",
     "group_closed": "Groep gesloten",

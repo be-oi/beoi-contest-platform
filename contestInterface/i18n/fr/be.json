@@ -42,6 +42,10 @@
     "closed_contest": "Concours fermé",
     "invalid_team": "Équipe invalide pour ce groupe",
 
+    "points_0": "point",
+    "point_1": "point",
+    "points_more": "points",
+
     "missing_contestant_data": "Informations sur les candidats manquantes",
     "group_not_loaded": "Groupe non chargé",
     "group_closed": "Groupe fermé",

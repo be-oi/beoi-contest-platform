@@ -42,6 +42,10 @@
     "closed_contest": "Wettbewerb zu Ende",
     "invalid_team": "Für dieseGruppe ungültige Mannschaft",
 
+    "points_0": "Punkte",
+    "point_1": "Punkt",
+    "points_more": "Punkte",
+
     "missing_contestant_data": "Fehlende Informationen über den Kandidaten",
     "group_not_loaded": "Gruppe nicht geladen",
     "group_closed": "Gruppe geschlossen",

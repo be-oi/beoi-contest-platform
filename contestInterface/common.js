@@ -2186,10 +2186,16 @@ function computeFullFeedbackScore() {
       }
    }
    if (newInterface) {
-      var strScore = ffTeamScore + " point";
-      if (ffTeamScore > 1) {
-         strScore += "s";
+      var strScore = ffTeamScore + " ";
+      if (ffTeamScore == 0) {
+         strScore += t("points_0");
       }
+      else if (ffTeamScore == 1) {
+         strScore += t("point_1");
+      } else {
+         strScore += t("points_more");
+      }
+
       $(".scoreTotalFullFeedback").html(strScore);
    } else {
       $(".scoreTotalFullFeedback").html(ffTeamScore+' / '+ffMaxTeamScore);
