@@ -1,6 +1,8 @@
 {
     "general_page_title": "Éliminatoires beOI — Plateforme",
     "general_instructions": "<p>Pour accéder à une présentation générale du concours beOI, allez sur <a href=\"https://beoi.be-oi.be\">la page d'accueil</a>.</p><p>La plateforme fonctionne avec les navigateurs web suivants :<ul><li>Google Chrome à partir de la version 5.0 ;</li><li>Firefox à partir de la version 3.6 ;</li><li>Internet Explorer à partir de la version 8.0 ;</li><li>Safari à partir de la version 3.0 (fonctionne sur iPad).</li></ul></p>",
+    "general_public_contests": "S'entraîner à la maison",
+    "tab_public_contests_info": "",
     "tab_public_contests_score_explanation": "Vous pouvez vous entrainer sur l'ensemble de questions ci-dessous.<br/><br/>Les solutions vous seront fournies lorsque le temps sera écoulé ou que vous aurez cliqué sur <strong>quitter le concours</strong>.",
     "tab_public_contests_organization": "",
     "general_title": "Olympiade belge d'Informatique: Éliminatoires",

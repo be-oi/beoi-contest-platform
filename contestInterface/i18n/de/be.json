@@ -1,6 +1,8 @@
 {
     "general_page_title": "Vorrunde beOI — Plattform",
     "general_instructions": "<p>Gehen Sie auf die <a href=\"https://beoi.be-oi.be/\">Homepage</a>, um eine allgemeine Übersicht des Informatik-Biber Wettbewerbes zu bekommen.</p><p>Die Plattform funktioniert mit den folgenden Browsern:<ul><li>Google Chrome ab Version 5.0 ;</li><li>Firefox ab Version 3.6 ;</li><li>Internet Explorer ab Version 8.0 ;</li><li>Safari ab Version 3.0 (läuft auf dem iPad).</li></ul></p>",
+    "general_public_contests": "Zuhause üben",
+    "tab_public_contests_info": "",
     "tab_public_contests_score_explanation": "Sie können mit allen Fragen hier unten üben.<br/><br/>Die Lösungen werden geliefert, wenn die Zeit abgelaufen ist oder wenn Sie auf <strong>Wettbewerb verlassen</strong> klicken.",
     "tab_public_contests_organization": "",
     "general_title": "Informatik Olympiade Belgien: Vorrunde",
