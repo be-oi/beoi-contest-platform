@@ -187,16 +187,16 @@ class DataSanitizer
           "College" => "Collège", 
           "Collége" => "Collège", 
           "Lycee" => "Lycée", 
-          "Lpo" => "Lycée",   
-          "Lgt" => "Lycée",   
-          "Legt"  => "Lycée");
+          "Athéné"  => "Athénée",
+          "Athenee"  => "Athénée"
+      );
 
       $name = str_replace(array_keys($typos), array_values($typos), $name);
-      $allowed = array("École", "Collège", "Lycée", "Institution", "Groupe Scolaire", "Cours", "Ensemble", "Cité Scolaire", "Internat");
-      foreach ($allowed as $cat)
-         if (preg_match("/^$cat /", $name))
+      // $allowed = array("École", "Collège", "Lycée", "Institution", "Groupe Scolaire", "Cours", "Ensemble", "Cité Scolaire", "Internat");
+      // foreach ($allowed as $cat)
+      //    if (preg_match("/^$cat /", $name))
             return $name;
-      throw new Exception("Invalid school category for '$name'");
+      // throw new Exception("Invalid school category for '$name'");
    }
 
 
