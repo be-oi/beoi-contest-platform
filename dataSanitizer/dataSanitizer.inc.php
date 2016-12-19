@@ -30,7 +30,7 @@ class DataSanitizer
    {
       $saniValid = 1;
       $msgs = "";
-      foreach (array("name", "city", "country") as $field)
+      foreach (array("city", "country") as $field)
       {
          // Let's try to sanitize it
          try {
