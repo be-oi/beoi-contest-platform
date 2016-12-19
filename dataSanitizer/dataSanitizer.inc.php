@@ -189,12 +189,8 @@ class DataSanitizer
           "Lycee" => "Lycée", 
           "Athéné"  => "Athénée",
           "Athenee"  => "Athénée",
-          "Vti" => "Vrij Technisch Instituut",
-          "Ar" => "Athénée Royal",
           "Vzw" => "VZW",
-          "Asbl" => "ASBL",
-          "Ka" => "Koninklijk Atheneum",
-          "Kta" => "Koninklijk Technisch Atheneum"
+          "Asbl" => "ASBL"
       );
 
       $name = str_replace(array_keys($typos), array_values($typos), $name);
