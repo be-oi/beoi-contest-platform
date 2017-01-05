@@ -1,54 +1,183 @@
-* {
-   font-family: Arial;
+body {
+  margin: 0;
+  font-family: Arial;
+  min-width: fit-content;
+  min-width: -moz-fit-content;
+}
+a,
+.ui-widget-content a {
+  color: #4D87CE;
+  font-weight: bold;
+  text-decoration: none;
+}
+.ui-jqgrid a {
+  color: #333;
+}
+p {
+  margin: 0 0 1em;
+}
+input[type=text],
+input[type=password],
+input[type=email] {
+  border: 1px solid #ccc;
+  padding: 6px 12px;
+  border-radius: 4px;
+}
+.ui-jqgrid tr.ui-search-toolbar td > input {
+  padding-right: 2px;
+  padding-left: 2px;
+}
+.btn {
+  display: inline-block;
+  padding: 6px 12px;
+  margin-bottom: 0;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.42857143;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  -ms-touch-action: manipulation;
+  touch-action: manipulation;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  background-image: none;
+  border: 1px solid transparent;
+  border-radius: 4px;
+}
+.btn.focus, .btn:focus, .btn:hover {
+  color: #333;
+  text-decoration: none;
+}
+.btn-default {
+  color: #333;
+  background-color: #fff;
+  border-color: #ccc;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+.btn-default:hover {
+  color: #333;
+  background-color: #e6e6e6;
+  border-color: #adadad;
+}
+.btn-primary {
+  color: #fff;
+  background-color: #337ab7;
+  border-color: #2e6da4;
+}
+.btn-primary:hover {
+  color: #fff;
+  background-color: #286090;
+  border-color: #204d74;
+}
+.btn.disabled, .btn[disabled], fieldset[disabled] .btn {
+  cursor: not-allowed;
+  filter: alpha(opacity=65);
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  opacity: .65;
+}
+button[disabled], html input[disabled] {
+  cursor: default;
+}
+hr {
+  margin: 2em 0;
 }
 
 .ui-jqgrid {font-size:10pt}
 .ui-jqgrid tr.jqgrow td {font-size:10pt}
 
-.headerH1 {
-	font-family:"Century Gothic", "Trebuchet MS", "Arial Narrow", Arial, sans-serif;
-	font-size:40px;
-	text-transform:uppercase;
-	font-weight:normal;
-	margin:0;
-	padding:0;
-	padding-top:30px;
-	color: #736451;
-	margin-bottom: 10px;
-	text-align: left;
-}
 
-.headerH2 {
-	font-family: "Century Gothic", "Trebuchet MS", "Arial Narrow", Arial, sans-serif;
-	font-size: 24px;
-	text-transform: uppercase;
-	text-align: left;
-	font-weight: normal;
-	margin: 0;
-	padding: 0;
-	color: #000000;
-	border-bottom: 1px solid #eeeeee;
+#divHeader {
+  clear: both;
+  overflow: hidden;
+  margin-bottom: 1em;
+  border-bottom: 1px solid #ededed;
+  padding-bottom: 1em;
+}
+#leftTitle {
+  float: left;
+  margin: 10px 3em 0 32px;
+}
+#headerGroup {
+  float: left;
+  font-family:"Century Gothic", "Trebuchet MS", "Arial Narrow", Arial, sans-serif;
+  text-align: left;
+}
+#headerH1 {
+  font-size:40px;
+  font-weight:normal;
+  margin: 30px 0 10px;
+  padding: 0 10px;
+  color: #736451;
+  text-transform: uppercase;
+}
+#headerH2 {
+  font-size: 24px;
+  font-weight: normal;
+  margin: 0;
+  padding: 0 10px;
+  color: #000000;
+  text-transform: uppercase;
+}
+#logoutLink {
+  color: #736451;
+  float: right;
+  margin-top: 10px;
+  background: #fff;
+  box-shadow: 1px 1px 3px #ccc;
+  border: 1px solid #ccc;
+  transition: 250ms all;
+}
+#logoutLink:hover {
+  border-color: #777;
+  background: #736451;
+  color: #fff;
+}
+#login_link_to_home {
+  font-family: Arial;
+  margin-top: 20px;
+  margin-bottom: 0;
+  padding: 0 10px;
+}
+#main_screen {
+  margin: 1em 0;
+  min-width: fit-content;
+  min-width: -moz-fit-content;
+}
+#admin_view {
+  margin: 1em;
+  min-width: fit-content;
+  min-width: -moz-fit-content;
 }
 .div h3 {
 	font-family: "Century Gothic", "Trebuchet MS", "Arial Narrow", Arial, sans-serif;
 	font-size: 24px;
-	font-color: #736451;
 	text-align: left;
 	font-weight: normal;
+  color: #736451;
 }
-#divInput {
-  	padding-left: 100px;
+.formWrapper {
+  margin-left: 40px;
 }
-
+label {
+  margin-bottom: 1em;
+  display: block;
+}
+label .label {
+  margin-right: 1em;
+  font-weight: bold;
+  display: inline-block;
+  width: 250px;
+  vertical-align: middle;
+}
 .dialog {
-   padding-left: 200px;
-}
-#logoutLink {
-   font-family: "Century Gothic", "Trebuchet MS", "Arial Narrow", Arial, sans-serif;
-   float:right;
-   text-decoration: none;
-   font-weight: bold;
-   font-color: #736451;
+   margin: 20px;
+   max-width: 800px;
 }
 
 .ui-jqgrid .ui-jqgrid-htable th div {
