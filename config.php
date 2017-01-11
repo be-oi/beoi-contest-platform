@@ -24,7 +24,6 @@ $config->db->mysql->database = $_ENV['DATABASE_NAME']?:'unknowndb';
 $config->db->mysql->password = $_ENV['DATABASE_PASSWORD']?:'';
 $config->db->mysql->user = $_ENV['DATABASE_USER']?:'unknownuser';
 $config->db->mysql->logged = false;
-$config->db->mysql->extra_session_options = "sql_mode = \"STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION\"";
 
 // Emails
 $config->email = (object) array();

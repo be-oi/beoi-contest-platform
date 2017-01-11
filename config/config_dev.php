@@ -2,6 +2,7 @@
 
 $config->db->use = 'mysql'; // or dynamoDB
 $config->db->dynamoSessions = false;
+$config->db->mysql->extra_session_options = "sql_mode = \"NO_ENGINE_SUBSTITUTION\"";
 $config->teacherInterface->generationMode = 'local';
 $config->teacherInterface->sAssetsStaticPath = 'http://127.0.0.1/contestInterface';
 $config->teacherInterface->sAbsoluteStaticPath = 'http://127.0.0.1/contestInterface';
