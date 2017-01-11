@@ -253,6 +253,9 @@ var platform = {
       success(res);
    },
    validate: function(mode, success, error) {
+      this.validateWithQuestionKey(mode, success, error, questionIframe.questionKey);
+   },
+   validateWithQuestionKey: function(mode, success, error, questionKey) {
       if (TimeManager.isContestOver()) {
          alert(t("contest_closed_answers_readonly"));
          if (error) {error();} else if (success) {success();}
@@ -268,24 +271,24 @@ var platform = {
          if (mode == "cancel") {
             answer = "";
          }
-         var questionData = questionsData[questionsKeyToID[questionIframe.questionKey]];
+         var questionData = questionsData[questionsKeyToID[questionKey]];
          if (fullFeedback) {
             questionIframe.task.gradeAnswer(answer, null, function(score, message) {
                if (score < questionData.maxScore) {
                   mode = "stay";
                }
-               if ((answer != defaultAnswers[questionIframe.questionKey]) || (typeof answers[questionIframe.questionKey] != 'undefined')) {
+               if ((answer != defaultAnswers[questionKey]) || (typeof answers[questionKey] != 'undefined')) {
                   var prevScore = 0;
-                  if (typeof  scores[questionIframe.questionKey] != 'undefined') {
-                     prevScore = scores[questionIframe.questionKey].score;
+                  if (typeof  scores[questionKey] != 'undefined') {
+                     prevScore = scores[questionKey].score;
                   }
-                  if ((typeof answers[questionIframe.questionKey] == 'undefined') ||
-                      ((answer != answers[questionIframe.questionKey]) && (score >= prevScore))) {
-                     scores[questionIframe.questionKey] = {score: score, maxScore: questionData.maxScore};
-                     submitAnswer(questionIframe.questionKey, answer, score);
-                     answers[questionIframe.questionKey] = answer;
+                  if ((typeof answers[questionKey] == 'undefined') ||
+                      ((answer != answers[questionKey]) && (score >= prevScore))) {
+                     scores[questionKey] = {score: score, maxScore: questionData.maxScore};
+                     submitAnswer(questionKey, answer, score);
+                     answers[questionKey] = answer;
 
-                     updateUnlockedLevels(getSortedQuestionIDs(questionsData), questionIframe.questionKey);
+                     updateUnlockedLevels(getSortedQuestionIDs(questionsData), questionKey);
                      if (!newInterface) {
                         $('#score_' + questionData.key).html(score + " / " + questionData.maxScore);
                      }
@@ -293,13 +296,15 @@ var platform = {
                }
                computeFullFeedbackScore();
                platform.continueValidate(mode);
+               if (success) {success();}
             }, logError);
          } else {
-            submitAnswer(questionIframe.questionKey, answer, null);
-            answers[questionIframe.questionKey] = answer;
+            submitAnswer(questionKey, answer, null);
+            answers[questionKey] = answer;
             platform.continueValidate(mode);
+            if (success) {success();}
          }
-         if (success) {success();}
+//         if (success) {success();}
       }, logError);
    },
    firstNonVisitedQuestion: function(delay) {
@@ -984,7 +989,7 @@ window.selectMainTab = function(tabName) {
    if (tabName == 'home') {
       loadPublicGroups();
    }
-   var tabNames = ["school", "home", "continue"];
+   var tabNames = ["school", "home", "continue", "results", "contests"];
    for(var iTab = 0; iTab < tabNames.length; iTab++) {
       if (tabNames[iTab] === tabName) {
          $("#tab-" + tabNames[iTab]).show();
@@ -1107,11 +1112,12 @@ function updateUnlockedLevels(sortedQuestionIDs, updatedQuestionKey, contestEnde
    for (iQuestionID = 0; iQuestionID < sortedQuestionIDs.length; iQuestionID++) {
       questionKey = questionsData[sortedQuestionIDs[iQuestionID]].key;
       prevQuestionUnlockedLevels[questionKey] = questionUnlockedLevels[questionKey];
-      if (contestEnded) {
+      //if (contestEnded) {
          questionUnlockedLevels[questionKey] = 3;
          nbTasksUnlocked[2]++;
          continue;
-      }
+      //}
+      /*
       questionUnlockedLevels[questionKey] = 0;
       if (scores[questionKey] != null) {
          var score = scores[questionKey].score;
@@ -1130,6 +1136,7 @@ function updateUnlockedLevels(sortedQuestionIDs, updatedQuestionKey, contestEnde
             nbTasksUnlocked[2]++;
          }
       }
+      */
    }
    for (iQuestionID = 0; iQuestionID < sortedQuestionIDs.length; iQuestionID++) {
       var questionData = questionsData[sortedQuestionIDs[iQuestionID]];
@@ -1343,9 +1350,9 @@ window.setNbImagesLoaded = function(content) {
 /*
  * Called when starting a contest by providing a group code on the main page.
 */
-window.checkGroup = function() {
+window.checkGroup = function(language) {
    var groupCode = $("#groupCode").val();
-   return window.checkGroupFromCode("CheckGroup", groupCode, false, false);
+   return window.checkGroupFromCode("CheckGroup", groupCode, false, false, language);
 };
 
 window.recoverGroup = function() {
@@ -1437,6 +1444,45 @@ var hideLoginFields = function(postData) {
    }
 };
 
+window.groupWasChecked = function(data, curStep, groupCode, getTeams, isPublic) {
+   initContestData(data);
+   $("#headerH2").html(data.name);
+   $("#login_link_to_home").hide();
+   if (data.teamID !== undefined) { // The password of the team was provided directly
+      $("#div" + curStep).hide();
+      teamID = data.teamID;
+      teamPassword = groupCode;
+      loadContestData(contestID, contestFolder);
+   } else {
+      if ((data.nbMinutesElapsed > 30) && (!data.isPublic) && (!getTeams)) {
+         if (parseInt(data.bRecovered)) {
+            alert(t("group_session_expired"));
+            //window.location = t("contest_url");
+            return false;
+         } else {
+            $("#recoverGroup").show();
+            return false;
+         }
+      }
+      $("#div" + curStep).hide();
+      $('#mainNav').hide();
+      hideLoginFields(data);
+      if (curStep === "CheckGroup") {
+         if (isPublic) {
+            window.setNbContestants(1);
+            createTeam([{ lastName: "Anonymous", firstName: "Anonymous", genre: 2, email: null, zipCode: null}]);
+         } else if (data.allowTeamsOfTwo == 1) {
+            $("#divCheckNbContestants").show();
+         } else {
+            window.setNbContestants(1);
+         }
+      } else {
+         fillListTeams(data.teams);
+         $("#divRelogin").show();
+      }
+   }
+};
+
 /*
  * Checks if a group is valid and loads information about the group and corresponding contest,
  * curStep: indicates which step of the login process the students are currently at :
@@ -1445,11 +1491,11 @@ var hideLoginFields = function(postData) {
  * groupCode: a group code, or a team password
  * isPublic: is this a public group ?
 */
-window.checkGroupFromCode = function(curStep, groupCode, getTeams, isPublic) {
+window.checkGroupFromCode = function(curStep, groupCode, getTeams, isPublic, language) {
    Utils.disableButton("button" + curStep);
    $('#recoverGroup').hide();
    $("#" + curStep + "Result").html('');
-   $.post("data.php", {SID: SID, action: "checkPassword", password: groupCode, getTeams: getTeams},
+   $.post("data.php", {SID: SID, action: "checkPassword", password: groupCode, getTeams: getTeams, language: language},
       function(data) {
          if (!data.success) {
             if (data.message) {
@@ -1459,39 +1505,11 @@ window.checkGroupFromCode = function(curStep, groupCode, getTeams, isPublic) {
             }
             return;
          }
-         initContestData(data);
-         $("#headerH2").html(data.name);
-         if (data.teamID !== undefined) { // The password of the team was provided directly
-            $("#div" + curStep).hide();
-            teamID = data.teamID;
-            teamPassword = groupCode;
-            loadContestData(contestID, contestFolder);
+         if ((data.contestID == "412528966787346538") && (language == undefined)) {
+            $("#" + curStep).hide();
+            $("#selectLanguage").show();
          } else {
-            if ((data.nbMinutesElapsed > 30) && (!data.isPublic) && (!getTeams)) {
-               if (parseInt(data.bRecovered)) {
-                  alert(t("group_session_expired"));
-                  window.location = t("contest_url");
-                  return false;
-               } else {
-                  $("#recoverGroup").show();
-                  return false;
-               }
-            }
-            $("#div" + curStep).hide();
-            hideLoginFields(data);
-            if (curStep === "CheckGroup") {
-               if (isPublic) {
-                  window.setNbContestants(1);
-                  createTeam([{ lastName: "Anonymous", firstName: "Anonymous", genre: 2, email: null, zipCode: null}]);
-               } else if (data.allowTeamsOfTwo == 1) {
-                  $("#divCheckNbContestants").show();
-               } else {
-                  window.setNbContestants(1);
-               }
-            } else {
-               fillListTeams(data.teams);
-               $("#divRelogin").show();
-            }
+            groupWasChecked(data, curStep, groupCode);
          }
       }, "json").done(function() { Utils.enableButton("button" + curStep); });
 };
@@ -1612,7 +1630,7 @@ function getPublicGroupsList(groups) {
       {name: t("level_3_name"), i18name: "level_3_name", id: 3},
       {name: t("level_all_questions_name"), i18name: "level_all_questions_name", id: 0}
    ];
-   var strGroups = "<table style='border:solid 1px black' cellspacing=0 cellpadding=5>";
+   var strGroups = "<table style='border:solid 1px black; border-collapse:collapse;' cellspacing=0 cellpadding=5>";
    for (year = maxYear; years[year] === true; year--) {
       for (category in categories[year]) {
          var nbGroupsInCategory = 0;
@@ -1658,6 +1676,7 @@ function initContestData(data) {
    contestVisibility = data.contestVisibility;
    contestShowSolutions = !!parseInt(data.contestShowSolutions);
    TimeManager.setTotalTime(data.nbMinutes * 60);
+   $('#mainNav').hide();
    if (newInterface) {
       $("#question-iframe-container").addClass("newInterfaceIframeContainer");
       $(".oldInterface").html("").hide();
@@ -2127,14 +2146,20 @@ window.selectQuestion = function(questionID, clicked, noLoad) {
       questionIframe.task.getAnswer(function(answer) {
          if ( ! TimeManager.isContestOver() && ((answer !== defaultAnswers[questionIframe.questionKey]) || (typeof answers[questionIframe.questionKey] != 'undefined'))) {
             if (fullFeedback) {
-               platform.validate("stay");
+               platform.validate("stay", function() {
+                  nextStep();
+               }, function() {
+                  logError(arguments);                  
+               });
             } else if ((typeof answers[questionIframe.questionKey] == 'undefined') || (answers[questionIframe.questionKey] != answer)) {
                if (!confirm(t("confirm_leave_question"))) {
                   return;
                }
+               nextStep();
             }
+         } else {
+            nextStep();
          }
-         nextStep();
       }, function() {
          logError(arguments);
          nextStep();

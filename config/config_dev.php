@@ -3,8 +3,8 @@
 $config->db->use = 'mysql'; // or dynamoDB
 $config->db->dynamoSessions = false;
 $config->teacherInterface->generationMode = 'local';
-$config->teacherInterface->sAssetsStaticPath = 'https://manage-static.be-oi.be/contestAssets';
-$config->teacherInterface->sAbsoluteStaticPath = 'https://manage-static.be-oi.be';
+$config->teacherInterface->sAssetsStaticPath = 'http://127.0.0.1/contestInterface';
+$config->teacherInterface->sAbsoluteStaticPath = 'http://127.0.0.1/contestInterface';
 $config->teacherInterface->countryCode = 'BE';
 $config->timezone = 'Europe/Brussels';
 $config->email->bSendMailForReal = true;

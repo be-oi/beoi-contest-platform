@@ -4,11 +4,11 @@
   -o-user-select: none;
   user-select: none;
   -khtml-user-select: none;
-  font-family: arial;
 }
 
 body {
-   margin-left:0px;
+  margin: 0px;
+  font-family: arial;
 }
 
 .fullFeedback {
@@ -61,6 +61,103 @@ a {
   -khtml-user-select: text;
 }
 
+
+/* Contest home */
+#divHeader {
+  clear: both;
+  overflow: hidden;
+  margin-bottom: 1em;
+  border-bottom: 1px solid #ededed;
+  padding-bottom: 1em;
+}
+#leftTitle {
+  float: left;
+  margin: 10px 3em 0 32px;
+}
+#headerGroup {
+  float: left;
+  font-family:"Century Gothic", "Trebuchet MS", "Arial Narrow", Arial, sans-serif;
+  text-transform:uppercase;
+  text-align: left;
+}
+#headerH1 {
+  font-size:40px;
+  font-weight:normal;
+  margin: 30px 0 10px;
+  padding: 0 10px;
+  color: #736451;
+}
+#headerH2 {
+  font-size: 24px;
+  font-weight: normal;
+  margin: 0;
+  padding: 0 10px;
+  color: #000000;
+}
+#login_link_to_home {
+  text-transform: none;
+  font-family: Arial;
+  margin-top: 20px;
+  margin-bottom: 0;
+  padding: 0 10px;
+}
+
+#mainContent {
+  margin-left: 20px;
+}
+#browserAlert {
+  color: #8a6d3b;
+  width: 500px;
+  margin: 0 auto;
+  padding: 0 20px;
+  background-color: #fcf8e3;
+  border: 1px solid #faebcc;
+  border-radius: 6px;
+}
+.tabTitle {
+  font-size: 2em;
+  font-family:"Century Gothic", "Trebuchet MS", "Arial Narrow", Arial, sans-serif;
+}
+#mainNav {
+  float: left;
+  margin: 10px 4em 0 0px;
+}
+#mainNav .i18n {display: none;}
+#mainNav ul {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+}
+#mainNav li {
+  cursor: pointer;
+  margin-bottom: 5px;
+  padding: 5px;
+  position: relative;
+  background: #736451;
+  color: #fff;
+  line-height: 24px;
+  letter-spacing: 0.04em;
+}
+#mainNav li::after {
+  content: " ";
+  border: 17px solid #000;
+  position: absolute;
+  right: -17px;
+  border-left-color: #736451;
+  border-top-color: transparent;
+  top: 0px;
+  border-bottom-color: transparent;
+  border-right: none;
+}
+#mainNav li.selected {
+  background: #2482bf;
+}
+#mainNav li.selected::after {
+  border-left-color: #2482bf;
+}
+.tabContent {
+  float: left;
+}
 .questionListHeader {
    width:195px;
    padding-right: 5px;
@@ -160,30 +257,6 @@ a {
    background-color: #E0E0E0;
 }
 
-#headerH1 {
-   font-family:"Century Gothic", "Trebuchet MS", "Arial Narrow", Arial, sans-serif;
-   font-size:40px;
-   text-transform:uppercase;
-   font-weight:normal;
-   margin:0;
-   padding:0;
-   padding-top:30px;
-   color: #736451;
-   margin-bottom: 10px;
-   text-align: left;
-}
-
-#headerH2 {
-   font-family: "Century Gothic", "Trebuchet MS", "Arial Narrow", Arial, sans-serif;
-   font-size: 24px;
-   text-transform: uppercase;
-   text-align: left;
-   font-weight: normal;
-   margin: 0;
-   padding: 0;
-   color: #000000;
-   border-bottom: 1px solid #eeeeee;
-}
 .div h3 {
    font-family: "Century Gothic", "Trebuchet MS", "Arial Narrow", Arial, sans-serif;
    font-size: 24px;
@@ -191,12 +264,8 @@ a {
    text-align: left;
    font-weight: normal;
 }
-#divInput {
+.divInput {
      padding-left: 100px;
-}
-
-.dialog {
-   padding-left: 245px;
 }
 
 .questionScores, .questionScores td {
@@ -292,8 +361,6 @@ a {
   -o-user-select: text;
   user-select: text;
 }
-
-/* new interface styles */
 
 .header, .layout_table_wrapper {
   max-width:880px;width:auto !important;width:880px;

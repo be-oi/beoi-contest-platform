@@ -28,6 +28,10 @@ function connect_pdo($config) {
          $db = new PDO($connexionString, $config->db->mysql->user, $config->db->mysql->password, $pdo_options);
       }
       $db->exec("SET time_zone='".$offset."';");
+      if (strlen($config->db->mysql->extra_session_options) > 0) {
+         $db->exec("SET SESSION ".$config->db->mysql->extra_session_options.";");
+      }
+
    } catch (Exception $e) {
       die("Erreur : " . $e->getMessage());
    }

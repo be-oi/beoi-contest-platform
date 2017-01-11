@@ -54,13 +54,13 @@ function handleCreateTeam($db) {
    // $_SESSION['userCode'] is set by optional password handling function,
    // see comments of createTeamFromUserCode in common_contest.php.
    $groupID = $_SESSION["groupID"];
-   if (isset($_SESSION["userCode"]) && isset($_SESSION["userCodeGroupID"]) && $_SESSION["userCodeGroupID"] == $groupID) {
+   if (isset($_SESSION["userCode"]) && isset($_SESSION["userCodeGroupCode"]) && $_SESSION["userCodeGroupCode"] == $_SESSION["groupCode"]) {
       $password = $_SESSION["userCode"];
-      unset($_SESSION["userCode"]);
-      unset($_SESSION["userCodeGroupID"]);
    } else {
       $password = genAccessCode($db);
    }
+   unset($_SESSION["userCode"]);
+   unset($_SESSION["userCodeGroupCode"]);
    $teamID = getRandomID();
    $stmt = $db->prepare("INSERT INTO `team` (`ID`, `groupID`, `password`, `nbMinutes`) VALUES (?, ?, ?, ?)");
    $stmt->execute(array($teamID, $groupID, $password, $_SESSION["nbMinutes"]));
@@ -129,12 +129,12 @@ function handleLoadContestData($db) {
    $teamID = $_SESSION["teamID"];
    $stmt = $db->prepare("UPDATE `team` SET `startTime` = UTC_TIMESTAMP() WHERE `ID` = :teamID AND `startTime` IS NULL");
    $stmt->execute(array("teamID" => $teamID));
-   if ($config->db->use == 'dynamoDB' && !isset($_SESSION["mysqlOnly"])) {
+   if ($config->db->use == 'dynamoDB' && (!isset($_SESSION["mysqlOnly"]) || !$_SESSION["mysqlOnly"])) {
       $stmt = $db->prepare("SELECT `startTime` FROM `team` WHERE `ID` = :teamID");
       $stmt->execute(array("teamID" => $teamID));
-      $row = $stmt->fetchObject();
+      $startTime = $stmt->fetchColumn();
       try {
-         $tinyOrm->update('team', array('startTime' => $row->startTime), array('ID'=>$teamID, 'startTime'=>null));
+         $tinyOrm->update('team', array('startTime' => $startTime), array('ID'=>$teamID));
       } catch (Aws\DynamoDb\Exception\DynamoDbException $e) {
          error_log($e->getAwsErrorCode() . " - " . $e->getAwsErrorType());
          error_log('DynamoDB error updating team for teamID: '.$teamID);
@@ -295,6 +295,7 @@ function handleCheckGroupPassword($db, $password, $getTeams) {
       unset($_SESSION['mysqlOnly']);
    }
    $_SESSION["groupID"] = $groupID;
+   $_SESSION["groupCode"] = $password;
    $_SESSION["contestName"] = $row->contestName;
    $_SESSION["schoolID"] = $schoolID;
    $_SESSION["contestID"] = $contestID;
@@ -313,11 +314,6 @@ function handleCheckGroupPassword($db, $password, $getTeams) {
    $_SESSION["subsetsSize"] = $subsetsSize;
    $_SESSION["isPublic"] = $isPublic;
    $_SESSION["groupClosed"] = (($nbMinutesElapsed > 60) && (!$isPublic));
-   // We don't want $_SESSION['userCode'] in the session at this point
-   if (isset($_SESSION["userCode"])) {
-      unset($_SESSION["userCode"]);
-      unset($_SESSION["userCodeGroupID"]);
-   }
    addBackendHint("ClientIP.checkPassword:pass");
    addBackendHint(sprintf("Group(%s):checkPassword", escapeHttpValue($groupID)));
    exitWithJson((object)array(

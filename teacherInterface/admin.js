@@ -620,11 +620,11 @@ function initModels(isLogged) {
          tableName: "question",
          fields: {
             key: {label: t("question_key_label"), editable: true, edittype: "text", width: 120},
-            folder: {label: t("question_folder_label"), editable: true, edittype: "text", width: 100},
-            name: {label: t("question_name_label"), editable: true, edittype: "text", width: 400},
+            path: {label: t("question_path_label"), editable: true, edittype: "text", width: 300},
+            name: {label: t("question_name_label"), editable: true, edittype: "text", width: 300},
             answerType: {label: t("question_answerType_label"), editable: true, edittype: "select", width: 150,
-               editoptions:{ value:{"0": t("option_multiple_choice"), "1": t("option_free_input"), "2": t("option_evaluated")}}},
-            expectedAnswer: {label: t("question_expectedAnswer_label"), editable: true, edittype: "text", width: 200}
+            editoptions:{ value:{"0": t("option_multiple_choice"), "1": t("option_free_input"), "2": t("option_evaluated")}}},
+            expectedAnswer: {label: t("question_expectedAnswer_label"), editable: true, edittype: "text", width: 100}
          }
       },
       school_user: {
@@ -875,7 +875,7 @@ function loadListContests() {
 function loadListQuestions() {
    loadGrid("question", "key", 20, [20, 50, 200], function(id) {
       selectedQuestionID = id;
-      var url = "beoi-contest-tasks/" + questions[id].folder + "/" + questions[id].key + "/index.html";
+      var url = "beoi-contest-tasks/" + questions[id].path;
       $("#preview_question").attr("src", url);
    }, true);
 }
@@ -1011,6 +1011,7 @@ function continueLogUser() {
    var spreadCastorBox = false;
    loadSchoolsUsers();
    $("#login_form").hide();
+   $("#login_link_to_home").hide();
    $("#loading").hide();
    initModels(true);
    $("#logoutLink").show();
@@ -1027,9 +1028,9 @@ function continueLogUser() {
       loadListQuestions();
       loadContestQuestions();
       if (state !== 'normal') {
-         loadContestants();
-         loadTeams();
-         loadListAwards();
+         //loadContestants();
+         //loadTeams();
+         //loadListAwards();
       }
       initDeleteButton("user");
       initDeleteButton("contest");
@@ -1275,7 +1276,7 @@ function loadContests() {
          var contest = contests[contestID];
          if (contest.printCertificates == 1) {
             nbContests += 1;
-            contestList += '<li><button onclick="printSchoolCertificates(\''+contest.ID+'\')">'+contest.name+'</button></li>';
+            contestList += '<li><button onclick="printSchoolCertificates(\''+contest.ID+'\')" class="btn btn-default">'+contest.name+'</button></li>';
          }
       }
       contestList += "</ul>";
@@ -1425,7 +1426,7 @@ function loopGradeContest(curContestID, curGroupID) {
          var selectorState = curGroupID ? '#gradeGroupState' : '#gradeContestState';
          $(selectorState).show();
          $(selectorState).html(i18n.t('grading_in_progress')+'<span class="nbCurrent">0</span> / <span class="nbTotal">' + data.questionKeys.length + '</span> - ' + t("grading_current_question") + ' : <span class="current"></span> <span class="gradeprogressing"></span>');
-         grade(curContestID, curGroupID, data.questionKeys, data.questionFolders, 0);
+         grade(curContestID, curGroupID, data.questionKeys, data.questionPaths, 0);
       }
       else {
          jqAlert(data.message);
@@ -1434,7 +1435,7 @@ function loopGradeContest(curContestID, curGroupID) {
    }, 'json');
 }
 
-function grade(curContestID, curGroupID, questionKeys, questionFolders, curIndex)
+function grade(curContestID, curGroupID, questionKeys, questionPaths, curIndex)
 {
    var selectorState = curGroupID ? '#gradeGroupState' : '#gradeContestState';
    if (curIndex >= questionKeys.length) {
@@ -1455,7 +1456,7 @@ function grade(curContestID, curGroupID, questionKeys, questionFolders, curIndex
    // Retrieve the bebras/grader of the current question
    $.post('grader.php', { contestID: curContestID, groupID: curGroupID, questionKey: questionKeys[curIndex] },function(data) {
       if (data.status === 'success') {
-         var url = "beoi-contest-tasks/" + questionFolders[curIndex] + "/" + questionKeys[curIndex] + "/index.html";
+         var url = "beoi-contest-tasks/" + questionPaths[curIndex];
          $("#preview_question").attr("src", url);
          
          // Retrieve bebras
@@ -1503,7 +1504,7 @@ function grade(curContestID, curGroupID, questionKeys, questionFolders, curIndex
                   task.getResources(function(bebras) {
                      curGradingBebras = bebras;
                      task.load({'task': true, 'grader': true}, function() {
-                        gradeQuestion(task, curContestID, curGroupID, questionKeys, questionFolders, curIndex);
+                        gradeQuestion(task, curContestID, curGroupID, questionKeys, questionPaths, curIndex);
                      });
                   });
                }, true);
@@ -1520,11 +1521,11 @@ function grade(curContestID, curGroupID, questionKeys, questionFolders, curIndex
    }, 'json');
 }
 
-function gradeQuestionPack(task, curContestID, curGroupID, questionKeys, questionFolders, curIndex, curPackIndex) {
+function gradeQuestionPack(task, curContestID, curGroupID, questionKeys, questionPaths, curIndex, curPackIndex) {
    var selectorState = curGroupID ? '#gradeGroupState' : '#gradeContestState';
    // Compute scores of a pack
    if (curPackIndex >= curGradingData.teamQuestions.length) {
-      grade(curContestID, curGroupID, questionKeys, questionFolders, curIndex + 1);
+      grade(curContestID, curGroupID, questionKeys, questionPaths, curIndex + 1);
       return;
    }
    
@@ -1601,12 +1602,12 @@ function gradeQuestionPack(task, curContestID, curGroupID, questionKeys, questio
    // If not score need to be send, go to the next packet directly
    if (!i) {
       $(selectorState+' .gradeprogressing').text($(selectorState+' .gradeprogressing').text()+'.');
-      gradeQuestionPack(task, curContestID, curGroupID, questionKeys, questionFolders, curIndex, curPackIndex + gradePackSize);
+      gradeQuestionPack(task, curContestID, curGroupID, questionKeys, questionPaths, curIndex, curPackIndex + gradePackSize);
       return;
    }
    
    gradeOneAnswer(task, answersToGrade, 0, scores, function() {
-      gradeQuestionPackEnd(task, curContestID, curGroupID, questionKeys, questionFolders, curIndex, curPackIndex, scores, selectorState);
+      gradeQuestionPackEnd(task, curContestID, curGroupID, questionKeys, questionPaths, curIndex, curPackIndex, scores, selectorState);
    });
 }
 
@@ -1638,7 +1639,7 @@ function gradeOneAnswer(task, answers, i, scores, finalCallback) {
    });
 }
 
-function gradeQuestionPackEnd(task, curContestID, curGroupID, questionKeys, questionFolders, curIndex, curPackIndex, scores, selectorState) {
+function gradeQuestionPackEnd(task, curContestID, curGroupID, questionKeys, questionPaths, curIndex, curPackIndex, scores, selectorState) {
    var usesRandomSeed = (('usesRandomSeed' in curGradingBebras) && curGradingBebras.usesRandomSeed);
    // If the answer is in cache and the task doesn't use randomSeed, the server side will update it
    // but only in the case of a contest global evaluation
@@ -1662,12 +1663,12 @@ function gradeQuestionPackEnd(task, curContestID, curGroupID, questionKeys, ques
       if (parseInt(curPackIndex / gradePackSize) % 25 === 0) {
          setTimeout(function() {
             $(selectorState+' .gradeprogressing').text($(selectorState+' .gradeprogressing').text()+'.');
-            gradeQuestionPack(task, curContestID, curGroupID, questionKeys, questionFolders, curIndex, curPackIndex + gradePackSize);
+            gradeQuestionPack(task, curContestID, curGroupID, questionKeys, questionPaths, curIndex, curPackIndex + gradePackSize);
          }, 5000);
       }
       else {
          $(selectorState+' .gradeprogressing').text($(selectorState+' .gradeprogressing').text()+'.');
-         gradeQuestionPack(task, curContestID, curGroupID, questionKeys, questionFolders, curIndex, curPackIndex + gradePackSize);
+         gradeQuestionPack(task, curContestID, curGroupID, questionKeys, questionPaths, curIndex, curPackIndex + gradePackSize);
       }
    }, 'json').fail(function() {
       jqAlert('Something went wrong while sending scores...');
@@ -1675,13 +1676,13 @@ function gradeQuestionPackEnd(task, curContestID, curGroupID, questionKeys, ques
    });
 }
 
-function gradeQuestion(task, curContestID, curGroupID, questionKeys, questionFolders, curIndex) {
+function gradeQuestion(task, curContestID, curGroupID, questionKeys, questionPaths, curIndex) {
    // Compute all scores by pack
    if (curGradingBebras.grader[0] && curGradingBebras.grader[0].content) {
       $('#preview_question')[0].contentWindow.eval($('#preview_question')[0].contentWindow.eval(curGradingBebras.grader[0].content));
    }
    
-   gradeQuestionPack(task, curContestID, curGroupID, questionKeys, questionFolders, curIndex, 0);
+   gradeQuestionPack(task, curContestID, curGroupID, questionKeys, questionPaths, curIndex, 0);
 }
 
 /**
@@ -1880,6 +1881,7 @@ Generator.prototype.start = function () {
          }
          self.contestFolder = data.contestFolder;
          self.questionsUrl = data.questionsUrl;
+         self.questionsKey = data.questionsKey;
          // Start generating the tasks.
          self.currentTaskIndex = 0;
          self.doTask();
@@ -1896,6 +1898,7 @@ Generator.prototype.doTask = function () {
       return self.upload();
    }
    var taskUrl = self.questionsUrl[currentTaskIndex];
+   var taskKey = self.questionsKey[currentTaskIndex];
    generating = true;
    $('#preview_question').attr("src", "beoi-contest-tasks/" + taskUrl);
    $('#preview_question').on('load', onQuestionLoaded);
@@ -1903,7 +1906,7 @@ Generator.prototype.doTask = function () {
       $('#preview_question').off('load', onQuestionLoaded);
       TaskProxyManager.getTaskProxy('preview_question', function (task) {
          task.getResources(function (bebras) {
-            self.tasks.push({'bebras': bebras, 'url': taskUrl});
+            self.tasks.push({'bebras': bebras, 'url': taskUrl, 'key': taskKey});
             generating = false;
             self.currentTaskIndex += 1;
             self.doTask();
@@ -1969,7 +1972,7 @@ function genQuestion() {
    var button = $("#generateQuestion");
    button.attr("disabled", true);
    tasks = []; // Reinit
-   var url = "beoi-contest-tasks/" + questions[questionID].folder + "/" + questions[questionID].key + "/";
+   var url = "beoi-contest-tasks/" + questions[questionID].path;
    $("#preview_question").attr("src", url);
    // Retrieve bebras
    generating = true;
@@ -1978,7 +1981,8 @@ function genQuestion() {
       var bebras = $('#preview_question')[0].contentWindow.task.getResources();
       tasks.push({
          'bebras': bebras,
-         'url': questions[questionID].folder + "/" + questions[questionID].key + "/"
+         'key': questions[questionID].key,
+         'url': questions[questionID].path
       });
       generating = false;
       // Compilation
@@ -2041,14 +2045,14 @@ function getContestFromID(ID) {
 
 function newForm(modelName, title, message) {
    var js = "";
-   var html = "<h3>" + title + "</h3>" + message +
+   var html = "<h2>" + title + "</h2>" + message +
       "<input type='hidden' id='" + modelName + "_ID' /><table>";
    for (var fieldName in models[modelName].fields) {
       var field = models[modelName].fields[fieldName];
       if (field.edittype === undefined) {
          continue;
       }
-      html += "<tr><td style='width:230px;line-height:2em'><b>";
+      html += "<tr><td style='width:230px;padding:10px 0;'><b>";
       if (field.longLabel !== undefined) {
          html += field.longLabel;
       } else {
@@ -2119,11 +2123,11 @@ function newForm(modelName, title, message) {
    }
    html += "</table>";
    if (modelName == 'user_create') {
-      html += '<input type="checkbox" id="users_okMail">';
-      html += t('user_accept_email')+'<br/><br/>';
+      html += '<label><input type="checkbox" id="users_okMail">';
+      html += t('user_accept_email')+'</label>';
    }
-   html += "<input id='buttonValidate_" + modelName + "' type='button' value='OK' onclick='validateForm(\"" + modelName + "\")' />";
-   html += "<input id='buttonCancel_" + modelName + "' type='button' value='Annuler' onclick='endEditForm(\"" + modelName + "\", 0 , {})' />";
+   html += "<input id='buttonValidate_" + modelName + "' type='button' value='OK' onclick='validateForm(\"" + modelName + "\")' class='btn btn-primary'/> ";
+   html += "<input id='buttonCancel_" + modelName + "' type='button' value='Annuler' onclick='endEditForm(\"" + modelName + "\", 0 , {})' class='btn btn-default'/>";
    html += "<div id='edit_form_error' style='color:red'></div>";
    $("#edit_form").html(html);
    eval(js);
@@ -2173,7 +2177,7 @@ function printGroupCertificates() {
       jqAlert(t("group_print_certificates_impossible"));
       return;
    }
-   window.open("printCertificates.php?schoolID="+group.schoolID+"&contestID="+group.contestID+"&groupID=" + groupID, "printGroup" + groupID, 'width=700,height=600,menubar=yes,status=yes,toolbar=yes,scrollbars=yes,resizable=yes');
+   window.open("printCertificatesPdf.php?schoolID="+group.schoolID+"&contestID="+group.contestID+"&groupID=" + groupID, "printGroup" + groupID, 'width=700,height=600,menubar=yes,status=yes,toolbar=yes,scrollbars=yes,resizable=yes');
 }
 
 function printSchoolCertificates(contestID) {
