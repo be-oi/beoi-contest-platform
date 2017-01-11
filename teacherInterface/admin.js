@@ -1276,7 +1276,7 @@ function loadContests() {
          var contest = contests[contestID];
          if (contest.printCertificates == 1) {
             nbContests += 1;
-            contestList += '<li><button onclick="printSchoolCertificates(\''+contest.ID+'\')" class="btn btn-default">'+contest.name+'</button></li>';
+            contestList += '<li><button type="button" onclick="printSchoolCertificates(\''+contest.ID+'\')" class="btn btn-default">'+contest.name+'</button></li>';
          }
       }
       contestList += "</ul>";
@@ -2186,7 +2186,7 @@ function printSchoolCertificates(contestID) {
       jqAlert(t("warning_no_school_selected"));
       return false;
    }
-   window.open("printCertificates.php?schoolID="+schoolID+"&contestID="+contestID, "printSchool" + schoolID, 'width=700,height=600,menubar=yes,status=yes,toolbar=yes,scrollbars=yes,resizable=yes');
+   window.open("printCertificatesPdf.php?schoolID="+schoolID+"&contestID="+contestID, "printSchool" + schoolID, 'width=700,height=600,menubar=yes,status=yes,toolbar=yes,scrollbars=yes,resizable=yes');
    return false;
 }
 

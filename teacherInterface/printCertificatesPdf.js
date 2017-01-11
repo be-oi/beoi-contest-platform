@@ -155,6 +155,60 @@ function fillDataDiplomas(params) {
    return contestantPerGroup;
 }
 
+function isDiplomaToPrint(diploma) {
+   if (qualifiedOnly && !diploma.qualified) {
+      return false;
+   }
+   if (diploma.rank / diploma.contestParticipants > rankPercentile) {
+      return false;
+   }
+   return true;
+}
+
+function countDiplomas(params) {
+   var contestantPerGroup = fillDataDiplomas(params);
+   var nbTotal = 0;
+   var nbToPrint = 0;
+   for (var groupID in contestantPerGroup) {
+      var group = allData.group[groupID];
+      var contest = allData.contest[group.contestID];
+      var user = allData.user[group.userID];
+      if (user == undefined) {
+        user = allData.colleagues[group.userID];
+      }
+      var school = allData.school[group.schoolID];
+
+      for (var iDiploma in contestantPerGroup[groupID]) {
+         nbTotal++;
+         var diploma = contestantPerGroup[groupID][iDiploma];
+         if (isDiplomaToPrint(diploma)) {
+            nbToPrint++;
+         }
+      }
+   }
+   return {
+      total: nbTotal,
+      toPrint: nbToPrint
+   }
+}
+
+var qualifiedOnly = false;
+var rankPercentile = 1;
+var diplomasPerPart = 100;
+
+function updateNbDiplomas() {
+   qualifiedOnly = $("#qualifiedOnly").prop("checked");
+   rankPercentile = 1;
+   if ($("#topRankedOnly").prop("checked")) {
+      rankPercentile = parseInt($("#minRankPercentile").val()) / 100;
+   }
+   diplomasPerPart = parseInt($("#diplomasPerPart").val());
+   genDocumentParts(params);
+   var counts = countDiplomas(params);
+   $("#printedCertificates").html(counts.toPrint);
+   $("#totalCertificates").html(counts.total);
+}
+
 function getStrings(params) {
    var contest = allData.contest[params.contestID];
    if (!contest) {
@@ -166,8 +220,12 @@ function getStrings(params) {
       window.i18nconfig.ns.namespaces = [stringsName, 'translation'];
    }
    i18n.init(window.i18nconfig, function () {
-     newGenerateDiplomas(params);
-   });   
+      genDocumentParts(params);
+      $("#preload").hide();
+      $("#loaded").show();
+      $("#qualificationText").html(qualificationText);
+      updateNbDiplomas();
+   });
 }
 
 function getFullPdfDocument(content) {
@@ -213,28 +271,31 @@ function getCoordName(user) {
           ' ' + user.firstName + ' ' + user.lastName;
 }
 
-function addHeaderForGroup(content, group, contest, user, school) {
+function addHeaderForGroup(content, group, contest, user, school, isFirst) {
    // The string diploma_group_title is split in 2 strings : diploma_group_title and diploma_coordinator_title
    var diploma_group_title = 'Groupe'; // i18n.t('diploma_group_title');
    var diploma_coordinator_title = 'Coordonné par';
 
-   content.push(
-      {
-        stack: [
-          school.name,
-          {
-            text: [
-               diploma_group_title,
-               {text: ' « '},
-               group.name,
-               {text: ' »'}
-            ]
-          }
-        ],
-        style: ['documentTitle', 'mainColor'],
-        margin: [0, 0, 0, 20]
-      }
-   );
+   var contentTitle = {
+     stack: [
+       school.name,
+       {
+         text: [
+            diploma_group_title,
+            {text: ' « '},
+            group.name,
+            {text: ' »'}
+         ]
+       }
+     ],
+     style: ['documentTitle', 'mainColor'],
+     margin: [0, 0, 0, 20]
+   };
+
+   if (!isFirst) {
+      contentTitle.pageBreak = 'before';
+   }
+   content.push(contentTitle);
 
    var coordName = getCoordName(user);
    content.push(
@@ -271,6 +332,9 @@ function addContestantTableForGroup(content, contestantsData) {
 
    for (var iDiploma in contestantsData) {
       var diploma = contestantsData[iDiploma];
+      if (!isDiplomaToPrint(diploma)) {
+         continue;
+      }
       var qualificationStr = '';
       if (diploma.algoreaCode) {
          qualificationStr = diploma.algoreaCode;
@@ -404,10 +468,12 @@ The styles depend on the contest.
     });
 }
 
-function newGenerateDiplomas(params) {
+function newGenerateDiplomas(params, iPart) {
+   $("#buttonPdf" + iPart).prop("disabled", true);
    var content = [];
    var contestantPerGroup = fillDataDiplomas(params);
-   for (var groupID in contestantPerGroup) {
+   for (var iGroup = 0; iGroup < partsGroupsIDs[iPart].length; iGroup++) {
+      var groupID = partsGroupsIDs[iPart][iGroup];
       var group = allData.group[groupID];
       var contest = allData.contest[group.contestID];
       var user = allData.user[group.userID];
@@ -416,16 +482,60 @@ function newGenerateDiplomas(params) {
       }
       var school = allData.school[group.schoolID];
 
-      addHeaderForGroup(content, group, contest, user, school);
+      addHeaderForGroup(content, group, contest, user, school, (iGroup == 0));
       addContestantTableForGroup(content, contestantPerGroup[groupID]);
 
       for (var iDiploma in contestantPerGroup[groupID]) {
-         addDiploma(content, contestantPerGroup[groupID][iDiploma], contest, school, user);
+         var diploma = contestantPerGroup[groupID][iDiploma];
+         if (isDiplomaToPrint(diploma)) {
+            addDiploma(content, diploma, contest, school, user);
+         }
       }
 
    }
    var docDefinition = getFullPdfDocument(content);
-   pdfMake.createPdf(docDefinition).open()
+   pdfMake.createPdf(docDefinition).download("diplomes_" + (iPart + 1) + ".pdf")
+}
+
+var partsGroupsIDs = [];
+
+function genDocumentParts(params) {
+   partsGroupsIDs = [];
+   var curNbContestants = 0;
+   var curPart = [];
+   var contestantPerGroup = fillDataDiplomas(params);
+   for (var groupID in contestantPerGroup) {
+      var group = allData.group[groupID];
+      var nb = 0;
+      for (var iDiploma in contestantPerGroup[groupID]) {
+         var diploma = contestantPerGroup[groupID][iDiploma];
+         if (isDiplomaToPrint(diploma)) {
+            nb++;
+         }
+      }
+      if (nb == 0) {
+         continue;
+      }
+      if ((curNbContestants + nb > diplomasPerPart) && curPart.length > 0) {
+         partsGroupsIDs.push(curPart);
+         curPart = [];
+         curNbContestants = 0;
+      }
+      curPart.push(groupID);
+      curNbContestants += nb;
+   }
+   partsGroupsIDs.push(curPart);
+   $("#buttons").html("");
+   if (partsGroupsIDs.length == 0) {
+      $("#buttons").html("Aucun diplôme à imprimer");
+   }
+   if (partsGroupsIDs.length == 1) {
+      $("#buttons").append('<p><button type="button" id="buttonPdf0" onclick="newGenerateDiplomas(params, 0)" style="display: block;margin: 0 auto">Générer le PDF</button></p>');
+   } else {
+      for (var iPart = 0; iPart < partsGroupsIDs.length; iPart++) {
+         $("#buttons").append('<p><button type="button" id="buttonPdf' + iPart + '" onclick="newGenerateDiplomas(params, ' + iPart + ')" style="display: block;margin: 0 auto">Générer le PDF ' + (iPart + 1) + '/' + partsGroupsIDs.length + '</button></p>');
+      }
+   }
 }
 
 
@@ -440,8 +550,7 @@ function loadAllData(params) {
                  getThresholds();
                  loadData("contest", function() {
                    getTotalContestants(params, function() {
-                      $("#preload").hide();
-                      $("#loaded").show();
+                     getStrings(params);
                    });
                  }, params);
                }, params);
