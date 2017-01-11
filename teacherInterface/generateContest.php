@@ -282,7 +282,7 @@ function generateContest($tasks, $contestID, $contestFolder, $fullFeedback = fal
       $cssModules = array();
 
       $curKey = $curTask['key'];
-      $task = new PEMTaskCompiler($curTask['bebras'], $curTask['key'], __DIR__.'/bebras-tasks/'.$curTask['url'], true);
+      $task = new PEMTaskCompiler($curTask['bebras'], $curTask['key'], __DIR__.'/beoi-contest-tasks/'.$curTask['url'], true);
 
       // Create the task directory.
       contestMkdir($curKey);
