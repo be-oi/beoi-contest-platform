@@ -312,6 +312,14 @@
 <div id="divFooter" style="display:none;text-align:center" autocomplete="off">
    <div class="header_sep_bottom"></div>
    <button type="button" id="buttonCloseNew" class="buttonClose" data-i18n="questions_finish_early" onclick='tryCloseContest()'></button>
+   
+   <div style="z-index: 10; position:absolute; bottom: 0; right:0; font-variant: small-caps; margin-left: auto; margin-right: auto; text-align:center">
+      <table cellpadding="5px"><tr>
+      	<td style="padding: 0px 10px;">Supported by :</td>
+      	<td style="padding: 0px 10px;"><a href="http://www.docbyte.com"><img src="images/sponsor-1.png" style="height:45px" /></a></td>
+      	<td style="padding: 0px 10px;"><a href="http://www.exellys.com"><img src="images/sponsor-2.png" style="height:45px" /></a></td>
+      </table>	
+   </div>
 </div>
 
 <div id="divClosed" style="display:none" class="dialog" autocomplete="off">
