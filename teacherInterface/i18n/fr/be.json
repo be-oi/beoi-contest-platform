@@ -81,6 +81,7 @@
 
     "notice_title": "Notice enseignant encadrant",
     "notice_dont_show": "À NE PAS MONTRER AUX ÉLÈVES",
+	"notice_group": "Groupe ",
     "notice_at_undetermined_date": "à une date indéterminée",
     "notice_by_teams": "<b>un élève</b> ou <b>deux élèves</b>",
     "notice_alone": "<b>un seul élève</b>",

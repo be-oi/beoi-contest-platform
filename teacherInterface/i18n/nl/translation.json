@@ -1,5 +1,5 @@
 {
-    "page_title": "Wedstrijd beOI — Coördinator",
+    "page_title": "beOI Wedstrijd — Coördinator",
     "logout": "Verbinding verbreken",
     "title": "Belgische Informatica-olympiade: Eerste ronde",
     "subtitle": "Wedstrijdplatform - <span style='color:red;font-weight:bold'>TOEGANG COÖRDINATOR</span>",
@@ -57,7 +57,7 @@
     "grading_in_progress": "Bezig met het berekenen van de scores:",
     "groups_sheet_title": "Afdrukken van de informatienota",
     "groups_sheet_intro": "De informatienota is bestemd voor de begeleidende leerkracht van iedere groep. Ze legt het verloop van de wedstrijd uit en bevat de codes van de groep. Print deze informatienota uit voor iedere groep, voor aanvang van de wedstrijd. U kunt:",
-    "groups_sheet_button_print": "De informatienota voor de hieronder geselecteerde groep afdrukken",
+    "groups_sheet_button_print": "De informatienota voor de hierboven geselecteerde groep afdrukken",
     "groups_sheet_button_print_all": "De informatienota voor al mijn groepen in 1 keer afdrukken",
     "teams_intro": "<p>Dit tabblad is nuttig tijdens en na de wedstrijd. De ploegen worden hier weergegeven terwijl ze actief zijn.</p><p>De filters om te kunnen opzoeken in dit tabblad zijn momenteel uitgeschakeld, we activeren ze binnenkort opnieuw.<!--U kunt een groep selecteren bovenaan de kolom « groep » om de ploegen van deze groep weer te geven. U kunt de naam van een leerling invullen bovenaan de kolom « Leerlingen » om diens wedstrijdverloop te verifiëren, en diens toegangscode of score te bekijken.--></p><p>Als u een fout ziet in de namen en voornamen van de leerlingen, ga dan naar het tabblad « Leerlingen » om dit te corrigeren.</p>",
     "teams_delete_selected": "Verwijder de geselecteerde ploegen",
@@ -174,6 +174,7 @@
     "school_country_label": "Land",
     "school_zipcode_long_label": "Postcode",
     "school_nbStudents_label": "Grootte<br/>(leerlingen)",
+	"school_nbStudents_long_label": "Grootte (leerlingen)",
     "school_nbStudents_comment": "Schatting van het totaal aantal leerlingen <b>in de hele school</b>",
     "user_saniValid_label": "Naam/Voornaam<br/>correct",
     "user_gender_label": "Titel",
