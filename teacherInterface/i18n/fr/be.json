@@ -105,7 +105,7 @@
     "notice_enter_group_code": "Il saisit le code de son groupe :",
     "notice_select_team": "Il sélectionne son équipe dans la liste",
     "notice_enter_backup_code": "Vous saisissez sans le montrer à l'élève, votre code de secours secret :",
-    "notice_hotline_title": "<b>Hotline</b> pendant la semaine du concours, de 8h30 à 19h :",
+    "notice_hotline_title": "<b>Hotline</b> le jour du concours, de 8h30 à 17h :",
     "notice_if_website_not_working": "<b>Si le site ne fonctionne pas</b>, essayez ",
 
     "maintenance_message": "Désolé, le site est en indisponible jusqu'à %s pour cause de maintenance",
