@@ -131,7 +131,7 @@ if (count($aGroups) == 0) {
 
 <?php foreach ($aGroups as $id => $row): ?>
 <h1 <?php if ($id !=0):?>class="break"<?php endif;?>>
-<?php echo $translations['notice_title_contest'] ?><br/>
+<?php echo i18n()["notice_title_contest"]; ?><br/>
 <?php echo $row->contestName ?><br/>
 <span class="red"><?php echo i18n()["notice_title"]; ?></span>
 </h1>
@@ -140,7 +140,7 @@ if (count($aGroups) == 0) {
 <div class="header">
 <?php echo $row->schoolName;?>
 <br/>
-Groupe <b>
+<?php echo i18n()["notice_group"]; ?><b>
 <?php
    echo $row->groupName."</b> ";
    if ($row->expectedStartTime == "0000-00-00 00:00:00") {
@@ -150,7 +150,7 @@ Groupe <b>
       if ($datetime == "") {
          echo i18n()["notice_at_undetermined_date"];
       } else {
-         echo "le <b><script>document.write(utcDateFormatter('".$row->expectedStartTime."'));</script></b>";
+         echo "@ <b><script>document.write(utcDateFormatter('".$row->expectedStartTime."'));</script></b>";
       }
    }
 ?>
