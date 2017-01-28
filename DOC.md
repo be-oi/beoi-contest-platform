@@ -38,3 +38,13 @@ Avant/Après un concours officiel, le concours doit être fermé, sinon ils peuv
 Donc un concours en préparation doit être fermé mais visible pour permettre la création des groupes.
 
 Si changement dans les modules des tâches, tout le concours doit être regénéré.
+
+il y a une raison particulière pq ça doit absolument être fait à la fin ?
+si y'a des participations en cours ça peut faire que le calcul sera faux à la fin, car il considèrera que le score a déjà été calculé alors que la réponse a changé depuis
+
+quelle est la différence entre "lancer le calcul des score" et "calculer les score sdes équipes"  ?
+score des équipes c'est juste le total
+ceci dit en pratique j'utilise pas ce bouton, je fais ça à la main
+je vérifie en particulier s'il y a des différences entre le score calculé sur la machine du candidat, dans team_question.ffScore, et le score recalculé par nous, dans team_question.score
+
+non désactiver les solutions fera juste que tu verras le message disant de revenir plus tard
