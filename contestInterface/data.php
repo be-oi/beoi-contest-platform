@@ -42,14 +42,14 @@ function handleLoadPublicGroups($db) {
 function handleCreateTeam($db) {
    global $tinyOrm, $config;
    if (!isset($_POST["contestants"])) {
-      exitWithJsonFailure(i18()["missing_contestant_data"]);
+      exitWithJsonFailure(i18n()["missing_contestant_data"]);
    }
    if (!isset($_SESSION["groupID"])) {
-      exitWithJsonFailure(i18()["group_not_loaded"]);
+      exitWithJsonFailure(i18n()["group_not_loaded"]);
    }
    if ($_SESSION["groupClosed"]) {
       error_log("Hack attempt ? trying to create team on closed group ".$_SESSION["groupID"]);
-      exitWithJsonFailure(i18()["group_closed"]);
+      exitWithJsonFailure(i18n()["group_closed"]);
    }
    // $_SESSION['userCode'] is set by optional password handling function,
    // see comments of createTeamFromUserCode in common_contest.php.
@@ -115,13 +115,13 @@ function handleLoadContestData($db) {
    global $tinyOrm, $config;
    if (!isset($_SESSION["teamID"])) {
       if (!isset($_POST["groupPassword"])) {
-         exitWithJsonFailure(i18()["missing_password"]);
+         exitWithJsonFailure(i18n()["missing_password"]);
       }
       if (!isset($_POST["teamID"])) {
-         exitWithJsonFailure(i18()["missing_team"]);
+         exitWithJsonFailure(i18n()["missing_team"]);
       }
       if (!isset($_SESSION["groupID"])) {
-         exitWithJsonFailure(i18()["group_not_loaded"]);
+         exitWithJsonFailure(i18n()["group_not_loaded"]);
       }
       $password = strtolower(trim($_POST["groupPassword"]));
       reloginTeam($db, $password, $_POST["teamID"]);
@@ -183,7 +183,7 @@ function handleLoadContestData($db) {
 
 function handleCloseContest($db) {
    if (!isset($_SESSION["teamID"]) && !reconnectSession($db)) {
-      exitWithJsonFailure(i18()["no_session"]);
+      exitWithJsonFailure(i18n()["no_session"]);
    }
    $teamID = $_SESSION["teamID"];
    $stmtUpdate = $db->prepare("UPDATE `team` SET `endTime` = UTC_TIMESTAMP() WHERE `ID` = ? AND `endTime` is NULL");
@@ -239,7 +239,7 @@ function handleCheckPassword($db) {
    addFailureBackendHint("ClientIP.checkPassword:fail");
    addFailureBackendHint("ClientIP.error");
    if (!isset($_POST["password"])) {
-      exitWithJsonFailure(i18()["missing_password"]);
+      exitWithJsonFailure(i18n()["missing_password"]);
    }
    $getTeams = array_key_exists('getTeams', $_POST) ? $_POST["getTeams"] : False;
    $password = strtolower($_POST["password"]);
@@ -261,7 +261,7 @@ function handleCheckGroupPassword($db, $password, $getTeams) {
       return;
    }
    if ($row->open != "Open") {
-      exitWithJson((object)array("success" => false, "message" => i18()["contest_group_not_open"]));
+      exitWithJson((object)array("success" => false, "message" => i18n()["contest_group_not_open"]));
    }
    $groupID = $row->ID;
    $schoolID = $row->schoolID;
