@@ -57,7 +57,7 @@ function createTeamFromUserCode($db, $password) {
    if (function_exists('customCreateTeamFromUserCode')) {
       return customCreateTeamFromUserCode($db, $password);
    } else {
-      return (object)array("success" => false, "message" => "Mot de passe invalide");
+      return (object)array("success" => false, "message" => i18n()["invalid_password"]);
    }
 }
 
