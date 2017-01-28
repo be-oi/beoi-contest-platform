@@ -2,14 +2,17 @@
 
 This platform is a fork from the [French Beaver Contest](https://github.com/France-ioi/bebras-platform).
 
-## Deploper deployment (local)
+## Developer deployment (local)
 
-You can use the local `Dockerfile` and docker-compose file to run the platform locally to setup the platform together with a database. In short, you should be able to run the projet via:
+You can use the local `Dockerfile` and docker-compose file to run the platform locally to setup the platform together with a database. In short, you should be able to run the project via:
 
     docker-compose build
     docker-compose up
 
-Then the service should run on your Docker port 80.
+Then the service should run on your Docker port 80. 
+
+* If you cannot connect, you might need to change the site's IP address configuration to whichever address docker assigns to your VM: amend `config/config_dev.php` and replace the IP addresses. Docker-machine default IP is often `192.168.99.100`.
+* To avoid mounting errors in Docker for Windows, the repo should be on the same drive as the Docker installation (e.g. `C:`). Also remove the `volumes` section in file `docker-compose.yml`. Run the commands above after navigating to the repository directory in Docker Quickstart Terminal.
 
 ## Production deployment
 
