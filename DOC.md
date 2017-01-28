@@ -36,3 +36,5 @@ fermé aux groupes officiels => quand tu clôtures le concours tu ne veux plus q
 
 Avant/Après un concours officiel, le concours doit être fermé, sinon ils peuvent rentrer dans le concours !
 Donc un concours en préparation doit être fermé mais visible pour permettre la création des groupes.
+
+Si changement dans les modules des tâches, tout le concours doit être regénéré.
