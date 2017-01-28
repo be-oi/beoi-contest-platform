@@ -110,5 +110,5 @@
     "notice_if_website_not_working": "<b>Als de website niet werkt</b>, probeer ",
 
     "maintenance_message": "Het spijt ons, de website is onbeschikbaar tot %s vanwege onderhoud",
-    "not_connected_invalid": "Ongeldige aanvraag voor niet verbonden gebruiker"
+    "not_connected_invalid": "Ongeldige aanvraag van niet verbonden gebruiker. Mogelijk is uw sessie verlopen: log uit en log dan opnieuw in."
 }
