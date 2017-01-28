@@ -187,7 +187,6 @@ class DataSanitizer
           "College" => "Collège", 
           "Collége" => "Collège", 
           "Lycee" => "Lycée", 
-          "Athéné"  => "Athénée",
           "Athenee"  => "Athénée",
           "Vzw" => "VZW",
           "Asbl" => "ASBL"
