@@ -22,6 +22,12 @@
       <h1 id="headerH1" data-i18n="general_title"></h1>
       <h2 id="headerH2" data-i18n="general_subtitle"></h2>
       <p id="login_link_to_home" data-i18n="[html]general_instructions"></p>
+      <div style="padding-left:10px; ">
+        <p>Sponsors: 
+          <a target="_blank" href="http://www.docbyte.com/"><img alt="Docbyte" style="max-height:40px; margin-left:10px;max-width:100%;" src="https://beoi.be-oi.be/img/ext-logos/docbyte-logo-2425abd1.png"></a>
+          <a target="_blank" href="http://exellys.com/"><img alt="Exellys" style="max-height:40px;margin-left:10px; max-width:100%; " src="https://beoi.be-oi.be/img/ext-logos/exellys-logo-38f8fe9a.jpg"></a>
+        </p>
+      </div>
    </div>
 </div>
 <form id="mainContent" autocomplete="off">
