@@ -87,7 +87,7 @@
     "notice_alone": "<b>un seul élève</b>",
     "notice_contestants_sit": "Les élèves s'installent :",
     "notice_per_computer": "par ordinateur.",
-    "notice_open_browser": "Ils ouvrent un navigateur <b>récent</b> (nous suggérons Google Chrome) et vont à l'adresse :",
+    "notice_open_browser": "Ils ouvrent un navigateur <b>récent</b> (nous suggérons Google Chrome, évitez Safari si possible) et vont à l'adresse :",
     "notice_enter_code": "Ils saisissent le code que vous leur donnez au début du concours, mais pas avant :",
     "notice_contestants_sit": "Les élèves s'installent :",
     "notice_code_validity": "<b>Attention :</b> ce code n'est <b>valide que pendant 30mn</b> après sa première utilisation, donc uniquement pour la session de passage du concours que vous surveillez.",
