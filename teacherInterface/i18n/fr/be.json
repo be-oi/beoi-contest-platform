@@ -93,7 +93,7 @@
     "notice_code_validity": "<b>Attention :</b> ce code n'est <b>valide que pendant 30mn</b> après sa première utilisation, donc uniquement pour la session de passage du concours que vous surveillez.",
     "notice_start_contest": "Ils cliquent sur le bouton : <b>\"je commence le concours\"</b>.",
     "notice_choose_team_setup": "Ils précisent alors s'ils font le concours : <b>\"tout seul\"</b> ou <b>\"à deux\"</b>.",
-    "notice_enter_name": "Ils saisissent ensuite : <b>nom, prénom et genre</b>.",
+    "notice_enter_name": "Ils saisissent ensuite : <b>nom, prénom, genre, adresse e-mail et classe</b>.",
     "notice_get_code": "Le système leur attribue un <b>code personnel qu'ils doivent noter sur une feuille.</b><br/>Ce code est très important car il sert en cas de panne d'ordinateur ou autre interruption.",
     "notice_start": "Lorsqu'ils sont prêts, les élèves peuvent <b>cliquer sur le bouton \"commencer\"</b>.",
     "notice_time_start": "Le chronomètre se déclenche : <b>le concours dure 75 minutes consécutives</b>.",
