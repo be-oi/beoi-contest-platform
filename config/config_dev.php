@@ -33,3 +33,16 @@ $config->contestInterface->sAssetsStaticPathNoS3 = 'http://127.0.0.1/contestInte
 $config->teacherInterface->baseUrl = 'http://127.0.0.1/teacherInterface';
 $config->teacherInterface->sCoordinatorFolder = 'http://127.0.0.1/teacherInterface';
 $config->teacherInterface->sAbsoluteStaticPathOldIE = 'http://127.0.0.1/teacherInterface';
+
+$config->certificates->webServiceUrl = 'http://castor-informatique.fr.localhost/certificates/';
+$config->certificates->allow = true;
+$config->certificates->confIndexForThisPlatform = 0; // index of the conf in certificates/ (you shouldn't need to change it)
+$config->certificates->background = 'images/certificate.png';
+$config->certificates->logo = 'images/logo-beoi-white.png';
+$config->certificates->yearBackground = 'images/certificate.png';
+$config->certificates->partnerLogos = [ 'images/docbyte-logo.jpg', 'images/exellys-logo.jpg' ];
+$config->certificates->titleFontSize = 20;
+$config->certificates->url = "http://www.be-oi.be";
+$config->certificates->mainColor = "black";
+$config->certificates->showYear = true;
+
