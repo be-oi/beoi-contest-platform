@@ -19,3 +19,12 @@ $config->teacherInterface->forceOfficialEmailDomain = false; // not forcing emai
 
 $config->enableAwardTab = false;
 $config->contestInterface->sessionLength = 36000;
+$config->certificates->confIndexForThisPlatform = 0; // index of the conf in certificates/ (you shouldn't need to change it)
+$config->certificates->background = 'images/certificate.png';
+$config->certificates->logo = 'images/logo-beoi-white.png';
+$config->certificates->yearBackground = 'images/certificate.png';
+$config->certificates->partnerLogos = [ 'images/docbyte-logo.jpg', 'images/exellys-logo.jpg' ];
+$config->certificates->titleFontSize = 20;
+$config->certificates->url = "http://www.be-oi.be";
+$config->certificates->mainColor = "black";
+$config->certificates->showYear = true;
