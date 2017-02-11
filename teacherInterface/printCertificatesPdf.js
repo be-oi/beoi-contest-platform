@@ -400,7 +400,7 @@ function getDisplayedScoreAndRank(diploma) {
    if (diploma.rank <= diploma.contestParticipants / 2) {
       scoreAndRank.push( i18n.t('certificates_obtained_pos').formatUnicorn(toOrdinal(diploma.rank), diploma.contestParticipants) );
    }
-   if (diploma.qualified) {
+   if (diploma.schoolRank > 0) {
       scoreAndRank.push( i18n.t('certificates_is_qualified') );
    }
    var str = "";
