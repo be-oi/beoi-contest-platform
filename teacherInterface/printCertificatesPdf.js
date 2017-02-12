@@ -413,8 +413,8 @@ function addDiploma(content, diploma, contest, school, user) {
 
    var category = "";
    if (diploma.category == "CAD") category = i18n.t('option_cadet_belofte');
-   if (diploma.category == "JUN") category = i18n.t('option_cadet_junior');
-   if (diploma.category == "SEN") category = i18n.t('option_cadet_senior');
+   if (diploma.category == "JUN") category = i18n.t('option_junior');
+   if (diploma.category == "SEN") category = i18n.t('option_senior');
 
    var contestSubtitle = i18n.t('certificates_stage') + " - " + i18n.t('translations_category_label') + " " + category;
    var coordName =  getCoordName(user);
