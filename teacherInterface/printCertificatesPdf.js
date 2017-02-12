@@ -27,8 +27,8 @@ pdfMake.fonts = {
 };
 
 function toOrdinal(i) {
+   return  i+'e';
    // TODO: adapt to English, using numeral.js?
-   return i == 1 ? '1ère' : i+'e';
 }
 
 function dateFormat(d) {
@@ -139,7 +139,7 @@ function fillDataDiplomas(params) {
       var diplomaContestant = {
         lastName: contestant.lastName,
         firstName: contestant.firstName,
-        studentID: contestant.studentId,
+        category: contestant.studentId,
         genre: contestant.genre,
         grade: contestant.grade,
         algoreaCode: contestant.algoreaCode,
@@ -151,27 +151,9 @@ function fillDataDiplomas(params) {
       };
       diplomaContestant.contest = allData.contest[contestant.contestID];
       diplomaContestant.user = allData.users[contestant.userID];
-      diplomaContestant.school = allData.school[contestant.schoolID];
-      if (thresholdsByGrade[contestant.grade] && thresholdsByGrade[contestant.grade][contestant.nbContestants]) {
-        if (diplomaContestant.score >= thresholdsByGrade[contestant.grade][contestant.nbContestants]) {
-          diplomaContestant.qualified = true;
-        } else {
-          diplomaContestant.qualified = false;
-        }
-      }
-      if (contest.rankGrades == '1' && contest.rankNbContestants == '1') {
-        diplomaContestant.schoolParticipants = allData.schoolContestants[contestant.grade + "_" + contestant.nbContestants];
-        diplomaContestant.contestParticipants = allData.contestContestants[contestant.grade + "_" + contestant.nbContestants];
-      } else if (contest.rankGrades == '1') {
-        diplomaContestant.schoolParticipants = allData.schoolContestants[contestant.grade];
-        diplomaContestant.contestParticipants = allData.contestContestants[contestant.grade];
-      } else if (contest.rankNbContestants == '1') {
-        diplomaContestant.schoolParticipants = allData.schoolContestants[contestant.nbContestants];
-        diplomaContestant.contestParticipants = allData.contestContestants[contestant.nbContestants];
-      } else {
-        diplomaContestant.schoolParticipants = allData.schoolContestants;
-        diplomaContestant.contestParticipants = allData.contestContestants;
-      }
+      diplomaContestant.qualified = (contestant.schoolRank == 1);
+      diplomaContestant.schoolParticipants = 0;
+      diplomaContestant.contestParticipants = nbContestants[diplomaContestant.category];
       contestantPerGroup[groupID].push(diplomaContestant);
    }
    return contestantPerGroup;
@@ -430,9 +412,9 @@ function addDiploma(content, diploma, contest, school, user) {
    }
 
    var category = "";
-   if (diploma.studentID == "CAD") category = i18n.t('option_cadet_belofte');
-   if (diploma.studentID == "JUN") category = i18n.t('option_cadet_junior');
-   if (diploma.studentID == "SEN") category = i18n.t('option_cadet_senior');
+   if (diploma.category == "CAD") category = i18n.t('option_cadet_belofte');
+   if (diploma.category == "JUN") category = i18n.t('option_cadet_junior');
+   if (diploma.category == "SEN") category = i18n.t('option_cadet_senior');
 
    var contestSubtitle = i18n.t('certificates_stage') + " - " + i18n.t('translations_category_label') + " " + category;
    var coordName =  getCoordName(user);

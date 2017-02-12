@@ -28,3 +28,4 @@ $config->certificates->titleFontSize = 20;
 $config->certificates->url = "http://www.be-oi.be";
 $config->certificates->mainColor = "black";
 $config->certificates->showYear = true;
+$config->certificates->nbContestants = '{"CAD": 280, "JUN": 380, "SEN": 512}';

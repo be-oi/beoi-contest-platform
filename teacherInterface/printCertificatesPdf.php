@@ -74,6 +74,7 @@ var contestUrl = '<?=$config->certificates->url?>';
 var mainColor = '<?=$config->certificates->mainColor?>';
 var accentColor = '<?=$config->certificates->accentColor?>';
 var showYear = <?=$config->certificates->showYear?>;
+var nbContestants = <?=$config->certificates->nbContestants?>;
 </script>
 <style>
    /*
@@ -109,7 +110,7 @@ font-family: 'Varela Round', sans-serif;
       <div style="border:solid black 1px;margin:auto;padding:5px;text-align:left;width:600px;">
          <p data-i18n="certificates_genpage_options"></p>
          <p><input type="checkbox" id="qualifiedOnly" onchange="updateNbDiplomas()"></input><span data-i18n="certificates_genpage_qualified"></span></p>
-         <p><input type="checkbox" id="topRankedOnly" onchange="updateNbDiplomas()"></input><span data-i18n="certificates_genpage_perc_part1"></span> <input type="number" id="minRankPercentile" style="width:40px;text-align:center" value="50" onchange="updateNbDiplomas()"/></input>% <span data-i18n="certificates_genpage_perc_part2"></span> </p>
+         <!-- <p><input type="checkbox" id="topRankedOnly" onchange="updateNbDiplomas()"></input><span data-i18n="certificates_genpage_perc_part1"></span> <input type="number" id="minRankPercentile" style="width:40px;text-align:center" value="50" onchange="updateNbDiplomas()"/></input>% <span data-i18n="certificates_genpage_perc_part2"></span> </p> -->
          <p><span data-i18n="certificates_genpage_to_print"></span> <span id="printedCertificates"></span> <span data-i18n="certificates_genpage_on"></span> <span id="totalCertificates"></span>
       </div>
       <br/>
@@ -154,18 +155,8 @@ font-family: 'Varela Round', sans-serif;
       },
       useDataAttrOptions: true
    }, function () {
-      var newRegions = {};
-      for (var i=0; i < regions.length; i++) {
-         newRegions[regions[i].split(':')[1]] = i18n.t(regions[i]);
-      }
-      window.regions = newRegions;
-      $("#login_link_to_home").attr('data-i18n-options',
-         '{"contestPresentationURL": "' + config.contestPresentationURL + '"}');
       $("title").i18n();
       $("body").i18n();
-      if (config.maintenanceUntil) {
-         $("#main_screen").html(t('maintenance_until', {end: config.maintenanceUntil}));
-      }
    });
 </script>
 </body>
