@@ -73,7 +73,7 @@
     "certificates_obtained_pts": "heeft {0} punten behaald op {1}",
     "certificates_obtained_pos": "behaalde de {0} plaats uit {1}",
     "certificates_is_qualified": "is gekwalificeerd voor de finale",
-    "certificates_is_qualified": "is gekwalificeerd voor de finale",
+    "certificates_is_not_qualified": "is niet gekwalificeerd voor de finale",
     "certificates_title_line1": "ATTEST",
     "certificates_title_line2": "VAN DEELNAME",
     "certificates_stage": "Eerste ronde",

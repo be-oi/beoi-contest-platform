@@ -73,7 +73,7 @@
     "certificates_obtained_pts": "a obtenu {0} points sur {1}",
     "certificates_obtained_pos": "se classe à la {0} position sur {1}",
     "certificates_is_qualified": "est qualifié pour la finale",
-    "certificates_is_qualified": "est qualifié pour la finale",
+    "certificates_is_not_qualified": "n'est pas qualifié pour la finale",
     "certificates_title_line1": "CERTIFICAT",
     "certificates_title_line2": "DE PARTICIPATION",
     "certificates_stage": "Éliminatoires",
