@@ -90,7 +90,7 @@
     "certificates_genpage_to_print": "Certificats à imprimer :",
     "certificates_genpage_on": "sur",
     "certificates_genpage_genpdf": "Créer un pdf pour chaque paquet de",
-    "certificates_genpage_certificate": "Créer un pdf pour chaque paquet de",
+    "certificates_genpage_certificate": "certificats",
     "certificates_genpage_cert_number_expl": "Un petit nombre réduit les chances que votre navigateur crashe",
     "certificates_genpage_nothing_to_print": "Aucun diplôme à imprimer",
     "certificates_genpage_generate": "Générer le PDF",
