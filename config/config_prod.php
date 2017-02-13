@@ -20,6 +20,7 @@ $config->teacherInterface->forceOfficialEmailDomain = false; // not forcing emai
 $config->enableAwardTab = false;
 $config->contestInterface->sessionLength = 36000;
 $config->certificates->confIndexForThisPlatform = 0; // index of the conf in certificates/ (you shouldn't need to change it)
+$config->certificates->allow = true;
 $config->certificates->background = 'images/certificate.png';
 $config->certificates->logo = 'images/logo-beoi-white.png';
 $config->certificates->yearBackground = 'images/certificate.png';
