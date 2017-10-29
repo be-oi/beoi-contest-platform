@@ -1,6 +1,6 @@
 {
     "general_page_title": "beOI kwalificatie — wedstrijdplatform",
-    "general_instructions": "Meer informatie over de wedstrijd kan je terugvinden op de <a href=\"https://beoi.be-oi.be\">website van de Belgische Informatica-olympiade</a>.",
+    "general_instructions": "Meer informatie over de wedstrijd kan je terugvinden op de <a href=\"https://www.be-oi.be\">website van de Belgische Informatica-olympiade</a>.",
     "browser_support": "<p>Het platform werkt met de volgende browsers:</p><ul><li>Google Chrome vanaf versie 5.0;</li><li>Firefox vanaf versie 3.6;</li><li>Internet Explorer vanaf versie 8.0;</li><li>Safari vanaf versie 3.0 (werkt ook op iPad).</li></ul>",
     "general_start_contest": "Een wedstrijd starten in de klas",
     "general_public_contests": "Thuis oefenen",
@@ -58,7 +58,7 @@
     "closed_connexion_error": "<p><b>Opgelet</b>, omwille van een probleem met de verbinding konden sommige antwoorden niet verzonden worden. Sla de onderstaande tekst op en stuur hem per e-mail door naar info@castor-informatique.fr vanaf je de kans hebt, zodat je antwoorden in rekening gebracht kunnen worden.</p><p><b>Maak geen screenshot of foto</b>. Plak de tekst direct in je email, of in een tekstbestand dat je ons opstuurt:</p>",
     "closed_remind_password": "Heb je zeker de code genoteerd die je toegang zal geven tot je score en eventuele kwalificatie voor de volgende ronde nadat de eerste wedstrijdperiode afgesloten zal zijn?",
     "closed_your_password": "Je code is:",
-    "closed_announcement": "<p>Je zal dan kunnen weten of je geselecteerd bent voor de <a href='https://beoi.be-oi.be'>beOI</a> finale. Er zijn veel prijzen te winnen.</p><p>Voor wie al kan programmeren, kijk snel ook naar de <a href='https://becp.be-oi.be/'>beCP</a> wedstrijd en kwalificeer jezelf voor internationale wedstrijden.</p>",
+    "closed_announcement": "<p>Je zal dan kunnen weten of je geselecteerd bent voor de <a href='https://www.be-oi.be'>beOI</a> finale. Er zijn veel prijzen te winnen.</p><p>Voor wie al kan programmeren, kijk snel ook naar de <a href='https://becp.be-oi.be/'>beCP</a> wedstrijd en kwalificeer jezelf voor internationale wedstrijden.</p>",
     "error_server": "Fout in het antwoord van de server",
     "error_close": "Sluiten",
     "error_connexion_server": "De verbinding met de server werkt niet. De applicatie zal verder blijven proberen totdat deze werkt.",

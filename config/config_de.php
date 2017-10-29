@@ -1,7 +1,7 @@
 <?php
 
 $config->defaultLanguage = 'de';
-$config->contestPresentationURL = 'http://beoi.be-oi.be/fr/';
+$config->contestPresentationURL = 'http://www.be-oi.be/fr/';
 
 $config->contestOfficialURL = 'https://wettbewerb.be-oi.be';
 

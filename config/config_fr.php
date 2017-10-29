@@ -2,7 +2,7 @@
 
 // Localization
 $config->defaultLanguage = 'fr';
-$config->contestPresentationURL = 'http://beoi.be-oi.be/fr/';
+$config->contestPresentationURL = 'http://www.be-oi.be/fr/';
 
 $config->contestOfficialURL = "https://concours.be-oi.be";
 
