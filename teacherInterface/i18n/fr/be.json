@@ -123,7 +123,7 @@
     "notice_enter_name": "Ils saisissent ensuite : <b>nom, prénom, genre, adresse e-mail et classe</b>.",
     "notice_get_code": "Le système leur attribue un <b>code personnel qu'ils doivent noter sur une feuille.</b><br/>Ce code est très important car il sert en cas de panne d'ordinateur ou autre interruption.",
     "notice_start": "Lorsqu'ils sont prêts, les élèves peuvent <b>cliquer sur le bouton \"commencer\"</b>.",
-    "notice_time_start": "Le chronomètre se déclenche : <b>le concours dure 75 minutes consécutives</b>.",
+    "notice_time_start": "Le chronomètre se déclenche : <b>le concours dure 50 minutes consécutives</b>.",
     "notice_time_end": "S'ils ont terminé avant 75mn, ils cliquent sur “J'ai fini”. Sinon le concours se termine automatiquement.",
     "notice_issue_disconnect_title": "Résolution des problèmes : cas d'un élève déconnecté avant d'avoir terminé.",
     "notice_back_on_website": "Il retourne sur le site : ",
