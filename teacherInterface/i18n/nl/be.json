@@ -123,7 +123,7 @@
     "notice_enter_name": "Zij geven vervolgens in: <b>naam, voornaam, geslacht, emailadres en leerjaar</b>.",
     "notice_get_code": "Het systeem geeft hen elk een <b>persoonlijke code die ze moeten noteren op papier.</b><br/>Deze code is erg belangrijk want ze is nodig in het geval van een computerpanne of andere onderbreking van de wedstrijd.",
     "notice_start": "Zodra ze klaar zijn, kunnen de leerlingen <b>klikken op de knop \"beginnen\"</b>.",
-    "notice_time_start": "De chronometer start: <b>de wedstrijd duurt 75 aaneengesloten minuten</b>.",
+    "notice_time_start": "De chronometer start: <b>de wedstrijd duurt 50 aaneengesloten minuten</b>.",
     "notice_time_end": "Als zij klaar zijn voor de 50 minuten om zijn, kunnen ze klikken “Ik ben klaar”. In het andere geval eindigt de wedstrijd automatisch.",
     "notice_issue_disconnect_title": "Probleem en oplossing: als een leerling gedeconnecteerd raakt voordat deze klaar is.",
     "notice_back_on_website": "Dan gaat deze terug naar de site: ",
