@@ -214,10 +214,10 @@ var platform = {
       this.updateDisplay({height: height}, success, error);
    },
    updateDisplay: function(height, success, error) {
-      if (height < 700) {
-        height = 700;
+      if (data.height < 700) {
+        data.height = 700;
       }
-      questionIframe.setHeight(height);
+      questionIframe.setHeight(data.height);
       if (success) {success();}
    },
    openUrl: function(url) {
