@@ -213,7 +213,7 @@ var platform = {
    updateHeight: function(height, success, error) {
       this.updateDisplay({height: height}, success, error);
    },
-   updateDisplay: function(height, success, error) {
+   updateDisplay: function(data, success, error) {
       if (data.height < 700) {
         data.height = 700;
       }
