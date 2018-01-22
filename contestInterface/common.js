@@ -211,6 +211,9 @@ function inArray(arr, value) {
  */
 var platform = {
    updateHeight: function(height, success, error) {
+      this.updateDisplay({height: height}, success, error);
+   },
+   updateDisplay: function(height, success, error) {
       if (height < 700) {
         height = 700;
       }
