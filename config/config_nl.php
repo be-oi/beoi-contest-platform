@@ -14,7 +14,7 @@ $config->teacherInterface->baseUrl = 'https://beheer.be-oi.be';
 $config->teacherInterface->sCoordinatorFolder = 'https://beheer.be-oi.be';
 $config->teacherInterface->sAbsoluteStaticPathOldIE = 'https://beheer.be-oi.be';
 
-$config->teacherInterface->sHotlineNumber = "0474/353999 (Damien Leroy) (in Engels of Frans)";
+$config->teacherInterface->sHotlineNumber = "0486/663191 (Bart Jacobs)";
 
 $config->validationMailBody = "Hallo,\r\n\r\nOm uw inschrijving als coördinator voor de beOI-wedstrijd te valideren, opent u de volgende link in uw browser: \r\n\r\n%s\r\n\r\nAarzel niet om ons te contacteren als u problemen ondervindt.\r\n\r\nMet vriendelijke groeten,\r\n-- \r\nHet beOI team";
 $config->validationMailTitle = "Eerste ronde beOI: Bevestiging van inschrijving";
