@@ -26,12 +26,11 @@
     <h2 id="headerH2" data-i18n="[html]subtitle"></h2>
     <button type="button" id="logoutLink" style="display:none;" onclick="logout()" class="btn"><span data-i18n="logout"></span></button>
     <p id="login_link_to_home" data-i18n="[html]login_link_to_home"></p>
-	<!--<div style="padding-left:10px; padding-top:10px; ">
+	<div style="padding-left:10px; padding-top:10px; ">
         <p>Sponsors: 
           <a target="_blank" href="http://www.docbyte.com/"><img alt="Docbyte" style="max-height:40px; margin-left:10px;max-width:100%;" src="https://www.be-oi.be/img/ext-logos/docbyte-logo-2425abd1.png"></a>
-          <a target="_blank" href="http://exellys.com/"><img alt="Exellys" style="max-height:40px;margin-left:10px; max-width:100%; " src="https://www.be-oi.be/img/ext-logos/exellys-logo-38f8fe9a.jpg"></a>
         </p>
-    </div>-->
+    </div>
   </div>
 </div>
 
