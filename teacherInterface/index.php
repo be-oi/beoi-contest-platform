@@ -156,9 +156,9 @@
             <button type="button" id="buttonDeleteSelected_group" data-i18n="groups_delete_selected" class="btn btn-default"></button>
             <button type="button" id="buttonGradeSelected_group" data-i18n="groups_grade_selected" onclick="gradeGroup()" class="btn btn-default"></button>
             <div id="gradeGroupState" style="display:none;"></div>
-            <h2 id="group_print_certificates_title" data-i18n="group_print_certificates_title"></h2>
-            <p id="group_print_certificates_help" data-i18n="group_print_certificates_help"></p>
-            <button type="button" id="buttonPrintCertificates_group" onclick="printGroupCertificates()" data-i18n="group_print_certificates" class="btn btn-default"></button>
+            <h2 style="visibility: hidden" id="group_print_certificates_title" data-i18n="group_print_certificates_title"></h2>
+            <p style="visibility: hidden" id="group_print_certificates_help" data-i18n="group_print_certificates_help"></p>
+            <button style="visibility: hidden" type="button" id="buttonPrintCertificates_group" onclick="printGroupCertificates()" data-i18n="group_print_certificates" class="btn btn-default"></button>
             <h2 data-i18n="groups_sheet_title"></h2>
             <p data-i18n="[html]groups_sheet_intro"></p>
             <ul>
