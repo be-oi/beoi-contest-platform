@@ -189,9 +189,9 @@
             <button type="button" id="buttonDeleteSelected_contestant" data-i18n="contestants_delete_selected" style="display:none" class="btn btn-default"></button>
          </div>
 
-         <div id="tabs-certificates">
+         <!-- <div id="tabs-certificates">
             <div data-i18n="[html]certificates_intro"></div>
-         </div>
+         </div> -->
 
          <div id="tabs-questions">
             <div class="gridTable">
