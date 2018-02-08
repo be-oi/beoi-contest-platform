@@ -89,7 +89,7 @@
             <li><a href="#tabs-teams" id="li-tabs-teams" data-i18n="teams_title"></a></li>
             <li><a href="#tabs-contestants" id="li-tabs-contestants" data-i18n="contestants_title"></a></li>
             <li><a href="#tabs-awards" id="li-tabs-awards" data-i18n="awards_title"></a></li>
-            <li><a href="#tabs-certificates" id="li-tabs-certificates" data-i18n="certificates_title"></a></li>
+            <!-- <li><a href="#tabs-certificates" id="li-tabs-certificates" data-i18n="certificates_title"></a></li> -->
             <li><a href="#tabs-questions" id="li-tabs-questions" data-i18n="questions_title"></a></li>
             <li><a href="#tabs-contests" id="li-tabs-contests" data-i18n="contests_title"></a></li>
          </ul>
@@ -131,9 +131,9 @@
                </div>
                <button type="button" id="buttonComputeCoords_school" style="display:none" data-i18n="schools_recompute_coords" class="btn btn-default"></button>
                <div id="computeCoordsLog"></div>
-               <h2 id="school_print_certificates_title" data-i18n="school_print_certificates_title"></h2>
-               <p id="school_print_certificates_help" data-i18n="school_print_certificates_help"></p>
-               <div id="school_print_certificates_contests" class=""></div>
+               <!-- <h2 id="school_print_certificates_title" data-i18n="school_print_certificates_title"></h2> -->
+               <!-- <p id="school_print_certificates_help" data-i18n="school_print_certificates_help"></p> -->
+               <!-- <div id="school_print_certificates_contests" class=""></div> -->
             </div>
             <div data-i18n="[html]colleagues"></div>
             <div class="gridTable">
@@ -156,9 +156,9 @@
             <button type="button" id="buttonDeleteSelected_group" data-i18n="groups_delete_selected" class="btn btn-default"></button>
             <button type="button" id="buttonGradeSelected_group" data-i18n="groups_grade_selected" onclick="gradeGroup()" class="btn btn-default"></button>
             <div id="gradeGroupState" style="display:none;"></div>
-            <h2 style="visibility: hidden" id="group_print_certificates_title" data-i18n="group_print_certificates_title"></h2>
-            <p style="visibility: hidden" id="group_print_certificates_help" data-i18n="group_print_certificates_help"></p>
-            <button style="visibility: hidden" type="button" id="buttonPrintCertificates_group" onclick="printGroupCertificates()" data-i18n="group_print_certificates" class="btn btn-default"></button>
+            <!-- <h2 id="group_print_certificates_title" data-i18n="group_print_certificates_title"></h2> -->
+            <!-- <p id="group_print_certificates_help" data-i18n="group_print_certificates_help"></p> -->
+            <!-- <button type="button" id="buttonPrintCertificates_group" onclick="printGroupCertificates()" data-i18n="group_print_certificates" class="btn btn-default"></button> -->
             <h2 data-i18n="groups_sheet_title"></h2>
             <p data-i18n="[html]groups_sheet_intro"></p>
             <ul>
