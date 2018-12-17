@@ -11,6 +11,7 @@
     "login": "Log in:",
     "login_email": "Emailadres:",
     "login_password": "Paswoord:",
+    "login_lost_user": "Opgelet, het is mogelijk dat je profiel van vorig jaar niet meer werkt. Maak een nieuw profiel aan indien dat het geval is.",
     "login_lost_password": "Heeft u uw coördinator-paswoord verloren?",
     "login_input_email": "Vul uw email-adres in:",
     "login_get_new_password": "Verkrijg een nieuw paswoord",
