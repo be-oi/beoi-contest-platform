@@ -162,7 +162,7 @@ function myMkdir($path) {
    if ($doLocal) {
       $localPath = makeLocalPath($path);
       if (!mkdir(makeLocalPath($path))) {
-         throw new Exception('local mkdir failed');
+         throw new Exception('local mkdir failed: '.$path);
       }
    }
    if ($doAws) {

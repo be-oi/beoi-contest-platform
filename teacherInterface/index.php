@@ -252,7 +252,7 @@
       <p data-i18n="schools_search_text">
       </p>
       <table id="grid_school_search"><tbody><tr><td/></tr></tbody></table>
-      <div id="pager_school_search"></div> 
+      <div id="pager_school_search"></div>
       <button type="button" data-i18n="school_select" onclick="selectSchool()"></button>
       <p>
          <span data-i18n="schools_create_text"></span>

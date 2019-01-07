@@ -24,7 +24,7 @@
     "school_nbStudents_comment": "Schatting van het totaal aantal leerlingen in de school",
     "user_officialEmail_label": "Officieel emailadres",
     "option_cadet_belofte": "Beloften",
-    "option_junior": "Junior", 
+    "option_junior": "Junior",
     "region": "Overheid",
     "option_senior": "Senior",
     "invalid_officialEmail": "Uw officieel emailadres is ongeldig. Vergeet de @ac-… niet in de zone links.",
@@ -67,7 +67,7 @@
     "certificates_download": "Certificaten downloaden:",
     "certificates_start_generation": "Aanvraag om certificaten te genereren",
     "domain": "Domein",
-    
+
     "certificates_and": "en",
     "certificates_points_short": "ptn",
     "certificates_obtained_pts": "heeft {0} punten behaald op {1}",
