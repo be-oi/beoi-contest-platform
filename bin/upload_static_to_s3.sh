@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# ALSO: modules should be made available as well (for some css and font):
+# aws s3 sync ./modules s3://contest-platform-contests-eu-central-1-997893130250/modules --profile beoi --exclude "*/.*" --acl public-read
+
 # to be moved to a more appropriate place
 
 FILES="
