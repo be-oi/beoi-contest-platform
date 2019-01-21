@@ -14,7 +14,7 @@ COPY composer.json composer.lock /var/www/html/
 RUN composer.phar install
 
 COPY config/apache.conf /etc/apache2/sites-available/contest.conf
-RUN a2enmod headers
+RUN a2enmod headers proxy proxy_balancer proxy_http
 RUN a2dissite 000-default
 RUN a2ensite contest
 RUN mkdir /var/www/html/logs && ln -s /var/log/apache2 /var/www/html/logs/apache
