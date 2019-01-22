@@ -805,7 +805,8 @@ var questionIframe = {
    },
 
    setHeight: function(height) {
-       height = Math.max($(window).height() - 79, height + 25);
+       headerSize = 79 + 57;
+       height = (height == 720) ? $(window).height() - headerSize : Math.max($(window).height() - headerSize, height + 25);
        $('#question-iframe').css('height', height + 'px');
    }
 };
