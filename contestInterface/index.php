@@ -275,40 +275,17 @@
          </td></tr>
       </table>
    </div>
-   <div class="newInterface headerElements">
+   <div class="newInterface" style="padding-bottom:1em">
       <div class="header">
          <table class="header_table">
             <tr>
                <td class="header_logo" data-i18n="[html]top_image_new"></td>
-               <td class="header_score"><span data-i18n="current_score"></span><br/><b><span class='scoreTotalFullFeedback'></span></b></td>
-               <td class="header_time" id="header_time"><span data-i18n="remaining_time_long"></span> <br/><b><span class='minutes'></span>:<span class='seconds'></span></b></td>
-               <td class="header_rank" style="display:none"><span data-i18n="rank"></span> <br/><b><span class="rank" width="95%"></span></b></td>
+               <td class="header_score"><span data-i18n="[html]score"></span><br/><b><span class='scoreTotalFullFeedback'></span></b></td>
+               <td class="header_time" id="header_time"><span data-i18n="[html]time_remaining_3"></span><br/><b><span class='minutes'></span>:<span class='seconds'></span></b></td>
+               <td class="header_rank" style="display:none"><span data-i18n="[html]rank"></span><br/><b><span class="rank" width="95%"></span></b></td>
                <td class="header_button">
-                 <button class="button_return_list" type="button" data-i18n="return_to_list" onclick="backToList()" ></button>
+                 <input class="button_return_list" type="button" value="<?php echo i18n()["back_to_task_list"] ?>" onclick="backToList()" />
                </td>
-               <!-- do not want fullscreen for now (DLe)
-               <td class="header_button header_button_fullscreen">
-                 <button type="button" data-i18n="fullscreen" onclick="toggleFullscreen()" ></button>
-               </td>
-               -->
-            </tr>
-         </table>
-      </div>
-      <div class="headerAutoHeight">
-         <table class="headerAutoHeight_table">
-            <tr>
-               <td class="headerAutoHeight_logo" data-i18n="[html]top_image_new"></td>
-               <td class="headerAutoHeight_time"><b><span class='minutes'></span>:<span class='seconds'></span></b></td>
-               <td class="headerAutoHeight_title"><span class="questionTitle" style="padding-right: 20px"></span><span id="questionStars"></span></td>
-               <td class="headerAutoHeight_score"><b><span class='scoreTotalFullFeedback'></span></b></td>
-               <td class="headerAutoHeight_button">
-                 <button class="button_return_list" type="button" data-i18n="return" onclick="backToList()" ></button>
-               </td>
-               <!--
-               <td class="headerAutoHeight_button header_button_fullscreen">
-                 <button type="button" data-i18n="fullscreen" onclick="toggleFullscreen()" ></button>
-               </td>
-               -->
             </tr>
          </table>
       </div>
@@ -331,12 +308,11 @@
    </span>
 </div>
 
-<div id="question-iframe-container" style="display:none" autocomplete="off">
-   <!--<div class="questionIframeLoading" data-i18n="questions_loading"></div>-->
-   <div class="newInterface questionIframeHeader">
-      <span class="questionTitle" style="padding-right: 20px"></span><span id="questionIframeStars"></span>
+<div id="question-iframe-container" autocomplete="off">
+   <div class="newInterface" style="width:770px;margin:auto;text-align:left;padding: 10px 0 10px">
+      <span class="questionTitle" style="padding-right: 20px"></span><span id="questionStars"></span>
    </div>
-   <iframe src="about:blank" id="question-iframe" scrolling="no" allowfullscreen></iframe>
+   <iframe src="about:blank" id="question-iframe" scrolling="no"></iframe>
 </div>
 <div id="divFooter" style="display:none;text-align:center" autocomplete="off">
    <div class="header_sep_bottom"></div>

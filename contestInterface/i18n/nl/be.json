@@ -59,7 +59,5 @@
     "cannot_find_contest": "Kan de wedstrijd niet vinden",
     "official_no_direct_score": "Officiële deelname zonder rechtstreekse score, kan niet evalueren.",
 
-    "return_to_list": "Ga terug naar de vragenlijst",
-    "back_to_task_list": "Ga terug naar de vragenlijst",
-    "return": "Ga terug"
+    "back_to_task_list": "Ga terug naar de vragenlijst"	
 }

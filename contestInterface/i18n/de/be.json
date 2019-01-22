@@ -58,8 +58,6 @@
     "missing_code_pwd": "Fehlender Kode oder Passwort",
     "cannot_find_contest": "Unmöglich den Wettbewerb zu finden",
     "official_no_direct_score": "Offizielle Teilnahmen ohne Punktestand, Bewertung unmöglich",
-
-    "return_to_list": "Rückkehr zur Fragenliste",
-    "back_to_task_list": "Rückkehr zur Fragenliste",
-    "return": "Rückkehr"
+    
+    "back_to_task_list": "Rückkehr zur Fragenliste"
 }

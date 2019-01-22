@@ -205,55 +205,6 @@ function inArray(arr, value) {
 }
 
 /**
- * Add or remove the meta viewport tag
- *
- * @param {bool} toggle
- */
-function toggleMetaViewport(toggle) {
-   if(toggle) {
-      if($('meta[name=viewport]').length) { return; }
-      // Add
-      var metaViewport = document.createElement('meta');
-      metaViewport.name = "viewport";
-      metaViewport.content = "width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no";
-      document.getElementsByTagName('head')[0].appendChild(metaViewport);
-   } else {
-      // Remove
-      $('meta[name=viewport]').remove();
-   }
-}
-
-/**
- * Fetch configuration
- */
-function getConfig(callback) {
-  if(window.config) {
-     if(callback) { callback(); }
-     return;
-  }
-
-  $.post("data.php", {action: 'getConfig', p: getParameterByName('p')},
-     function(data) {
-        window.config = data.config;
-        if(callback) { callback(); }
-     }, "json");
-}
-
-/**
- * Log activity on a question (question load, attempt)
- */
-function logActivity(teamID, questionID, type, answer, score) {
-  if(typeof window.config == 'undefined') {
-     getConfig(function() {
-        logActivity(teamID, questionID, type, answer, score);
-        });
-     return;
-  }
-  if(!window.config.logActivity) { return; }
-  $.post("activity.php", {teamID: teamID, questionID: questionID, type: type, answer: answer, score: score});
-}
-
-/**
  * The platform object as defined in the Bebras API specifications
  *
  * @type type
@@ -442,7 +393,6 @@ var questionIframe = {
    questionKey: null,
    task: null,
    gradersLoaded: false,
-   autoHeight: false,
 
    /**
     * Load a javascript file inside the iframe
@@ -577,9 +527,6 @@ var questionIframe = {
       this.doc = $('#question-iframe')[0].contentWindow.document;
       this.body = $('body', this.doc);
       this.tbody = this.doc.getElementsByTagName('body')[0];
-      this.autoHeight = false;
-      $('body').removeClass('autoHeight');
-      toggleMetaViewport(false);
 
       this.setHeight(0);
       this.body.css('width', '782px');
@@ -709,23 +656,10 @@ var questionIframe = {
     * Run the task, should be called only by the loadQuestion function
     */
    run: function(taskViews, callback) {
-      // Reset autoHeight-related styles
-      $('body').removeClass('autoHeight');
-      $('#container', questionIframe.doc).css('padding', '5px');
-
       TaskProxyManager.getTaskProxy('question-iframe', withTask, true);
       function withTask (task) {
         questionIframe.task = task;
         TaskProxyManager.setPlatform(task, platform);
-         task.getMetaData(function (metaData) {
-            questionIframe.autoHeight = !!metaData.autoHeight;
-            if (questionIframe.autoHeight) {
-               $('body').addClass('autoHeight');
-               $('#container', questionIframe.doc).css('padding', '');
-               toggleMetaViewport(true);
-               questionIframe.updateHeight();
-            }
-         });
         task.load(taskViews, function() {
            task.showViews(taskViews, function() {
               if (typeof defaultAnswers[questionIframe.questionKey] == 'undefined') {
@@ -871,10 +805,8 @@ var questionIframe = {
    },
 
    setHeight: function(height) {
-      if(height < 700 && !questionIframe.autoHeight) {
-         height = 700;
-      }
-      $('#question-iframe').css('height', height + 'px');
+       height = Math.max($(window).height() - 79, height + 25);
+       $('#question-iframe').css('height', height + 'px');
    }
 };
 
@@ -1867,7 +1799,6 @@ function closeContest(message) {
    hasDisplayedContestStats = true;
    Utils.disableButton("buttonClose");
    Utils.disableButton("buttonCloseNew");
-   $('body').removeClass('autoHeight');
    $("#divQuestions").hide();
    hideQuestionIframe();
    if (questionIframe.task) {
@@ -2137,7 +2068,6 @@ function fillNextQuestionID(sortedQuestionsIDs) {
 }
 
 window.backToList = function() {
-   $('body').removeClass('autoHeight');
    $(".questionListIntro").show();
    $(".questionList").show();
    $(".buttonClose").show();
