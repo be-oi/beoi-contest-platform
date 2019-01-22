@@ -372,8 +372,8 @@ a {
 .header_table {
   height: 40px;
   width: 100%;
-  margin-bottom: 5px;
-  margin-top: 5px;
+  margin-bottom: 0px;
+  margin-top: 0px;
 }
 .header_sep_top, .header_sep_bottom {
   width: 100%;
