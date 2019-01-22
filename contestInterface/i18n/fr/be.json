@@ -59,5 +59,7 @@
     "cannot_find_contest": "Impossible de trouver le concours",
     "official_no_direct_score": "Participation officielle sans score en direct, évaluation impossible",
 
-    "back_to_task_list": "Retour à la liste des questions"
+    "return_to_list": "Retour à la liste des questions",
+    "back_to_task_list": "Retour à la liste des questions",
+    "return": "Retour"
 }

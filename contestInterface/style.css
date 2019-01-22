@@ -362,6 +362,54 @@ a {
   user-select: text;
 }
 
+body.autoHeight #divFooter {
+  display: none !important;
+}
+
+.headerElements {
+  padding-bottom: 1em;
+}
+body.autoHeight .headerElements {
+  padding-bottom: 0px;
+}
+
+
+#question-iframe-container {
+  position: relative;
+}
+
+.questionIframeHeader {
+  width: 770px;
+  margin: auto;
+  text-align: left;
+  padding: 10px 0 10px;
+}
+body.autoHeight .questionIframeHeader {
+  display: none;
+}
+
+.questionIframeLoading {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  height: 100%;
+  width: 100%;
+  background: #FFFFFF;
+  z-index: 10000;
+  text-align: center;
+  font-size: 24px;
+}
+
+body.autoHeight .header {
+  display: none;
+}
+.headerAutoHeight {
+  display: none;
+}
+body.autoHeight .headerAutoHeight {
+  display: block;
+}
+
 .header, .layout_table_wrapper {
   max-width:880px;width:auto !important;width:880px;
   min-width:650px;
@@ -394,10 +442,20 @@ a {
 .header_logo_img {
   width: 60px;
 }
-.button_return_list {
-  font-size: 20px;
+.header_button > button {
+  height: 43px;
   font-weight: bold;
+}
+.header_button {
+  width: 310px; /**/
+  text-align: right;
+  padding-bottom: 10px;
+}
+.header_button > button.button_return_list {
   padding: 8px;
+}
+.header_button.header_button_fullscreen {
+  width: 80px;
 }
 .header_score {
   width: 140px;
@@ -409,10 +467,62 @@ a {
 }
 .header_space {
 }
-.header_button {
-  width: 310px; /**/
+@media (max-width: 767px) {
+  .header_table td {
+    font-size: 16px;
+  }
+}
+
+.headerAutoHeight_table {
+  height: 40px;
+  width: 100%;
+  max-width: 880px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.headerAutoHeight_table td {
+  text-align: center;
+  font-size: 20px;
+  line-height: 115%;
+}
+.headerAutoHeight_table .questionTitle {
+  text-align: center;
+  font-size: 28px;
+}
+.headerAutoHeight_logo {
+  width: 60px;
+}
+.headerAutoHeight_logo .header_logo_img {
+  height: auto;
+  width: auto;
+  max-height: 40px;
+  max-width: 60px;
+}
+.headerAutoHeight_time {
+  width: 80px;
+}
+.headerAutoHeight_score {
+  width: 120px;
+}
+.headerAutoHeight_button {
+  width: 60px;
   text-align: right;
-  padding-bottom: 10px;
+}
+.headerAutoHeight_button > button {
+  font-size: 16px;
+  font-weight: bold;
+  white-space: nowrap;
+}
+@media (max-width: 767px) {
+  .headerAutoHeight_table td {
+    font-size: 16px;
+  }
+  .headerAutoHeight_table .questionTitle {
+    font-size: 24px;
+  }
+  .headerAutoHeight_score {
+    display: none;
+  }
 }
 .icon {
   border: 1px solid #CCCCCC;
