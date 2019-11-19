@@ -30,9 +30,9 @@
     "invalid_officialEmail": "Votre adresse officielle est invalide. Ne saisissez pas le @ac-… dans la zone de gauche.",
     "one_email_required": "Vous devez fournir au moins une adresse électronique, si possible une adresse officielle.",
     "officialEmail_readonly": "Impossible de changer d'adresse officielle une fois celle-ci confirmée",
-    "you_will_get_email": "Vous allez recevoir un courrier électronique sur votre adresse officielle avec lequel vous allez pouvoir valider votre compte.<br/><br/>Vérifiez bien qu'il n'est pas classé comme indésirable.<br/><br/>Si vous ne recevez aucun courriel dans les 2h, contactez info@be-oi.be depuis votre adresse académique pour que nous validions votre compte.",
+    "you_will_get_email": "Vous allez recevoir un courrier électronique sur votre adresse officielle avec lequel vous allez pouvoir valider votre compte.<br/><br/>Vérifiez bien qu'il n'est pas classé comme indésirable.<br/><br/>Si vous ne recevez aucun courriel dans les 2h, contactez inscription@be-oi.be depuis votre adresse académique pour que nous validions votre compte.",
     "no_official_email_1": "Vous n'avez pas fourni d'adresse officielle, donc votre compte ne peut être validé que par un administrateur. N'oubliez pas de ",
-    "contact_us": "contactez-nous par e-mail à info@be-oi.be",
+    "contact_us": "contactez-nous par e-mail à inscription@be-oi.be",
     "mail_from_name": "Inscription beOI",
     "recover_mail_body": "Bonjour,\r\n\r\nPour définir un nouveau mot de passe, ouvrez le lien suivant dans votre navigateur  : \r\n\r\n__link__\r\n\r\nN'hésitez pas à nous contacter si vous rencontrez des difficultés.\r\n\r\nCordialement,\r\n--\r\nL'équipe beOI",
     "email_body_no_official_email": "...",
@@ -98,7 +98,7 @@
     "validationMailBody": "Bonjour,\r\n\r\nPour valider votre inscription en tant que coordinateur pour le concours beOI, ouvrez le lien suivant dans votre navigateur  : \r\n\r\n%s\r\n\r\nN'hésitez pas à nous contacter si vous rencontrez des difficultés.\r\n\r\nCordialement,\r\n-- \r\nL'équipe beOI",
     "validationMailTitle": "Éliminatoires beOI : Confirmation d'inscription",
 
-    "manualValidationMailBody": "Bonjour,\r\n\r\nMerci pour votre inscription en tant que coordinateur au concours beOI. Vu que votre adresse e-mail officielle n'appartient pas aux domaines reconnus, nous vous demandons de nous envoyer un e-mail avec cette même adresse à info@beo-oi.be (ou de simplement répondre à cet e-mail) en mentionnant votre établissement, son site web et votre rôle au sein de l'établissement.\r\nNous vérifierons ces données et vous validerons votre inscription dans les plus brefs délais.\r\n\r\nCordialement,\r\n-- \r\nL'équipe beOI",
+    "manualValidationMailBody": "Bonjour,\r\n\r\nMerci pour votre inscription en tant que coordinateur au concours beOI. Vu que votre adresse e-mail officielle n'appartient pas aux domaines reconnus, nous vous demandons de nous envoyer un e-mail avec cette même adresse à inscription@be-oi.be (ou de simplement répondre à cet e-mail) en mentionnant votre établissement, son site web et votre rôle au sein de l'établissement.\r\nNous vérifierons ces données et vous validerons votre inscription dans les plus brefs délais.\r\n\r\nCordialement,\r\n-- \r\nL'équipe beOI",
     "manualValidationMailTitle": "Éliminatoires beOI : Confirmation d'inscription",
 
     "emailNotValidatedError": "Vos identifiants sont valides mais votre adresse e-mail officielle n'a pas encore été validée. Vous avez dû recevoir un mail après votre inscription, vérifiez éventuellement dans les courriers indésirables de votre boîte mail. Si vous n'avez rien reçu, contactez-nous : ",
