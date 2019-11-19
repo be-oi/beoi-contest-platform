@@ -26,7 +26,7 @@ var t = i18n.t;
  * Old IE versions does not implement the Array.indexOf function
  * Setting it in Array.prototype.indexOf makes IE crash
  * So the graders are using this inArray function
- * 
+ *
  * @param {array} arr
  * @param {type} value
  * @returns {int}
@@ -37,7 +37,7 @@ function inArray(arr, value) {
             return i;
         }
     }
-    
+
     return -1;
 }
 
@@ -158,20 +158,23 @@ function getGroupsColModel() {
          contestID: {label: t("contestID_label"),
             editable: true, edittype: "select", editoptions: { value:getItemNames(contests)},
             stype: "select", searchoptions: { value:getItemNames(contests, true)},
-            required: true, 
+            required: true,
             width: 260, comment: t("contestID_comment")},
          grade: {label: t("contestant_grade_label"), editable: true, edittype: "select", width: 100, required: true, editoptions:{
             value:{
-               "4": t("grade_4"),
-               "5": t("grade_5"),
-               "6": t("grade_6"),
-               "7": t("grade_7"),
-               "8": t("grade_8"),
-               "9": t("grade_9"),
-               "10": t("grade_10"),
-               "11": t("grade_11"),
-               "12": t("grade_12"),
-               "15": t("grade_13_pro")
+               "6": t("option_cadet_belofte"),
+               "8": t("option_junior"),
+               "10": t("option_senior")
+               // "4": t("grade_4"),
+               // "5": t("grade_5"),
+               // "6": t("grade_6"),
+               // "7": t("grade_7"),
+               // "8": t("grade_8"),
+               // "9": t("grade_9"),
+               // "10": t("grade_10"),
+               // "11": t("grade_11"),
+               // "12": t("grade_12"),
+               // "15": t("grade_13_pro")
             }}},
          participationType: {label: t("participationType_label"), longLabel: t("participationType_long_label"), editable: true, required: true, edittype: "select", width: 100, editoptions:{ value:{"Official": t("participationType_official"), "Unofficial": t("participationType_unofficial")}}, comment: t("participationType_comment")},
          expectedStartTime: {
@@ -394,7 +397,7 @@ function initModels(isLogged) {
       user: {
          tableName: "user",
          fields: {
-            saniValid: {label: t("user_saniValid_label"), 
+            saniValid: {label: t("user_saniValid_label"),
                         editable: false, width:120,
                         edittype: "select", editoptions: editYesNo,
                         stype: "select", searchoptions: searchYesNo
@@ -529,7 +532,7 @@ function initModels(isLogged) {
             closedToOfficialGroups: {label: t("contest_closedToOfficialGroups_label"), editable: true, edittype: "select", width: 70,
                editoptions: editYesNo,
                search: false
-            },             
+            },
             showSolutions: {label: t("contest_showSolutions_label"), editable: true, edittype: "select", width: 60, editoptions: editYesNo},
             startDate: {
                label: t("contest_begin_date_label") + "<br/>(" + jstz.determine().name() + ")",
@@ -652,8 +655,8 @@ function initModels(isLogged) {
    {
        models.school.fields.lastName = {label: t("school_admin_1_lastName"), editable: false, width: 150};
        models.school.fields.firstName = {label: t("school_admin_1_firstName"), editable: false, width: 150};
-       models.school.fields.saniValid = 
-           {label: t("school_saniValid_label"), 
+       models.school.fields.saniValid =
+           {label: t("school_saniValid_label"),
                         editable: false, width:120,
                         edittype: "select", editoptions: editYesNo,
                         stype: "select", searchoptions: searchYesNo,
@@ -772,9 +775,9 @@ function loadGrid(modelName, sortName, rowNum, rowList, onSelectRow, withToolbar
     height: "100%",
     caption: '',
     onSelectRow: function(id){
-       if(id && (id !== lastSel)){ 
-          $('#grid_' + modelName).saveRow(lastSel); 
-          lastSel = id; 
+       if(id && (id !== lastSel)){
+          $('#grid_' + modelName).saveRow(lastSel);
+          lastSel = id;
           onSelectRow(id);
        } else {
           if (modelName === "school") {
@@ -798,7 +801,7 @@ function loadGrid(modelName, sortName, rowNum, rowList, onSelectRow, withToolbar
     editurl: "jqGridData.php?tableName=" + tableName,
     loadComplete: loadComplete,
     loadError: jqGridDataFail
-  }); 
+  });
   if (withToolbar) {
      $("#grid_" + modelName).jqGrid('filterToolbar', {autosearch:true, searchOnEnter:true});
   }
@@ -1073,7 +1076,7 @@ function continueLogUser() {
          $("#li-tabs-awards").hide();
          $("#li-tabs-certificates").hide();
          $("#tabs-certificates").hide();
-      }      
+      }
       $("#tabs-questions").hide();
       $("#tabs-contests").hide();
    }
@@ -1143,22 +1146,22 @@ function logUser(user) {
 }
 
 function logout() {
-   return $.post("login.php", {logout: 1}, 
+   return $.post("login.php", {logout: 1},
       function(data) {
          if (data.success) {
             window.location.reload();
          }
       }, "json"
-   );   
+   );
 }
 
 function initSpreadCastor() {
    $("#spread-castor-send").click(function() {
       $("#spread-castor-send").attr("disabled", "disabled");
       var email = $("#spread-castor-email").val();
-      $.get("recommendSystem.php", {recommendTo: email}, 
+      $.get("recommendSystem.php", {recommendTo: email},
          function(data) {
-            $("#spread-castor-send").removeAttr("disabled"); 
+            $("#spread-castor-send").removeAttr("disabled");
             if (!data.success) {
                alert("ERROR for sendMessage");
             } else {
@@ -1413,7 +1416,7 @@ function newItem(modelName, params, callback) {
    params.tableName = tableName;
    if (!callback) {
       callback = function(data) {
-         $('#grid_' + modelName).trigger('reloadGrid');   
+         $('#grid_' + modelName).trigger('reloadGrid');
       };
    }
    $.post("jqGridData.php", params, callback).fail(jqGridDataFail);
@@ -1449,16 +1452,16 @@ function grade(curContestID, curGroupID, questionKeys, questionPaths, curIndex)
       }
       return;
    }
-   
+
    $(selectorState+' .nbCurrent').text(parseInt(curIndex) + 1);
    $(selectorState+' .current').text(questionKeys[curIndex]);
-   
+
    // Retrieve the bebras/grader of the current question
    $.post('grader.php', { contestID: curContestID, groupID: curGroupID, questionKey: questionKeys[curIndex] },function(data) {
       if (data.status === 'success') {
          var url = "beoi-contest-tasks/" + questionPaths[curIndex];
          $("#preview_question").attr("src", url);
-         
+
          // Retrieve bebras
          generating = true;
          $('#preview_question').load(function() {
@@ -1529,12 +1532,12 @@ function gradeQuestionPack(task, curContestID, curGroupID, questionKeys, questio
       grade(curContestID, curGroupID, questionKeys, questionPaths, curIndex + 1);
       return;
    }
-   
+
    var packEndIndex = curPackIndex + gradePackSize;
    if (packEndIndex > curGradingData.teamQuestions.length) {
       packEndIndex = curGradingData.teamQuestions.length;
    }
-   
+
    var scores = {};
    var i = 0;
    var answersToGrade = {};
@@ -1549,7 +1552,7 @@ function gradeQuestionPack(task, curContestID, curGroupID, questionKeys, questio
       if ((!curGroupID) && (!usesRandomSeed) && 'cache_'+teamQuestion.answer in curGradingScoreCache) {
          continue;
       }
-      
+
       scores[i] = {};
       // in some cases, score cannot be computed because the answer is invalid, so we have this default score
       // that will output "NULL" in the database
@@ -1606,7 +1609,7 @@ function gradeQuestionPack(task, curContestID, curGroupID, questionKeys, questio
       gradeQuestionPack(task, curContestID, curGroupID, questionKeys, questionPaths, curIndex, curPackIndex + gradePackSize);
       return;
    }
-   
+
    gradeOneAnswer(task, answersToGrade, 0, scores, function() {
       gradeQuestionPackEnd(task, curContestID, curGroupID, questionKeys, questionPaths, curIndex, curPackIndex, scores, selectorState);
    });
@@ -1682,13 +1685,13 @@ function gradeQuestion(task, curContestID, curGroupID, questionKeys, questionPat
    if (curGradingBebras.grader[0] && curGradingBebras.grader[0].content) {
       $('#preview_question')[0].contentWindow.eval($('#preview_question')[0].contentWindow.eval(curGradingBebras.grader[0].content));
    }
-   
+
    gradeQuestionPack(task, curContestID, curGroupID, questionKeys, questionPaths, curIndex, 0);
 }
 
 /**
  * Compute the scores of a contest packet
- * 
+ *
  * @param {int} curContestID
  * @param {int} packetNumber
  */
@@ -2068,7 +2071,7 @@ function newForm(modelName, title, message) {
       if (field.edittype === "text") {
          html += "<input type='text' style='width:350px' id='" + fieldId + "' "+requiredString+"/>";
       } else if (field.edittype === "email") {
-         html += "<input type='email' style='width:350px' id='" + fieldId + "' "+requiredString+"/>";   
+         html += "<input type='email' style='width:350px' id='" + fieldId + "' "+requiredString+"/>";
       } else if (field.edittype === "password") {
          html += "<input type='password'  style='width:350px' id='" + fieldId + "' "+requiredString+"/>";
       } else if (field.edittype === "select") {
@@ -2263,7 +2266,7 @@ function checkUser(user, isCreate) {
    } else {
       if (!$('#users_okMail').prop('checked')) {
          $("#edit_form_error").html(t("okMail_required"));
-         return false;  
+         return false;
       }
    }
    return true;
@@ -2388,7 +2391,7 @@ function validateForm(modelName) {
       if (!item.schoolID) {
          return;
       }
-       
+
       var contest = contests[item.contestID];
       var contestStartDate = null;
       if ((contest.startDate != null) && (contest.startDate != "0000-00-00 00:00:00")) {
@@ -2460,7 +2463,7 @@ function endEditForm(modelName, recordID, item) {
       endEditUser(recordID, item);
    }
    $("#edit_form").hide();
-   $("#main_screen").show();   
+   $("#main_screen").show();
 }
 
 function newSchool() {
@@ -2505,8 +2508,8 @@ function selectSchool() {
    newItem("school_user", params, function(data) {
       loadSchools().done(function() {
          models.group = getGroupsColModel();
-         $('#grid_school').trigger('reloadGrid');   
-         $('#grid_colleagues').trigger('reloadGrid');   
+         $('#grid_school').trigger('reloadGrid');
+         $('#grid_colleagues').trigger('reloadGrid');
       });
    });
    endSearchSchool();
@@ -2655,7 +2658,7 @@ Number.prototype.pad = function(size){
 
 function getDateFromSQLFormat(string) {
   var d = new Date(Date.parse(string));
-    return d.getDate().pad() + "/" + (d.getMonth() + 1).pad() + "/" + d.getFullYear() + " à " + d.getHours().pad() + "h" + d.getMinutes().pad(); 
+    return d.getDate().pad() + "/" + (d.getMonth() + 1).pad() + "/" + d.getFullYear() + " à " + d.getHours().pad() + "h" + d.getMinutes().pad();
 }
 
 function printAlgoreaCodes() {
