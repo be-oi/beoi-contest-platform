@@ -162,9 +162,9 @@ function getGroupsColModel() {
             width: 260, comment: t("contestID_comment")},
          grade: {label: t("contestant_grade_label"), editable: true, edittype: "select", width: 100, required: true, editoptions:{
             value:{
-               "6": t("option_cadet_belofte"),
-               "8": t("option_junior"),
-               "10": t("option_senior")
+               "21": t("grade_cadet_belofte"),
+               "22": t("grade_junior"),
+               "23": t("grade_senior")
                // "4": t("grade_4"),
                // "5": t("grade_5"),
                // "6": t("grade_6"),
