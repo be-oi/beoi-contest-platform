@@ -30,9 +30,9 @@
     "invalid_officialEmail": "Uw officieel emailadres is ongeldig. Vergeet de @ac-… niet in de zone links.",
     "one_email_required": "U moet minstens één emailadres opgeven, indien mogelijk een officieel adres.",
     "officialEmail_readonly": "Het is niet mogelijk het officieel emailadres te veranderen eens het is bevestigd",
-    "you_will_get_email": "U zult een email ontvangen op uw officieel adres waarmee u uw account kunt bevestigen.<br/><br/>Controleer dat deze email niet bij de spam terechtgekomen is.<br/><br/>Volg de link in die mail om uw account te valideren; nadien kunt u inloggen.<br/><br/>Als u geen email ontvangt binnen de 2u, contacteer dan info@be-oi.be vanaf uw officieel emailadres zodat wij uw account kunnen valideren.",
+    "you_will_get_email": "U zult een email ontvangen op uw officieel adres waarmee u uw account kunt bevestigen.<br/><br/>Controleer dat deze email niet bij de spam terechtgekomen is.<br/><br/>Volg de link in die mail om uw account te valideren; nadien kunt u inloggen.<br/><br/>Als u geen email ontvangt binnen de 2u, contacteer dan inschrijving@be-oi.be vanaf uw officieel emailadres zodat wij uw account kunnen valideren.",
     "no_official_email_1": "U heeft geen officieel emailadres opgegeven, dus uw account kan enkel door een administrator worden gevalideerd. Vergeet niet om ",
-    "contact_us": "contacteer ons via email naar info@be-oi.be",
+    "contact_us": "contacteer ons via email naar inschrijving@be-oi.be",
     "mail_from_name": "Inschrijving voor beOI",
     "recover_mail_body": "Hallo, \r\n\r\nOm een nieuw paswoord aan te maken, open de volgende link in uw browser:  \r\n\r\n__link__\r\n\r\nAarzel niet om ons te contacteren als u problemen tegenkomt. \r\n\r\nMet vriendelijke groeten,\r\n--\r\nHet team achter beOI",
     "email_body_no_official_email": "...",
@@ -98,7 +98,7 @@
     "validationMailBody": "Hallo,\r\n\r\nOm uw inschrijving als coördinator voor de beOI-wedstrijd te valideren, opent u de volgende link in uw browser: \r\n\r\n%s\r\n\r\nAarzel niet om ons te contacteren als u problemen ondervindt.\r\n\r\nMet vriendelijke groeten,\r\n-- \r\nHet beOI-team",
     "validationMailTitle": "Eerste ronde beOI : Bevestiging van inschrijving",
 
-    "manualValidationMailBody": "Hallo,\r\n\r\nBedankt voor uw inschrijving als coördinator voor de beOI-wedstrijd. Omdat het domein van uw officieel emailadres nog niet in onze lijst voorkomt, vragen wij u om een email te sturen vanaf hetzelfde adres naar info@be-oi.be (of eenvoudigweg deze email te beantwoorden) met vermelding van uw school, haar website en uw rol in de school.\r\nWij bevestigen deze gegevens dan manueel en valideren uw inschrijving zo snel mogelijk.\r\n\r\nMet vriendelijke groeten,\r\n-- \r\nHet beOI-team",
+    "manualValidationMailBody": "Hallo,\r\n\r\nBedankt voor uw inschrijving als coördinator voor de beOI-wedstrijd. Omdat het domein van uw officieel emailadres nog niet in onze lijst voorkomt, vragen wij u om een email te sturen vanaf hetzelfde adres naar inschrijving@be-oi.be (of eenvoudigweg deze email te beantwoorden) met vermelding van uw school, haar website en uw rol in de school.\r\nWij bevestigen deze gegevens dan manueel en valideren uw inschrijving zo snel mogelijk.\r\n\r\nMet vriendelijke groeten,\r\n-- \r\nHet beOI-team",
     "manualValidationMailTitle": "Eerste ronde beOI : Bevestiging van inschrijving",
 
     "emailNotValidatedError": "Uw gegevens zijn geldig maar uw officieel emailadres is nog niet gevalideerd. U zou daarvoor een email gekregen moeten hebben na uw inschrijving, kijk eventueel na of deze niet bij de ongewenste email is beland. Indien u niets heeft ontvangen, contacteer ons: ",
