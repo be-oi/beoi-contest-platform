@@ -5,6 +5,7 @@ $config->defaultLanguage = 'nl';
 $config->contestPresentationURL = 'http://www.be-oi.be/nl/';
 
 $config->contestOfficialURL = 'https://wedstrijd.be-oi.be';
+$config->email->sInfoAddress = 'inschrijving@be-oi.be';
 
 $config->contestInterface->baseUrl = 'https://wedstrijd.be-oi.be';
 $config->contestInterface->sAbsoluteStaticPathNoS3 = 'https://wedstrijd.be-oi.be';

@@ -14,7 +14,7 @@ $config->email->smtpPort = '587';
 $config->email->smtpSecurity = 'tls'; // to fill PHPMailer->SMTPSecure, "tls" or "ssl"
 $config->email->smtpUsername = $_ENV['SMTP_USERNAME'];
 $config->email->smtpPassword = $_ENV['SMTP_PASSWORD'];
-$config->email->sInfoAddress = 'info@be-oi.be';
+$config->email->sInfoAddress = 'inscription@be-oi.be';
 $config->teacherInterface->forceOfficialEmailDomain = false; // not forcing email, but checking it manually with the email.
 
 $config->enableAwardTab = false;
