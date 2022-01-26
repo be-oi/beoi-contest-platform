@@ -1100,7 +1100,7 @@ function getQuestionScoreRate(questionData) {
 
 function getNbLockedStars(questionData) {
    if (questionUnlockedLevels[questionData.key] != 0) {
-      return 3 - questionUnlockedLevels[questionData.key];
+      return 4 - questionUnlockedLevels[questionData.key];
    }
    return 4;
 }
