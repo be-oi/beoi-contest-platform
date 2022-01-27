@@ -313,7 +313,7 @@ var platform = {
    firstNonVisitedQuestion: function(delay) {
       function timeoutFunFactory(questionID) {
          return function() {
-            window.selectQuestion(questionID, false); 
+            window.selectQuestion(questionID, false);
          };
       }
       var sortedQuestionIDs = getSortedQuestionIDs(questionsData);
@@ -642,7 +642,7 @@ var questionIframe = {
 
       // Call image preloading
       this.addJsFile(window.contestsRoot + '/' + contestFolder + '/contest_' + contestID + '.js', callback);
-      
+
       var border = "border: 1px solid #000000;";
       if (newInterface) {
          border = "";
@@ -792,7 +792,7 @@ var questionIframe = {
                logError(arguments);
                that.loaded = false;
                that.loadQuestion(taskViews, questionKey, callback);
-            });   
+            });
          }
          else {
             this.loaded = false;
@@ -1033,8 +1033,8 @@ function fillListQuestions(sortedQuestionIDs, questionsData)
       }
       strListQuestions += "<tr id='row_" + questionData.key + "'><td class='questionBullet' id='bullet_" + questionData.key + "'></td>" +
          "<td class='questionLink' id='link_" + questionData.key + "' " + "onclick='selectQuestion(\"" + questionData.ID + "\", true)'>" +
-            encodedName + 
-         "</td>" + 
+            encodedName +
+         "</td>" +
          "<td class='questionScore' id='score_" + questionData.key + "'>" +
             strScore +
          "</td></tr>";
@@ -1055,7 +1055,7 @@ function fillListQuestionsNew(sortedQuestionIDs, questionsData)
       questionData = questionsData[sortedQuestionIDs[iQuestionID]];
       var encodedName = questionData.name.replace("'", "&rsquo;");
 
-      strListQuestions += 
+      strListQuestions +=
          "<span id='row_" + questionData.key + "' class='icon' onclick='selectQuestion(\"" + questionData.ID + "\", true)'>" +
             '<div class="icon_title"><span class="questionBullet" id="bullet_' + questionData.key + '"></span>&nbsp;' + encodedName + '&nbsp;&nbsp;</div>' +
             '<div class="icon_img">' +
@@ -1160,7 +1160,7 @@ function updateUnlockedLevels(sortedQuestionIDs, updatedQuestionKey, contestEnde
          $("#place_" + questionKey).hide();
          $("#row_" + questionKey).show();
       }
-      if ((questionKey == updatedQuestionKey) || 
+      if ((questionKey == updatedQuestionKey) ||
           (prevQuestionUnlockedLevels[questionKey] != questionUnlockedLevels[questionKey])) {
          var nbLocked = getNbLockedStars(questionData);
          var scoreRate = getQuestionScoreRate(questionData);
@@ -2082,7 +2082,7 @@ window.selectQuestion = function(questionID, clicked, noLoad) {
    if (curTime - lastSelectQuestionTime < 1000) {
       if (curTime - lastSelectQuestionTime < 0) {
          // in case the computer time changes during the contest, we reset lastSelectQuestionTime, to make sure the user doesn't get stuck
-         lastSelectQuestionTime = curTime; 
+         lastSelectQuestionTime = curTime;
       } else {
          return;
       }
@@ -2153,7 +2153,7 @@ window.selectQuestion = function(questionID, clicked, noLoad) {
                platform.validate("stay", function() {
                   nextStep();
                }, function() {
-                  logError(arguments);                  
+                  logError(arguments);
                });
             } else if ((typeof answers[questionIframe.questionKey] == 'undefined') || (answers[questionIframe.questionKey] != answer)) {
                if (!confirm(t("confirm_leave_question"))) {
@@ -2620,7 +2620,7 @@ var drawStars = function(id, nbStars, starWidth, rate, mode, nbStarsLocked) {
          fill: fillColors[starMode],
          stroke: 'none'
       }).transform('s' + scaleFactor + ',' + scaleFactor + ' 0,0 t' + (deltaX / scaleFactor) + ',0');
-      
+
       var ratio = Math.min(1, Math.max(0, rate * nbStars  - iStar));
       var xClip = ratio * 100;
       if (xClip > 0) {
