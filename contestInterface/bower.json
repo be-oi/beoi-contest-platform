@@ -24,7 +24,7 @@
     "i18next": "~1.10",
     "jQuery-ajaxTransport-XDomainRequest": "~1.0",
     "json3": "~3.3",
-    "pem-platform": "France-IOI/pem-platform",
+    "pem-platform": "france-ioi/pem-platform",
     "utf8": "~2.1"
   }
 }
