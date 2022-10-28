@@ -1117,7 +1117,7 @@ function updateUnlockedLevels(sortedQuestionIDs, updatedQuestionKey, contestEnde
       questionKey = questionsData[sortedQuestionIDs[iQuestionID]].key;
       prevQuestionUnlockedLevels[questionKey] = questionUnlockedLevels[questionKey];
       //if (contestEnded) {
-         questionUnlockedLevels[questionKey] = 3;
+         questionUnlockedLevels[questionKey] = 4;
          nbTasksUnlocked[2]++;
          continue;
       //}
