@@ -14,7 +14,7 @@ $config->teacherInterface->baseUrl = 'https://gestion.be-oi.be';
 $config->teacherInterface->sCoordinatorFolder = 'https://gestion.be-oi.be';
 $config->teacherInterface->sAbsoluteStaticPathOldIE = 'https://gestion.be-oi.be';
 
-$config->teacherInterface->sHotlineNumber = "0498/121307 (Cyril Soldani)";
+$config->teacherInterface->sHotlineNumber = "0473/548006 (Géraldine Brieven)";
 
 $config->validationMailBody = "Bonjour,\r\n\r\nPour valider votre inscription en tant que coordinateur pour le concours beOI, ouvrez le lien suivant dans votre navigateur  : \r\n\r\n%s\r\n\r\nN'hésitez pas à nous contacter si vous rencontrez des difficultés.\r\n\r\nCordialement,\r\n-- \r\nL'équipe beOI";
 $config->validationMailTitle = "Éliminatoires beOI : Confirmation d'inscription";
