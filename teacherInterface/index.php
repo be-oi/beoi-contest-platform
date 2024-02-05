@@ -142,7 +142,7 @@
          <div id="tabs-groups">
             <div data-i18n="[html]groups_intro"></div>
             <button type="button" data-i18n="refresh_list" onclick="refreshGrid('group')" class="btn btn-default"></button>
-            <button type="button" onclick="exportCSV('group')" data-i18n="export_to_csv" class="btn btn-default"></button>
+            <button type="button" style="display:none" onclick="exportCSV('group')" data-i18n="export_to_csv" class="btn btn-default"></button>
             <div class="gridTable">
                <table id="grid_group"><tbody><tr><td/></tr></tbody></table>
                <div id="pager_group"></div>
