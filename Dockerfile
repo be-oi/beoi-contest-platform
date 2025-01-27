@@ -4,6 +4,9 @@ RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
 RUN php composer-setup.php --install-dir=/bin
 RUN php -r "unlink('composer-setup.php');"
 
+RUN sed -i s/deb.debian.org/archive.debian.org/g /etc/apt/sources.list
+RUN sed -i s/security.debian.org/archive.debian.org/g /etc/apt/sources.list
+RUN sed -i s/stretch-updates/stretch/g /etc/apt/sources.list
 RUN apt-get update
 RUN apt-get -y install git unzip nodejs-legacy nodejs vim mysql-client gnupg
 RUN curl -sL https://deb.nodesource.com/setup_10.x | bash -
