@@ -11,7 +11,6 @@
     "login": "Identifiez-vous :",
     "login_email": "Courriel :",
     "login_password": "Mot de passe :",
-    "login_lost_user": "Attention, il est possible que votre compte utilisé l'an passé ne fonctionne plus. Dans ce cas, veuillez recréer un nouveau compte.",
     "login_lost_password": "Vous avez perdu votre mot de passe coordinateur ?",
     "login_input_email": "Saisissez votre adresse électronique :",
     "login_get_new_password": "Obtenir un nouveau mot de passe",

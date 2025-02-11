@@ -64,7 +64,6 @@
          <div id="divInput" class="formWrapper">
             <label><span data-i18n="login_email" class="label"></span> <input id="email" type="text"></label>
             <label><span data-i18n="login_password" class="label"></span> <input id="password" type="password" onkeypress="if (event.keyCode == 13) {login();  return false;}"></label>
-            <p style="color:red;" data-i18n="login_lost_user"></p>
             <button type="button" data-i18n="login_connexion" id="buttonLogin" onclick="login()" class="btn btn-default"></button><br />
          </div>
          <div id="login_error" style="color:red"></div>
